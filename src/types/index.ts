@@ -1,4 +1,7 @@
-import { type Icons } from "@/components/icons"
+import type { z } from "zod"
+
+import type { userPrivateMetadataSchema } from "@/lib/validations/auth"
+import type { Icons } from "@/components/icons"
 
 export interface NavItem {
   title: string
@@ -21,3 +24,5 @@ export interface NavItemWithOptionalChildren extends NavItem {
 export type MainNavItem = NavItemWithOptionalChildren
 
 export type SidebarNavItem = NavItemWithChildren
+
+export type UserRole = z.infer<typeof userPrivateMetadataSchema.shape.role>

@@ -22,6 +22,7 @@
     "@clerk/types": "^3.48.1",
     "@hookform/resolvers": "^3.1.1",
     "@planetscale/database": "^1.8.0",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@react-email/components": "^0.0.7",
     "@react-email/tailwind": "0.0.8",
