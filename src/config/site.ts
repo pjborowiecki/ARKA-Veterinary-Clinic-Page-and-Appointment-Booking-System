@@ -7,10 +7,11 @@ const links = {
 }
 
 export const siteConfig = {
-  name: "Arka",
+  nameShort: "ARKA",
+  nameLong: "Przychodnia weterynaryjna ARKA w Bochni",
   description: "",
   url: "https://arka-weterynaria.pl",
-  ogImage: "https://arka-weterynaria.pl/opengraph-image.png",
+  ogImage: "https://arka-weterynaria.pl/og.jpg",
   mainNav: [
     {
       title: "Przychodnia",
