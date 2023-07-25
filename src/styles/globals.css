@@ -1,3 +1,96 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fff;
+    --foreground: ##09090b;
+
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+
+    --popover: #fff;
+    --popover-foreground: #09090b;
+
+    --card: #fff;
+    --card-foreground: #09090b;
+
+    --border: #e4e4e7;
+    --input: #e4e4e7;
+
+    --primary: #18181b;
+    --primary-foreground: #fafafa;
+
+    --secondary: #f4f4f5;
+    --secondary-foreground: #18181b;
+
+    --accent: #f4f4f5;
+    --accent-foreground: #0f172a;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
+
+    --ring: #a1a1aa;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #09090b;
+    --foreground: #fafafa;
+
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+
+    --popover: #09090b;
+    --popover-foreground: #fafafa;
+
+    --card: #09090b;
+    --card-foreground: #fafafa;
+
+    --border: #27272a;
+    --input: #27272a;
+
+    --primary: #fafafa;
+    --primary-foreground: #18181b;
+
+    --secondary: #27272a;
+    --secondary-foreground: #fafafa;
+
+    --accent: #27272a;
+    --accent-foreground: #f8fafc;
+
+    --destructive: #7f1d1d;
+    --destructive-foreground: #fef2f2;
+
+    --ring: #27272a;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .zoom-image [data-rmiz-modal-overlay="visible"] {
+    @apply bg-background/10 backdrop-blur;
+  }
+
+  .zoom-image [data-rmiz-modal-img] {
+    @apply rounded-md lg:rounded-2xl;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+}
