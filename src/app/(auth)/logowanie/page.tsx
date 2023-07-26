@@ -12,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { OAuthSignIn } from "@/components/auth/oauth-signin"
 import { SignInForm } from "@/components/forms/signin-form"
 import { Shell } from "@/components/shells/shell"
 
@@ -31,20 +30,9 @@ export default async function SignInPage() {
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Logowanie</CardTitle>
-          <CardDescription>Wybierz sposób logowania</CardDescription>
+          <CardDescription>Zaloguj się aby zobaczyć rezerwacje</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <OAuthSignIn />
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Lub kontynuuj z emailem i hasłem
-              </span>
-            </div>
-          </div>
           <SignInForm />
         </CardContent>
         <CardFooter className="flex flex-wrap items-center justify-between gap-2">
@@ -53,16 +41,16 @@ export default async function SignInPage() {
               Nie posiadasz konta?
             </span>
             <Link
-              aria-label="Sign up"
-              href="/signup"
+              aria-label="Rejestracja"
+              href="/rejestracja"
               className="text-primary underline-offset-4 transition-colors hover:underline"
             >
               Załóż konto
             </Link>
           </div>
           <Link
-            aria-label="Reset password"
-            href="/signin/reset-password"
+            aria-label="Zresetuj hasło"
+            href="/logowanie/zresetuj-haslo"
             className="text-sm text-primary underline-offset-4 transition-colors hover:underline"
           >
             Zresetuj hasło

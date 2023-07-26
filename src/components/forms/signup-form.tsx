@@ -53,10 +53,9 @@ export function SignUpForm() {
           strategy: "email_code",
         })
 
-        router.push("/signup/verify-email")
+        router.push("/rejestracja/zweryfikuj-email")
         toast.message("Sprawdź maila by kontynuować", {
-          description:
-            "Wysłaliśmy Ci 6-cyfrowy kod weryfikacyjny. Sprawdź skrzynkę i wpisz otrzymany kod",
+          description: "Wysłaliśmy Ci 6-cyfrowy kod weryfikacyjny",
         })
       } catch (err) {
         catchClerkError(err)

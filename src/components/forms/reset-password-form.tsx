@@ -48,9 +48,10 @@ export function ResetPasswordForm() {
         })
 
         if (firstFactor.status === "needs_first_factor") {
-          router.push("/signin/reset-password/step2")
+          router.push("/logowanie/zresetuj-haslo/krok2")
           toast.message("Check your email", {
-            description: "We sent you a 6-digit verification code.",
+            description:
+              "Wysłaliśmy Ci 6-cyfrowy kod weryfikacyjny. Sprawdź skrzynkę i wpisz otrzymany kod",
           })
         }
       } catch (err) {

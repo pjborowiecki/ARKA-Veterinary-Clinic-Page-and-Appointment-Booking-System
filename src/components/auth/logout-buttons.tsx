@@ -26,7 +26,7 @@ export function LogOutButtons() {
           }
         >
           <Button
-            aria-label="Log out"
+            aria-label="Wyloguj"
             size="sm"
             className="w-full"
             disabled={isPending}
@@ -48,7 +48,7 @@ export function LogOutButtons() {
         </Skeleton>
       )}
       <Button
-        aria-label="Go back to the previous page"
+        aria-label="Powrót do poprzedniej strony"
         variant="outline"
         size="sm"
         className="w-full"

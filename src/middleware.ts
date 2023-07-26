@@ -6,9 +6,9 @@ import { authMiddleware } from "@clerk/nextjs/server"
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/signin(.*)",
-    "/signup(.*)",
-    "/sso-callback(.*)",
+    "/logowanie(.*)",
+    "/rejestracja(.*)",
+    "/sso(.*)",
     "/api(.*)",
   ],
   async afterAuth(auth, req) {
@@ -19,7 +19,7 @@ export default authMiddleware({
     const url = new URL(req.nextUrl.origin)
 
     if (!auth.userId) {
-      url.pathname = "/signin"
+      url.pathname = "/logowanie"
       return NextResponse.redirect(url)
     }
 

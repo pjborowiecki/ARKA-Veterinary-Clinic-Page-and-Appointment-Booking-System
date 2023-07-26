@@ -14,8 +14,7 @@ import { Shell } from "@/components/shells/shell"
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Zweryfikuj adres email",
-  description:
-    "Zweryfikuj swój adres email aby móc kontynuować zakładanie konta",
+  description: "Zweryfikuj podany adres email aby kontynuować",
 }
 
 export default function VerifyEmailPage() {
@@ -25,7 +24,7 @@ export default function VerifyEmailPage() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Zweryfików adres email</CardTitle>
           <CardDescription>
-            Zweryfikuj swój adres email aby móc kontynuować zakładanie konta
+            Zweryfikuj podany adres email aby kontynuować
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">

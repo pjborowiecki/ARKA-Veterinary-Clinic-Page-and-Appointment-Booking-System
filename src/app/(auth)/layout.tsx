@@ -4,8 +4,8 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen overflow-hidden">
-      <main className="container items-center">{children}</main>
+    <div className="container flex min-h-screen items-center justify-center overflow-hidden">
+      <main className="container">{children}</main>
     </div>
   )
 }

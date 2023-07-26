@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Resetowanie hasła</CardTitle>
           <CardDescription>
-            Podaj swój adres email w celu otrzymania kodu weryfikacyjnego
+            Podaj adres email w celu otrzymania kodu weryfikacyjnego
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -101,7 +101,7 @@ export function SignInForm() {
               aria-hidden="true"
             />
           )}
-          Sign in
+          Zaloguj
           <span className="sr-only">Zaloguj się</span>
         </Button>
       </form>
