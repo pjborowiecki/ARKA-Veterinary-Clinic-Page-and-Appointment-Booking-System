@@ -4,6 +4,7 @@ export type SiteConfig = typeof siteConfig
 
 const links = {
   facebook: "",
+  github: "https://www.github.com",
 }
 
 export const siteConfig = {

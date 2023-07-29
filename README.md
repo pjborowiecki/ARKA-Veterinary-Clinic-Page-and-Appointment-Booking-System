@@ -23,9 +23,17 @@ The original website was desined by me in Figma and built with Remix and MongoDB
 
 ### TODO:
 
-- [x] Investigate the opacity issue (e.g., /10)
-- [x] Add a favicon
-- [x] Add OpenGRaph image (og.jpg)
-- [x] Add a robots.txt file
-- [x] Add a sitemap.xml file
-- [x] Add site description in siteConfig
+- [ ] Fix urls and paths (dashboard, reservations, settings, etc.)
+- [ ] Implement the landing page:
+  - [ ] Add a navbar
+  - [ ] Add mobile menu
+  - [ ] Add a hero section
+  - [ ] Add a services section
+  - [ ] Add a contact section
+  - [ ] Add a footer
+- [ ] Investigate the opacity issue (e.g., /10)
+- [ ] Add a favicon
+- [ ] Add OpenGRaph image (og.jpg)
+- [ ] Add a robots.txt file
+- [ ] Add a sitemap.xml file
+- [ ] Add site description in siteConfig

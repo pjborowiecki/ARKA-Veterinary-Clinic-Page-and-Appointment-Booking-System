@@ -1,7 +1,15 @@
 import {
   Eye,
   EyeOff,
+  FileTerminal,
   Loader2,
+  LogOut,
+  Menu,
+  Moon,
+  Search,
+  Settings,
+  Sun,
+  User,
   X,
   type LucideIcon,
   type LucideProps,
@@ -12,8 +20,16 @@ export type Icon = LucideIcon
 export const Icons = {
   close: X,
   hide: EyeOff,
-  view: Eye,
+  logout: LogOut,
+  user: User,
+  menu: Menu,
+  moon: Moon,
+  search: Search,
+  sun: Sun,
+  settings: Settings,
   spinner: Loader2,
+  terminal: FileTerminal,
+  view: Eye,
   google: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"
