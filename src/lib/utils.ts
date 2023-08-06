@@ -48,3 +48,11 @@ export function catchClerkError(error: unknown) {
 export function isMacOs() {
   return window.navigator.userAgent.includes("Mac")
 }
+
+export function handleClickSecondaryButton() {}
+
+export function scrollToSection(sectionName: string) {
+  document
+    ?.getElementById(`${sectionName}`)
+    ?.scrollIntoView({ behavior: "smooth" })
+}

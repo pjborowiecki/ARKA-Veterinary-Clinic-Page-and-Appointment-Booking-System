@@ -47,6 +47,7 @@ module.exports = {
         secondaryButtonBorder: "var(--secondary-button-border)",
         appointmentButtonBorder: "var(--appointment-button-border)",
         offWhiteText: "var(--off-white-text)",
+        lightSectionText: "var(--light-section-text)",
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",
