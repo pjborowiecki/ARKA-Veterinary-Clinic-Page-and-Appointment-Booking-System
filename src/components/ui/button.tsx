@@ -19,12 +19,19 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        landingPrimary:
+          "bg-greenButtonBackground border-[3px] border-primaryButtonBorder rounded-full text-greenButtonText font-medium tracking-wider md:hover:scale-110 py-[4.5vw] md:px-[4vw] md:py-[1.3vw] w-1400:px-[56px] w-1400:py-[18px] text-[4vw] md:text-[1.4vw] w-1400:text-[18px]",
+        landingSecondary:
+          "bg-peach border-[2px] border-secondaryButtonBorder rounded-full text-greenNavbarText font-medium tracking-wider gap-[16px] md:hover:scale-110 py-[4vw] md:px-[4vw] md:py-[1.32vw] w-1400:px-[56px] w-1400:py-[18px] text-[4vw] md:text-[1.4vw] w-1400:text-[18px]",
+        landingAppointment:
+          "hidden xl:flex font-medium text-offWhiteText text-[18px] border-[3px] border-appointmentButtonBorder rounded-full bg-greenButtonBackground px-[30px] py-[10px] shadow-sm cursor-pointer from-greenNavbarBackground to-greenNavbarText hover:scale-[1.1] active:shadow-none relative z-[2] tracking-wide",
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
+        action: "w-[70vw] sm:w-[60vw] md:w-[auto]",
       },
     },
     defaultVariants: {

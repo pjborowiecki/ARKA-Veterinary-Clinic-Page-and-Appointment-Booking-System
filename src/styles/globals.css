@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Baloo";
+  src: url("/fonts/baloo-regular.woff2");
+}
+
+@font-face {
+  font-family: "BalooTamma";
+  src: url("/fonts/baloo-tamma.woff2");
+}
+
 @layer base {
   :root {
     --background: #fff;
@@ -32,6 +42,21 @@
     --destructive-foreground: #fafafa;
 
     --ring: #a1a1aa;
+
+    --peach: #f9f0e7;
+    --green-gradient-from: #2ba0ab;
+    --green-gradient-to: #124b4b;
+    --primary-green: #2a3342;
+    --secondary-green: #175a5c;
+    --green-navbar-text: #2b6969;
+    --green-navbar-hover: #207b81;
+    --green-button-background: #228383;
+    --green-button-text: #fef1eb;
+    --location-text: #170e09;
+    --primary-button-border: #f3decc;
+    --secondary-button-border: #b9f1dd;
+    --appointment-button-border: #f6e0ce;
+    --off-white-text: #fcf1eb;
 
     --radius: 0.5rem;
   }
@@ -86,6 +111,12 @@
 
   .zoom-image [data-rmiz-modal-img] {
     @apply rounded-md lg:rounded-2xl;
+  }
+
+  .location-pill {
+    background: linear-gradient(85.38deg, #f5f5f5 10.45%, #95eece 128.37%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
   }
 }
 

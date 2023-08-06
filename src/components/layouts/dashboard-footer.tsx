@@ -1,8 +1,8 @@
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
-import { ThemeToggle } from "@/components/layouts/dashboard/theme-toggle"
 import { Shell } from "@/components/shells/shell"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function DashboardFooter() {
   return (

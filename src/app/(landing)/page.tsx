@@ -1,3 +1,21 @@
+import { AboutSection } from "@/components/sections/about-section"
+import { ContactSection } from "@/components/sections/contact-section"
+import { GallerySection } from "@/components/sections/gallery-section"
+import { GroomerSection } from "@/components/sections/groomer-section"
+import { HeroSection } from "@/components/sections/hero-section"
+import { ServicesSection } from "@/components/sections/services-section"
+import { TeamSection } from "@/components/sections/team-section"
+
 export default function Home() {
-  return <main>Hello world</main>
+  return (
+    <div>
+      <HeroSection />
+      <AboutSection />
+      <ServicesSection />
+      <TeamSection />
+      {/* <GallerySection /> */}
+      {/* <GroomerSection /> */}
+      <ContactSection />
+    </div>
+  )
 }

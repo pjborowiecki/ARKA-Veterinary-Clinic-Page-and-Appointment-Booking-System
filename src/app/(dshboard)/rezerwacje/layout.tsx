@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation"
 import { currentUser } from "@clerk/nextjs"
 
-import { DashboardFooter } from "@/components/layouts/dashboard/dashboard-footer"
-import { DashboardHeader } from "@/components/layouts/dashboard/dashboard-header"
+import { DashboardFooter } from "@/components/layouts/dashboard-footer"
+import { DashboardHeader } from "@/components/layouts/dashboard-header"
 
 interface DashboardLayoutProps {
   children: React.ReactNode

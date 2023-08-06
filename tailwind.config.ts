@@ -13,9 +13,19 @@ module.exports = {
     extend: {
       screens: {
         xs: "380px",
+        "w-400": "400px",
+        "w-590": "590px",
+        "w-768": "768px",
+        "w-1170": "1170px",
+        "w-1400": "1400px",
+        "w-1496": "1496px",
       },
       flex: {
         full: "0 0 100%",
+      },
+      fontFamily: {
+        BalooTamma: ["BalooTamma", "sans-serif"],
+        Baloo: ["Baloo", "cursive"],
       },
       colors: {
         border: "var(--border)",
@@ -23,6 +33,20 @@ module.exports = {
         ring: "var(--ring)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        peach: "var(--peach)",
+        greenGradientFrom: "var(--green-gradient-from)",
+        greenGradientTo: "var(--green-gradient-to)",
+        primaryGreen: "var(--primary-green)",
+        secondaryGreen: "var(--secondary-green)",
+        greenNavbarText: "var(--green-navbar-text)",
+        greenNavbarHover: "var(--green-navbar-hover)",
+        greenButtonBackground: "var(--green-button-background)",
+        greenButtonText: "var(--green-button-text)",
+        locationText: "var(--location-text)",
+        primaryButtonBorder: "var(--primary-button-border)",
+        secondaryButtonBorder: "var(--secondary-button-border)",
+        appointmentButtonBorder: "var(--appointment-button-border)",
+        offWhiteText: "var(--off-white-text)",
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",
