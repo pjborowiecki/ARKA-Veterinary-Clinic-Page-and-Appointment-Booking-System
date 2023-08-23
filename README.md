@@ -160,6 +160,7 @@ Piotr Borowiecki - [@pjborowiecki](https://www.linkedin.com/in/pjborowiecki/) - 
 
 ## ToDo
 
+- [ ] Style and complete the appointment booking dialog
 - [ ] Fix urls and paths (dashboard, reservations, settings, etc.)
 - [ ] Decide on the type of time slots and update the data schema
 - [ ] Fix server actions

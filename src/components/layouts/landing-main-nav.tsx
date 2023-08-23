@@ -3,6 +3,8 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { AddBookingDialog } from "@/components/add-booking-dialog"
 import { Shell } from "@/components/shells/shell"
 
 export function LandingMainNav() {
@@ -40,15 +42,20 @@ export function LandingMainNav() {
             ))}
           </ul>
 
-          {/* Appointment Button */}
-          <Button
-            variant="landingAppointment"
-            className="group ml-[40px]"
-            size="action"
-          >
-            <span className="absolute h-0 w-0 rounded-full bg-white opacity-10 transition-all duration-300 ease-out group-hover:h-32 group-hover:w-full" />
-            <span className="relative">Umów wizytę</span>
-          </Button>
+          {/* Appointment Button and Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="landingAppointment"
+                className="group ml-[40px]"
+                size="action"
+              >
+                <span className="absolute h-0 w-0 rounded-full bg-white opacity-10 transition-all duration-300 ease-out group-hover:h-32 group-hover:w-full" />
+                <span className="relative">Umów wizytę</span>
+              </Button>
+            </DialogTrigger>
+            <AddBookingDialog />
+          </Dialog>
         </div>
       </Shell>
     </Shell>

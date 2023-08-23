@@ -1,4 +1,5 @@
 import {
+  Calendar,
   Eye,
   EyeOff,
   FileTerminal,
@@ -18,6 +19,7 @@ import {
 export type Icon = LucideIcon
 
 export const Icons = {
+  calendar: Calendar,
   close: X,
   hide: EyeOff,
   logout: LogOut,

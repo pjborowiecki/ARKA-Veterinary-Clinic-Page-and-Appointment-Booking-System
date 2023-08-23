@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { db } from "@/db"
-import { bookings, type Booking } from "@/db/schema"
+import { bookings } from "@/db/schema"
 import {
   and,
   asc,
@@ -51,7 +51,25 @@ export async function filterBookingsAction(query: string) {
 
 export async function getBookingsAction() {}
 
-export async function checkBookingAction() {}
+export async function checkBookingAction(input: {
+  // date: Date (?)
+  // time: string (?)
+  // type: string (?)
+}) {
+  const alreadyTaken = await db.query.bookings.findFirst({
+    // where: TODO
+  })
+
+  if (alreadyTaken) {
+    throw new Error("Wybrany termin jest już zajęty")
+  }
+}
+
+export async function addBookingAction(input: z.infer<typeof bookingSchema>) {
+  await db.insert(bookings).values({ ...input })
+
+  revalidatePath(`/rezerwacje`)
+}
 
 export async function updateBookingAction() {}
 

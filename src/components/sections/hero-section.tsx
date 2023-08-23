@@ -1,8 +1,7 @@
-import Image from "next/image"
-import Link from "next/link"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { AddBookingDialog } from "@/components/add-booking-dialog"
 import { LandingMainNav } from "@/components/layouts/landing-main-nav"
 // import { LandingMobileNav } from "@/components/layouts/landing-mobile-nav"
 import { Shell } from "@/components/shells/shell"
@@ -28,11 +27,14 @@ export function HeroSection() {
         >
           {/* Hero buttons on Mobile */}
           <div className="mb-[6vw] mt-[8vw] flex flex-col items-center gap-[4vw] whitespace-nowrap md:hidden">
-            <Link href="/">
-              <Button variant="landingPrimary" size="action">
-                Umów wizytę
-              </Button>
-            </Link>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="landingPrimary" size="action">
+                  Umów wizytę
+                </Button>
+              </DialogTrigger>
+              <AddBookingDialog />
+            </Dialog>
 
             <Button
               variant="landingSecondary"
@@ -68,11 +70,14 @@ export function HeroSection() {
               {/* Buttons */}
               <div className="mt-[8px] hidden w-full items-center gap-[1vw] whitespace-nowrap md:flex">
                 {/* Primary Button */}
-                <Link href="/">
-                  <Button variant="landingPrimary" size="action">
-                    Umów wizytę
-                  </Button>
-                </Link>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="landingPrimary" size="action">
+                      Umów wizytę
+                    </Button>
+                  </DialogTrigger>
+                  <AddBookingDialog />
+                </Dialog>
 
                 {/* Secondary Button */}
                 <Button

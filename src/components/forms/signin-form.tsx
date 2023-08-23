@@ -29,7 +29,6 @@ export function SignInForm() {
   const { isLoaded, signIn, setActive } = useSignIn()
   const [isPending, startTransition] = React.useTransition()
 
-  // react-hook-form
   const form = useForm<Inputs>({
     resolver: zodResolver(authSchema),
     defaultValues: {
