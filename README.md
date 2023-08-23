@@ -1,6 +1,6 @@
 <div>
   <h1 align="center">ARKA</h1>
-  <h3 align="center">Veterinary Clinic Landing Pagen and Appointment Booking System</h3>
+  <h3 align="center">Veterinary Clinic Landing Page and Appointment Booking System</h3>
   <p align="center">
     <a href="https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Landing-Page-and-Appointment-Booking-System.git/issues">Report Bug</a>
     ·
