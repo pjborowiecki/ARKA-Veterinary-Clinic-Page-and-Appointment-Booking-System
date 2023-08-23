@@ -55,7 +55,9 @@ The original website was desined by me in Figma and built with Remix and MongoDB
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p><br>
 
-## Getting Started <br><br>
+## Getting Started
+
+<br>
 
 #### Prerequisites:
 
