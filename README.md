@@ -13,16 +13,14 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#feedback-received">Tech Stack</a></li>
-    <li><a href="getting-started">Getting Started</li>
+    <li><a href="#tech-stack">Tech Stack</a></li>
+    <li><a href="#getting-started">Getting Started</li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#todos">ToDo</li>
+    <li><a href="#todo">ToDo</li>
   </ol>
 </details>
-
-<!-- ABOUT THE PROJECT -->
 
 ## About the Project
 
@@ -145,15 +143,11 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
 
-<!-- LICENSE -->
-
 ## License
 
 Distributed under the MIT License.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
 
 ## Contact
 
@@ -161,8 +155,6 @@ Piotr Borowiecki - [@pjborowiecki](https://www.linkedin.com/in/pjborowiecki/) - 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br>
-
-<!-- TODO -->
 
 ## ToDo
 
