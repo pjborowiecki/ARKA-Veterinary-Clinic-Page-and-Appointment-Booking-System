@@ -44,7 +44,7 @@ The original website was desined by me in Figma and built with Remix and MongoDB
 - **Framework:** [Next.js 13](https://nextjs.org)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **UI Components:** [shadcn/ui](https://ui.shadcn.com)
-- **Database:** [PlanetScale MySQL](https://planetscale.com/)
+- **Database:** [MySQL (PlanetScale)](https://planetscale.com/)
 - **ORM:** [Drizzle ORM](https://orm.drizzle.team)
 - **Authentication:** [Clerk](https://clerk.com)
 - **Forms:** [React Hook Form](https://react-hook-form.com)

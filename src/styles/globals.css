@@ -44,11 +44,15 @@
     --ring: #a1a1aa;
 
     --peach: #f9f0e7;
+    --peach-services-text: #ffe1cc;
     --green-gradient-from: #2ba0ab;
     --green-gradient-to: #124b4b;
+    --white-gradient-from: #fff;
+    --white-gradient-to: #e9fafc;
     --primary-green: #2a3342;
     --secondary-green: #175a5c;
     --green-navbar-text: #2b6969;
+    --green-services-text: #89d3d2;
     --green-navbar-hover: #207b81;
     --green-button-background: #228383;
     --green-button-text: #fef1eb;
@@ -58,6 +62,7 @@
     --appointment-button-border: #f6e0ce;
     --off-white-text: #fcf1eb;
     --light-section-text: #278c96;
+    --dark-section-text: #dae7e9;
 
     --radius: 0.5rem;
   }

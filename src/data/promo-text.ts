@@ -12,3 +12,10 @@ export const aboutSectionParagraphs = [
       "Nic więc dziwnego, że przychodnia jest tak często wybierana przez klientów.",
   },
 ]
+
+export const servicesSectionParagraphs = [
+  {
+    content:
+      "Dzięki bogatemu wyposażeniu przychodni, możemy zaoferować szeroki wachlarz usług i profesjonalnie je wykonać. W przypadku niektorych usług, możliwe również wizyty domowe.",
+  },
+]

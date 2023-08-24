@@ -4,7 +4,7 @@ import { Shell } from "@/components/shells/shell"
 
 export function AboutSection() {
   return (
-    <Shell as="section" variant="landingFullWidth">
+    <Shell as="section" variant="landingFullWidth" id="about">
       {/* Section content */}
       <Shell
         as="div"

@@ -8,7 +8,12 @@ import { Shell } from "@/components/shells/shell"
 
 export function HeroSection() {
   return (
-    <Shell as="header" variant="landingFullWidth" className="overflow-hidden">
+    <Shell
+      as="header"
+      variant="landingFullWidth"
+      className="overflow-hidden"
+      id="hero"
+    >
       <Shell
         as="div"
         variant="landingFullWidth"
