@@ -30,6 +30,12 @@
 ![public/images/screenshot](./public/images/screenshots/screenshot.png)
 <br>
 
+![public/images/screenshot](./public/images/screenshots/screenshot_2.png)
+<br>
+
+![public/images/screenshot](./public/images/screenshots/screenshot_3.png)
+<br>
+
 This project is a re-build of the [Arka Weterynaria](https://arka-weterynaria.pl) website I receintly build with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
 
 The original website was desined by me in Figma and built with Remix and MongoDB Atlas. The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel. When completed, I intend to replace the original website with this rebuild.
@@ -101,6 +107,10 @@ The original website was desined by me in Figma and built with Remix and MongoDB
     - **PlanetScale:** <br><br>
 
       - Create a new account with [Resend](https://resend.com)
+      - _ToDo:_ Complete the setup instructions <br><br>
+
+    - **Google Maps:** <br><br>
+
       - _ToDo:_ Complete the setup instructions <br><br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p><br>
