@@ -38,7 +38,7 @@
 
 This project is a re-build of the [Arka Weterynaria](https://arka-weterynaria.pl) website I receintly build with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
 
-The original website was desined by me in Figma and built with Remix and MongoDB Atlas. The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel. When completed, I intend to replace the original website with this rebuild.
+The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel. When completed, I intend to replace the original website with this rebuild.
 
 **<u>This project is currently in development. Please check back soon.</u>**
 
@@ -54,7 +54,7 @@ The original website was desined by me in Figma and built with Remix and MongoDB
 - **ORM:** [Drizzle ORM](https://orm.drizzle.team)
 - **Authentication:** [Clerk](https://clerk.com)
 - **Forms:** [React Hook Form](https://react-hook-form.com)
-- **Email:** [React Email](https://react.email)
+- **Email:** [React Email](https://react.email) and [Resend](https://resend.com)
 - **Validations:** [Zod](https://zod.dev/)
 - **Hosting:** [Vercel](https://vercel.com)
 - **Project Management:** [Jira](https://www.atlassian.com/software/jira)
