@@ -30,10 +30,10 @@
 ![public/images/screenshot](./public/images/screenshots/screenshot.png)
 <br>
 
-![public/images/screenshot](./public/images/screenshots/screenshot_2.png)
+![public/images/screenshot_2](./public/images/screenshots/screenshot_2.png)
 <br>
 
-![public/images/screenshot](./public/images/screenshots/screenshot_3.png)
+![public/images/screenshot_3](./public/images/screenshots/screenshot_3.png)
 <br>
 
 This project is a re-build of the [Arka Weterynaria](https://arka-weterynaria.pl) website I receintly build with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
