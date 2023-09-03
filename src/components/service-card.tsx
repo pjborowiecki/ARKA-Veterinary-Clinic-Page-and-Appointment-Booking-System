@@ -18,7 +18,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           {service.title}
         </CardTitle>
       </CardHeader>
-      <CardContent className="mt-[12px] text-[4.8vw] leading-[150%] text-greenServicesText opacity-70 md:pl-[48px] md:text-[1.5vw] w-1400:text-[16px]">
+      <CardContent className="mt-[12px] text-[4.8vw] leading-[150%] text-greenServicesText opacity-70 md:pl-[48px] md:text-[1.8vw] w-1400:text-[16px]">
         {service.bulletPoints ? (
           <ul className="flex list-outside list-[square] flex-col gap-[16px] pl-[16px] pr-[4%] md:gap-[8px] md:pr-0">
             {service.bulletPoints?.map((bulletPoint, index) => (

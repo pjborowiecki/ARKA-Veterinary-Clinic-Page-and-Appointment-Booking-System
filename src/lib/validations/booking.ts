@@ -8,17 +8,22 @@ export const bookingSchema = z.object({
       required_error: "Nieprawidłowy typ rezerwacji",
     })
     .default(bookings.type.enumValues[0]),
-  date: z.coerce.date({
-    required_error: "Wybierz termin wizyty",
-    invalid_type_error: "Nieprawidłowy format daty",
-  }),
-  // date: z.date({ required_error: "Wybierz termin wizyty" }),
+  // date: z.coerce.date({
+  //   required_error: "Wybierz termin wizyty",
+  //   invalid_type_error: "Nieprawidłowy format daty",
+  // }),
+  date: z.date({ required_error: "Wybierz termin wizyty" }),
   time: z.string({ required_error: "Wybierz godzinę wizyty" }),
   name: z.string().min(1, { message: "Pole jest wymagane" }),
   surname: z.string().min(1, { message: "Pole jest wymagane" }),
   email: z.string().email({ message: "Nieprawidłowy adres email" }),
   phone: z.string().min(9, { message: "Pole jest wymagane" }),
-  rodo: z.boolean().default(false),
+  rodo: z
+    .boolean()
+    .default(false)
+    .refine((value) => value === true, {
+      message: "Zgoda na przetwarzanie danych jest wymagana",
+    }),
 })
 
 export const filterBookingsSchema = z.object({})

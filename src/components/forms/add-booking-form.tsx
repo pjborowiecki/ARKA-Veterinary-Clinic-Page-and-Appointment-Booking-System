@@ -49,8 +49,8 @@ export function AddBookingForm() {
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       type: "weterynarz",
-      date: new Date(),
-      time: "",
+      date: undefined,
+      time: undefined,
       name: "",
       surname: "",
       email: "",
@@ -61,17 +61,19 @@ export function AddBookingForm() {
   })
 
   function onSubmit(data: Inputs) {
-    startTransition(async () => {
+    startTransition(() => {
       try {
-        await checkBookingAction({
-          date: data.date,
-          time: data.time,
-          type: data.type,
-        })
+        // await checkBookingAction({
+        //   date: data.date,
+        //   time: data.time,
+        //   type: data.type,
+        // })
 
-        await addBookingAction({
-          ...data,
-        })
+        // await addBookingAction({
+        //   ...data,
+        // })
+
+        console.log(data)
 
         toast.success(
           "Dziękujemy! Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę."
@@ -307,11 +309,10 @@ export function AddBookingForm() {
                 <Checkbox
                   checked={field.value}
                   onCheckedChange={field.onChange}
-                  className=""
                 />
               </FormControl>
 
-              <FormLabel className="">
+              <FormLabel>
                 Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
                 realizacji usługi
               </FormLabel>

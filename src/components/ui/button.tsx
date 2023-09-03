@@ -25,6 +25,8 @@ const buttonVariants = cva(
           "bg-peach border-[2px] border-secondaryButtonBorder rounded-full text-greenNavbarText font-medium tracking-wider gap-[16px] md:hover:scale-110 py-[4vw] md:px-[4vw] md:py-[1.32vw] w-1400:px-[56px] w-1400:py-[18px] text-[4vw] md:text-[1.4vw] w-1400:text-[18px]",
         landingAppointment:
           "hidden xl:flex font-medium text-offWhiteText text-[18px] border-[3px] border-appointmentButtonBorder rounded-full bg-greenButtonBackground px-[30px] py-[10px] shadow-sm cursor-pointer from-greenNavbarBackground to-greenNavbarText hover:scale-[1.1] active:shadow-none relative z-[2] tracking-wide",
+        landingContact:
+          "flex items-center justify-center gap-2 px-6 py-2.5 shadow-sm border-[2px] border-contactButtonBorder font-semibold tracking-wider focus:outline-none hover:scale-110 hover:shadow-md disabled:bg-gray-400 disabled:hover:scale-100 disabled:cursor-not-allowed text-greenNavbarText bg-contactButtonBackground",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -33,6 +35,8 @@ const buttonVariants = cva(
         icon: "h-9 w-9",
         action: "w-[70vw] sm:w-[60vw] md:w-[auto]",
         datePicker: "h-10 px-3 py-2",
+        contact:
+          "w-[50vw] h-[16vw] md:w-[20vw] md:h-[6vw] lg:w-auto lg:h-auto px-6 py-[10px] shadow-sm border-[2px] tracking-wider text-[4.8vw] md:text-[2vw] lg:text-[16px] rounded-full",
       },
     },
     defaultVariants: {

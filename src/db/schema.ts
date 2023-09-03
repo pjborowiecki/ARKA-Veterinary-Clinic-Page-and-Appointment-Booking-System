@@ -18,7 +18,6 @@ export const bookings = mysqlTable("bookings", {
     .notNull()
     .default("weterynarz"),
   date: date("date").notNull(),
-  // date: varchar("date", { length: 32 }).notNull(),
   time: time("time", {}).notNull(),
   name: varchar("name", { length: 32 }).notNull(),
   surname: varchar("surname", { length: 32 }).notNull(),
