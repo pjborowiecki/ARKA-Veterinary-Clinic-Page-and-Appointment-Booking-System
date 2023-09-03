@@ -14,11 +14,11 @@ export const bookingSchema = z.object({
   }),
   // date: z.date({ required_error: "Wybierz termin wizyty" }),
   time: z.string({ required_error: "Wybierz godzinę wizyty" }),
-  name: z.string().min(2, { message: "Pole jest wymagane" }),
-  surname: z.string().min(2, { message: "Pole jest wymagane" }),
+  name: z.string().min(1, { message: "Pole jest wymagane" }),
+  surname: z.string().min(1, { message: "Pole jest wymagane" }),
   email: z.string().email({ message: "Nieprawidłowy adres email" }),
   phone: z.string().min(9, { message: "Pole jest wymagane" }),
-  rodo: z.boolean().default(true),
+  rodo: z.boolean().default(false),
 })
 
 export const filterBookingsSchema = z.object({})

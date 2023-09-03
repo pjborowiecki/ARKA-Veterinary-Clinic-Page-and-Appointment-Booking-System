@@ -12,6 +12,7 @@ export const env = createEnv({
     CLERK_SECRET_KEY: z.string(),
     RESEND_API_KEY: z.string(),
     EMAIL_FROM_ADDRESS: z.string().email(),
+    GOOGLE_MAPS_URL: z.string().url(),
   },
 
   /**
@@ -37,6 +38,7 @@ export const env = createEnv({
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_FROM_ADDRESS: process.env.EMAIL_FROM_ADDRESS,
+    GOOGLE_MAPS_URL: process.env.GOOGLE_MAPS_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

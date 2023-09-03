@@ -19,12 +19,12 @@ export const bookings = mysqlTable("bookings", {
     .default("weterynarz"),
   date: date("date").notNull(),
   // date: varchar("date", { length: 32 }).notNull(),
-  time: time("time").notNull(),
+  time: time("time", {}).notNull(),
   name: varchar("name", { length: 32 }).notNull(),
   surname: varchar("surname", { length: 32 }).notNull(),
   email: varchar("email", { length: 64 }).notNull(),
   phone: varchar("phone", { length: 16 }).notNull(),
-  rodo: boolean("rodo").notNull().default(true),
+  rodo: boolean("rodo").notNull().default(false),
   createdAt: timestamp("createdAt").defaultNow(),
 })
 

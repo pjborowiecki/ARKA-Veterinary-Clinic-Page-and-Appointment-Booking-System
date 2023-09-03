@@ -32,6 +32,7 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
         action: "w-[70vw] sm:w-[60vw] md:w-[auto]",
+        datePicker: "h-10 px-3 py-2",
       },
     },
     defaultVariants: {

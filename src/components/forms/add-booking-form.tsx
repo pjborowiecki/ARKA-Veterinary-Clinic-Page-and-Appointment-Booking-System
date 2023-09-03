@@ -3,7 +3,9 @@
 import * as React from "react"
 import { bookings } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Checkbox } from "@radix-ui/react-checkbox"
 import { format } from "date-fns"
+import { pl } from "date-fns/locale"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import type { z } from "zod"
@@ -85,160 +87,194 @@ export function AddBookingForm() {
   return (
     <Form {...form}>
       <form
-        className=""
+        className="grid gap-4"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
         {/* Service */}
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Usługa</FormLabel>
-              <FormControl>
-                <Select
-                  value={field.value}
-                  onValueChange={(value: typeof field.value) =>
-                    field.onChange(value)
-                  }
-                >
-                  <SelectTrigger className="capitalize">
-                    <SelectValue placeholder={field.value} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {Object.values(bookings.type.enumValues).map((option) => (
-                        <SelectItem
-                          key={option}
-                          value={option}
-                          className="capitalize"
-                        >
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <UncontrolledFormMessage
-                message={form.formState.errors.type?.message}
-              />
-            </FormItem>
-          )}
-        />
-
-        {/* Date */}
-        <FormField
-          control={form.control}
-          name="date"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Termin</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Wybierz termin</span>
-                      )}
-                      <Icons.calendar className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) => date < new Date()}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </FormItem>
-          )}
-        />
-
-        {/* Time */}
-        {/* TODO */}
-
-        {/* Name */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Imię</FormLabel>
-              <FormControl>
-                <Input
-                  aria-invalid={!!form.formState.errors.name}
-                  placeholder="Jan"
-                  {...field}
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Usługa</FormLabel>
+                <FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value: typeof field.value) =>
+                      field.onChange(value)
+                    }
+                  >
+                    <SelectTrigger className="capitalize">
+                      <SelectValue placeholder={field.value} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {Object.values(bookings.type.enumValues).map(
+                          (option) => (
+                            <SelectItem
+                              key={option}
+                              value={option}
+                              className="capitalize"
+                            >
+                              {option}
+                            </SelectItem>
+                          )
+                        )}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <UncontrolledFormMessage
+                  message={form.formState.errors.type?.message}
                 />
-              </FormControl>
-              <UncontrolledFormMessage
-                message={form.formState.errors.name?.message}
-              />
-            </FormItem>
-          )}
-        />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {/* Date */}
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Termin</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        size={"datePicker"}
+                        className={cn(
+                          "w-full text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP", { locale: pl })
+                        ) : (
+                          <span>Wybierz termin</span>
+                        )}
+                        <Icons.calendar className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) => date < new Date()}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </FormItem>
+            )}
+          />
 
-        {/* Surname */}
-        <FormField
-          control={form.control}
-          name="surname"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nazwisko</FormLabel>
-              <FormControl>
-                <Input placeholder="Kowalski" {...field} />
-              </FormControl>
-              <UncontrolledFormMessage
-                message={form.formState.errors.surname?.message}
-              />
-            </FormItem>
-          )}
-        />
+          {/* Time */}
+          <FormField
+            control={form.control}
+            name="time"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Godzina</FormLabel>
+                <FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value: typeof field.value) =>
+                      field.onChange(value)
+                    }
+                  >
+                    <SelectTrigger className="capitalize">
+                      <SelectValue placeholder={field.value} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup></SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <UncontrolledFormMessage>
+                  {form.formState.errors.time?.message}
+                </UncontrolledFormMessage>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {/* Name */}
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Imię</FormLabel>
+                <FormControl>
+                  <Input
+                    aria-invalid={!!form.formState.errors.name}
+                    placeholder="Jan"
+                    {...field}
+                  />
+                </FormControl>
+                <UncontrolledFormMessage
+                  message={form.formState.errors.name?.message}
+                />
+              </FormItem>
+            )}
+          />
 
-        {/* Email */}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="jankowalski@gmail.com" {...field} />
-              </FormControl>
-              <UncontrolledFormMessage
-                message={form.formState.errors.email?.message}
-              />
-            </FormItem>
-          )}
-        />
+          {/* Surname */}
+          <FormField
+            control={form.control}
+            name="surname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nazwisko</FormLabel>
+                <FormControl>
+                  <Input placeholder="Kowalski" {...field} />
+                </FormControl>
+                <UncontrolledFormMessage
+                  message={form.formState.errors.surname?.message}
+                />
+              </FormItem>
+            )}
+          />
+        </div>
 
-        {/* TODO */}
-        {/* Phone */}
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Telefon</FormLabel>
-              <FormControl>
-                <Input placeholder="123456789" {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="jankowalski@gmail.com" {...field} />
+                </FormControl>
+                <UncontrolledFormMessage
+                  message={form.formState.errors.email?.message}
+                />
+              </FormItem>
+            )}
+          />
+
+          {/* Phone */}
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Telefon</FormLabel>
+                <FormControl>
+                  <Input placeholder="123456789" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
 
         {/* Message */}
         <FormField
@@ -248,7 +284,11 @@ export function AddBookingForm() {
             <FormItem>
               <FormLabel>Wiadomość</FormLabel>
               <FormControl>
-                <Textarea placeholder="Wiadomość (opcjonalnie)" {...field} />
+                <Textarea
+                  placeholder="Wiadomość (opcjonalnie)"
+                  {...field}
+                  className="min-h-[80px]"
+                />
               </FormControl>
               <UncontrolledFormMessage
                 message={form.formState.errors.message?.message}
@@ -258,7 +298,26 @@ export function AddBookingForm() {
         />
 
         {/* Rodo */}
-        {/* TODO */}
+        <FormField
+          control={form.control}
+          name="rodo"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  className=""
+                />
+              </FormControl>
+
+              <FormLabel className="">
+                Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
+                realizacji usługi
+              </FormLabel>
+            </FormItem>
+          )}
+        />
 
         {/* Submit */}
         <Button type="submit" disabled={isPending}>
