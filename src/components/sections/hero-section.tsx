@@ -3,33 +3,20 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { AddBookingDialog } from "@/components/add-booking-dialog"
 import { LandingMainNav } from "@/components/layouts/landing-main-nav"
+
 // import { LandingMobileNav } from "@/components/layouts/landing-mobile-nav"
-import { Shell } from "@/components/shells/shell"
 
 export function HeroSection() {
   return (
-    <Shell
-      as="header"
-      variant="landingFullWidth"
-      className="overflow-hidden"
-      id="hero"
-    >
-      <Shell
-        as="div"
-        variant="landingFullWidth"
-        className="bg-peach bg-[url('/images/navbar-and-hero-background.png')] bg-cover bg-right bg-no-repeat md:pb-[40px] xl:bg-contain"
-      >
+    <header className="overflow-hidden" id="hero">
+      <div className="w-full max-w-[2560px] bg-peach bg-[url('/images/navbar-and-hero-background.png')] bg-cover bg-right bg-no-repeat md:pb-10 xl:bg-contain">
         <LandingMainNav />
 
         {/* Navigation on mobile */}
         {/* <LandingMobileNav /> */}
 
         {/* Hero content */}
-        <Shell
-          as="section"
-          variant="landingConstrained"
-          className="flex h-full grid-cols-12 flex-col-reverse px-[20px] transition-all duration-500 ease-in-out md:grid md:pl-[58px] md:pr-[0px] lg:pl-[64px]"
-        >
+        <section className="mx-auto flex h-full w-full max-w-[1440px] grid-cols-12 flex-col-reverse px-5 transition-all duration-500 ease-in-out md:grid md:pl-[58px] md:pr-0 lg:pl-[64px]">
           {/* Hero buttons on Mobile */}
           <div className="mb-[6vw] mt-[8vw] flex flex-col items-center gap-[4vw] whitespace-nowrap md:hidden">
             <Dialog>
@@ -52,8 +39,8 @@ export function HeroSection() {
 
           {/* Hero text side */}
           <div className="w-full overflow-visible md:col-start-1 md:col-end-6 md:mb-[-64px] md:grid lg:mb-[-84px] xl:mb-[-108px] 2xl:mb-[-128px]">
-            <div className="flex w-full flex-col items-center justify-center gap-[5vw] text-center md:mb-[8px] md:items-start md:gap-[2vw] md:text-start lg:mb-[28px] xl:mb-[52px] w-1400:gap-[36px]">
-              <h1 className="mt-[8vw] w-full bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text font-[BalooTamma] font-bold leading-[1.05] text-transparent md:mt-[0px]">
+            <div className="flex w-full flex-col items-center justify-center gap-[5vw] text-center md:mb-2 md:items-start md:gap-[2vw] md:text-start lg:mb-7 xl:mb-[52px] w-1400:gap-9">
+              <h1 className="mt-[8vw] w-full bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text font-[BalooTamma] font-bold leading-[1.05] text-transparent md:mt-0">
                 {/* Main heading */}
                 <span className="text-[15vw] md:text-[9.2vw] 2xl:text-[138px]">
                   Przychodnia
@@ -65,7 +52,7 @@ export function HeroSection() {
               </h1>
 
               {/* Subheading */}
-              <h3 className="w-full px-[10%] font-[Baloo] text-[5.6vw] leading-[120%] text-secondaryGreen opacity-80 md:pl-[0px] md:pr-[12%] md:text-[2.3vw] md:leading-[140%] lg:leading-[130%] 2xl:text-[34px]">
+              <h3 className="w-full px-[10%] font-[Baloo] text-[5.6vw] leading-[120%] text-secondaryGreen opacity-80 md:pl-0 md:pr-[12%] md:text-[2.3vw] md:leading-[140%] lg:leading-[130%] 2xl:text-[34px]">
                 <span className="text-[5.6vw] md:text-[2.49vw] 2xl:text-[37px]">
                   Twoje zwierzaki zasługują na najlepsze.{" "}
                 </span>{" "}
@@ -73,7 +60,7 @@ export function HeroSection() {
               </h3>
 
               {/* Buttons */}
-              <div className="mt-[8px] hidden w-full items-center gap-[1vw] whitespace-nowrap md:flex">
+              <div className="mt-2 hidden w-full items-center gap-[1vw] whitespace-nowrap md:flex">
                 {/* Primary Button */}
                 <Dialog>
                   <DialogTrigger asChild>
@@ -128,8 +115,8 @@ export function HeroSection() {
               </p>
             </div>
           </div>
-        </Shell>
-      </Shell>
+        </section>
+      </div>
 
       {/* Hero section bottom wave pattern */}
       <div className="w-full">
@@ -139,6 +126,6 @@ export function HeroSection() {
           className="h-full w-full object-cover"
         />
       </div>
-    </Shell>
+    </header>
   )
 }

@@ -2,11 +2,9 @@ import { Shell } from "@/components/shells/shell"
 
 export function TeamSection() {
   return (
-    <Shell
-      as="section"
-      variant="landingFullWidth"
+    <section
       id="team"
-      className="bg-[url('/images/svg/team-section-background.svg')] bg-cover bg-no-repeat"
+      className="w-full max-w-[2560px] bg-[url('/images/svg/team-section-background.svg')] bg-cover bg-no-repeat"
     >
       {/* Top wave pattern */}
       <div>
@@ -18,9 +16,12 @@ export function TeamSection() {
       </div>
 
       {/* Section content */}
-      <Shell as="div" variant="landingConstrained" className="mt-[48px]">
-        <div className="flex items-center justify-center md:grid md:grid-cols-2 md:gap-[32px] lg:gap-[48px]">
-          <h2 className="bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text text-center font-[BalooTamma] font-bold leading-[1.05] text-transparent md:col-start-2 md:col-end-3">
+      <div
+        // variant="landingConstrained"
+        className="mx-auto mt-[48px] min-h-[680px] w-full max-w-[1440px] px-5 md:px-6 lg:px-7"
+      >
+        <div className="flex items-center justify-center md:grid md:grid-cols-2 md:gap-8 lg:gap-[48px]">
+          <h2 className="bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text text-center font-[BalooTamma] font-bold leading-[1.2] text-transparent md:col-start-2 md:col-end-3">
             <span className="whitespace-nowrap text-[8.6vw] md:text-[4.8vw] w-1400:text-[70px]">
               Wykwalifikowana
             </span>
@@ -37,7 +38,7 @@ export function TeamSection() {
           </div>
           <div className=""></div>
         </div>
-      </Shell>
+      </div>
 
       {/* Bottom wave pattern */}
       <div>
@@ -47,6 +48,6 @@ export function TeamSection() {
           className="w-full object-cover"
         />
       </div>
-    </Shell>
+    </section>
   )
 }

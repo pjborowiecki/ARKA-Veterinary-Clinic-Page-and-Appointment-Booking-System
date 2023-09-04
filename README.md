@@ -2,9 +2,9 @@
   <h1 align="center">ARKA</h1>
   <h3 align="center">Veterinary Clinic Landing Page and Appointment Booking System</h3>
   <p align="center">
-    <a href="https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Landing-Page-and-Appointment-Booking-System.git/issues">Report Bug</a>
+    <a href="https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Page-and-Appointment-Booking-System.git/issues">Report Bug</a>
     ·
-    <a href="https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Landing-Page-and-Appointment-Booking-System.git/issues">Request Feature</a>
+    <a href="https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Page-and-Appointment-Booking-System.git/issues">Request Feature</a>
   </p>
 </div>
 
@@ -78,7 +78,7 @@ The client wanted a simple website with a contact form and a full booking manage
 1.  Clone the repo
 
     ```sh
-    git clone https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Landing-Page-and-Appointment-Booking-System.git
+    git clone https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Page-and-Appointment-Booking-System.git
     ```
 
     <br>

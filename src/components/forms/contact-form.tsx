@@ -52,10 +52,10 @@ export function ContactForm() {
   return (
     <Form {...form}>
       <form
-        className="grid w-full gap-[7vw] md:gap-8"
+        className="grid w-full gap-[6vw] md:gap-6"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col gap-[6vw] md:grid md:grid-cols-2 md:gap-4">
           {/* Name */}
           <FormField
             control={form.control}
@@ -70,7 +70,7 @@ export function ContactForm() {
                     aria-invalid={!!form.formState.errors.name}
                     placeholder="Jan"
                     {...field}
-                    className="placeholder:text-input/70 bg-transparent text-input"
+                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage
@@ -93,7 +93,7 @@ export function ContactForm() {
                   <Input
                     placeholder="Kowalski"
                     {...field}
-                    className="placeholder:text-input/70 bg-transparent text-input"
+                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage
@@ -104,7 +104,7 @@ export function ContactForm() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col gap-[6vw] md:grid md:grid-cols-2 md:gap-4">
           {/* Phone */}
           <FormField
             control={form.control}
@@ -118,7 +118,7 @@ export function ContactForm() {
                   <Input
                     placeholder="515 509 747"
                     {...field}
-                    className="placeholder:text-input/70 bg-transparent text-input"
+                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage
@@ -141,7 +141,7 @@ export function ContactForm() {
                   <Input
                     placeholder="jankowalski@gmail.com"
                     {...field}
-                    className="placeholder:text-input/70 bg-transparent text-input"
+                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage

@@ -4,7 +4,8 @@ export type SiteConfig = typeof siteConfig
 
 const links = {
   facebook: "",
-  github: "https://www.github.com",
+  github:
+    "https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Page-and-Appointment-Booking-System.git",
 }
 
 export const siteConfig = {

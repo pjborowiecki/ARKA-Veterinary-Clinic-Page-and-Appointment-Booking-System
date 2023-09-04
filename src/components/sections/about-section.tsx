@@ -4,26 +4,22 @@ import { Shell } from "@/components/shells/shell"
 
 export function AboutSection() {
   return (
-    <Shell as="section" variant="landingFullWidth" id="about">
+    <section id="about" className="w-full max-w-[2560px]">
       {/* Section content */}
-      <Shell
-        as="div"
-        variant="landingConstrained"
-        className="mt-[48px] flex flex-col-reverse md:my-[32px] md:grid md:grid-cols-2"
-      >
+      <div className="mx-auto mt-12 flex w-full max-w-[1440px] flex-col-reverse overflow-hidden px-5 md:my-8 md:grid md:grid-cols-2 md:px-6 lg:px-7">
         {/* Left-hand side */}
         <div className="flex items-center justify-center">
           <img
             src="/images/about-image.png"
-            className="my-[24px] h-full w-full scale-[0.8] object-contain md:my-[0px]"
+            className="my-6 h-full w-full scale-[0.8] object-contain md:my-0 md:scale-[0.85]"
             alt="A female veterinarian smiling with a dog"
           />
         </div>
 
         {/* Right-hand side */}
-        <div className="flex flex-col items-center gap-[32px] md:gap-[24px]">
+        <div className="flex flex-col items-center gap-8 md:gap-6">
           {/* Section heading */}
-          <h2 className="w-[90%] whitespace-nowrap bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text text-center font-[BalooTamma] font-bold leading-[1.05] md:text-start ">
+          <h2 className="w-[90%] bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text text-center font-[BalooTamma] font-bold leading-[1.05] md:text-start ">
             <span className="text-[12vw] text-transparent md:text-[5.8vw] w-1400:text-[80px]">
               Pasja i wiedza,{" "}
             </span>
@@ -34,7 +30,7 @@ export function AboutSection() {
           </h2>
 
           {/* Section paragraphs */}
-          <div className="flex w-[74%] flex-col gap-[32px] text-center md:w-[90%] md:gap-[24px] md:pr-[20%] md:text-start w-1400:pr-[28%]">
+          <div className="flex w-[74%] flex-col gap-8 text-center md:ml-[20%] md:w-[90%] md:gap-6 md:pr-[23%] md:text-start lg:pr-[25%] xl:pr-[28%] w-1400:pr-[34%]">
             {aboutSectionParagraphs?.map((paragraph, index) => (
               <p
                 key={index}
@@ -50,7 +46,7 @@ export function AboutSection() {
             </p>
           </div>
         </div>
-      </Shell>
+      </div>
 
       {/* Bottom wave pattern */}
       <div className="w-full">
@@ -60,6 +56,6 @@ export function AboutSection() {
           alt="About section bottom wave pattern"
         />
       </div>
-    </Shell>
+    </section>
   )
 }

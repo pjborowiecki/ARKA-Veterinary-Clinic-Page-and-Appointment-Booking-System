@@ -1,9 +1,3 @@
-import { Shell } from "@/components/shells/shell"
-
 export function GroomerSection() {
-  return (
-    <Shell as="section" variant="default" id="groomer">
-      Groomer section
-    </Shell>
-  )
+  return <section id="groomer">Groomer section</section>
 }

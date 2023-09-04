@@ -10,6 +10,7 @@ import "@/styles/globals.css"
 import { siteConfig } from "@/config/site"
 import { fontInter, fontJetBrainsMono } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import { TailwindIndicator } from "@/components/tailwind-indicator"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+            <TailwindIndicator />
           </ThemeProvider>
           <Toaster />
         </body>
