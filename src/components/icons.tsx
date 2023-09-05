@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   Calendar,
+  CalendarClock,
   Eye,
   EyeOff,
   FileTerminal,
@@ -21,6 +22,7 @@ export type Icon = LucideIcon
 
 export const Icons = {
   arrowRight: ArrowRight,
+  availability: CalendarClock,
   calendar: Calendar,
   close: X,
   hide: EyeOff,

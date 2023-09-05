@@ -4,12 +4,18 @@ import { bookings, type Booking } from "@/db/schema"
 import { env } from "@/env.mjs"
 import { and, asc, desc, inArray, like, sql } from "drizzle-orm"
 
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header"
 import { BookingsTableShell } from "@/components/shells/bookings-table-shell"
+import { Shell } from "@/components/shells/shell"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Rezerwacje",
-  description: "Zobacz i zarządzaj swoimi rezerwacjami",
+  description: "Przeglądaj i zarządzaj swoimi rezerwacjami",
 }
 
 interface BookingsPageProps {
@@ -88,8 +94,18 @@ export default async function BookingsPage({
   const pageCount = Math.ceil(allBookings / limit)
 
   return (
-    <div className="space-y-2.5">
+    <Shell variant="sidebar">
+      <PageHeader
+        id="dashboard-bookings-header"
+        aria-labelledby="dashboard-bookings-header"
+        className="my-8"
+      >
+        <PageHeaderHeading size="sm">Rezerwacje</PageHeaderHeading>
+        <PageHeaderDescription size="sm">
+          Zarządzanie rezerwacjami
+        </PageHeaderDescription>
+      </PageHeader>
       <BookingsTableShell data={filteredBookings} pageCount={pageCount} />
-    </div>
+    </Shell>
   )
 }

@@ -40,6 +40,20 @@ export const siteConfig = {
       href: "#kontakt",
     },
   ] satisfies MainNavItem[],
+  mobileNav: [
+    {
+      title: "Rezerwacje",
+      href: "/rezerwacje",
+    },
+    {
+      title: "Dostępność",
+      href: "/dostepnosc",
+    },
+    {
+      title: "Profil",
+      href: "/profil",
+    },
+  ],
   links: {
     facebook: links.facebook,
   },

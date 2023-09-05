@@ -5,5 +5,24 @@ export interface DashboardConfig {
 }
 
 export const dashboardConfig: DashboardConfig = {
-  sidebarNav: [],
+  sidebarNav: [
+    {
+      title: "Rezerwacje",
+      href: "/rezerwacje",
+      icon: "calendar",
+      items: [],
+    },
+    {
+      title: "Dostępność",
+      href: "/dostepnosc",
+      icon: "availability",
+      items: [],
+    },
+    {
+      title: "Profil",
+      href: "/profil",
+      icon: "user",
+      items: [],
+    },
+  ],
 }

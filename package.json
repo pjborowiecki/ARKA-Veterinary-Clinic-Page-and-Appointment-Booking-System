@@ -54,6 +54,7 @@
     "react-dom": "18.2.0",
     "react-email": "^1.9.4",
     "react-hook-form": "^7.46.0",
+    "react-wrap-balancer": "^1.1.0",
     "resend": "^0.17.2",
     "shadcn-ui": "^0.3.0",
     "sonner": "^0.6.2",

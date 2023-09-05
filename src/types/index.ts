@@ -38,7 +38,6 @@ export interface DataTableFilterableColumn<TData>
 }
 
 export type MainNavItem = NavItemWithOptionalChildren
-
-export type SidebarNavItem = NavItemWithChildren
+export type SidebarNavItem = NavItemWithOptionalChildren
 
 export type UserRole = z.infer<typeof userPrivateMetadataSchema.shape.role>

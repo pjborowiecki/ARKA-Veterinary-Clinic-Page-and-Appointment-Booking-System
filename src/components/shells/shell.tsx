@@ -8,9 +8,7 @@ const shellVariants = cva("grid items-center", {
     variant: {
       default: "container gap-8 pb-8 pt-6 md:py-8",
       centered: "mx-auto mb-16 mt-20 max-w-md justify-center",
-      landingConstrained:
-        "w-full max-w-[1440px] mx-auto px-[20px] md:px-[24px] lg:px-[28px]",
-      landingFullWidth: "w-full max-w-[2560px] mx-auto",
+      sidebar: "",
     },
   },
   defaultVariants: {
