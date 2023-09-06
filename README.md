@@ -166,28 +166,3 @@ Distributed under the MIT License.
 Piotr Borowiecki - [@pjborowiecki](https://www.linkedin.com/in/pjborowiecki/) - hello@pjborowiecki.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<br>
-
-## ToDo
-
-- [ ] Style and complete the appointment booking dialog
-- [ ] Fix urls and paths (dashboard, reservations, settings, etc.)
-- [ ] Decide on the type of time slots and update the data schema
-- [ ] Fix server actions
-- [ ] Implement the landing page:
-  - [x] Add navbar
-  - [ ] Add mobile menu
-  - [x] Add hero section
-  - [x] Add about section
-  - [ ] Add services section
-  - [ ] Add contact section
-  - [ ] Add footer
-- [ ] Investigate the opacity issue (e.g., /10)
-- [ ] Add favicon
-- [ ] Add OpenGRaph image (og.jpg)
-- [ ] Add robots.txt file
-- [ ] Add sitemap.xml file
-- [ ] Add site description in siteConfig
-- [ ] Improve README
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
