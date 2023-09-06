@@ -15,6 +15,55 @@
       "when": 1693768540417,
       "tag": "0001_married_cerebro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1693882706049,
+      "tag": "0002_complete_raider",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1693883401392,
+      "tag": "0003_fancy_the_stranger",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1693883689841,
+      "tag": "0004_jittery_red_wolf",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1693933602599,
+      "tag": "0005_colossal_krista_starr",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1693934137861,
+      "tag": "0006_rich_synch",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1693957005733,
+      "tag": "0007_right_blue_blade",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1693958326830,
+      "tag": "0008_uneven_wraith",
+      "breakpoints": true
     }
   ]
 }
