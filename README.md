@@ -36,7 +36,7 @@
 ![public/images/screenshots/screenshot_3](./public/images/screenshots/screenshot_3.png)
 <br>
 
-This project is a re-build of the [Arka Weterynaria](https://arka-weterynaria.pl) website I receintly build with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
+This project is a re-build of a website I receintly build with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
 
 The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel. When completed, I intend to replace the original website with this rebuild.
 
