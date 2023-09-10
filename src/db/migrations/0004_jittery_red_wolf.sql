@@ -1,1 +1,0 @@
-ALTER TABLE `bookings` MODIFY COLUMN `date` date NOT NULL;

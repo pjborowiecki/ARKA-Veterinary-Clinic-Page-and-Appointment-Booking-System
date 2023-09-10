@@ -17,8 +17,8 @@ export async function POST(req: Request) {
       to: env.EMAIL_TO_ADDRESS,
       subject: "Nowe zapytanie",
       react: EnquiryNotificationForArka({
-        name: input.name,
-        surname: input.surname,
+        firstName: input.firstName,
+        lastName: input.lastName,
         email: input.email,
         phone: input.phone,
         message: input.message,

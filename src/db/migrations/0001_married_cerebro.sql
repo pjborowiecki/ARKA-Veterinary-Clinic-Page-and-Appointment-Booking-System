@@ -1,1 +1,0 @@
-ALTER TABLE `bookings` MODIFY COLUMN `rodo` boolean NOT NULL DEFAULT false;

@@ -15,21 +15,21 @@ import {
 } from "@react-email/components"
 
 interface EnquiryNotificationForArkaProps {
-  name: string
-  surname: string
+  firstName: string
+  lastName: string
   email: string
   phone: string
   message?: string
 }
 
 export default function EnquiryNotificationForArka({
-  name,
-  surname,
+  firstName,
+  lastName,
   email,
   phone,
   message,
 }: EnquiryNotificationForArkaProps) {
-  const previewText = `${name} ${surname} przesyła zapytanie z formularza kontaktowego>`
+  const previewText = `${firstName} ${lastName} przesyła zapytanie z formularza kontaktowego>`
 
   return (
     <Html lang="pl">

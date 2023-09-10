@@ -50,7 +50,7 @@ export function VerifyEmailForm() {
         if (completeSignUp.status === "complete") {
           await setActive({ session: completeSignUp.createdSessionId })
 
-          router.push(`${window.location.origin}/rezerwacje`)
+          router.push(`${window.location.origin}/admin`)
         }
       } catch (error) {
         catchClerkError(error)

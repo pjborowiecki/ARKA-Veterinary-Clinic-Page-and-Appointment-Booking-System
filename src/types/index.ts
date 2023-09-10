@@ -1,7 +1,15 @@
+import type { Clinic } from "@/db/schema"
 import type { z } from "zod"
 
 import type { userPrivateMetadataSchema } from "@/lib/validations/auth"
 import type { Icons } from "@/components/icons"
+
+export interface CuratedClinic {
+  id: Clinic["id"]
+  name: Clinic["name"]
+  description?: Clinic["description"]
+  bookingCount?: number
+}
 
 export interface NavItem {
   title: string

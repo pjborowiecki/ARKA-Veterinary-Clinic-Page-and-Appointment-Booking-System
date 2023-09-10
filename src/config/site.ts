@@ -42,16 +42,20 @@ export const siteConfig = {
   ] satisfies MainNavItem[],
   mobileNav: [
     {
+      title: "Przychodnia",
+      href: "/admin/przychodnia",
+    },
+    {
       title: "Rezerwacje",
-      href: "/rezerwacje",
+      href: "/admin/przychodnia/rezerwacje",
     },
     {
       title: "Dostępność",
-      href: "/dostepnosc",
+      href: "/admin/przychodnia/dostepnosc",
     },
     {
       title: "Profil",
-      href: "/profil",
+      href: "/admin/profil",
     },
   ],
   links: {

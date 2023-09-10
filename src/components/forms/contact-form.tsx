@@ -30,8 +30,8 @@ export function ContactForm() {
   const form = useForm<Inputs>({
     resolver: zodResolver(enquiryEmailSchema),
     defaultValues: {
-      name: "",
-      surname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       phone: "",
       message: "",
@@ -70,7 +70,7 @@ export function ContactForm() {
                     aria-invalid={!!form.formState.errors.name}
                     placeholder="Jan"
                     {...field}
-                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
+                    className="h-[8vw] min-h-[40px] bg-transparent text-input placeholder:text-input/70 md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage
@@ -80,10 +80,10 @@ export function ContactForm() {
             )}
           />
 
-          {/* Surname */}
+          {/* Last Name */}
           <FormField
             control={form.control}
-            name="surname"
+            name="lastName"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel className="text-[4.4vw] font-medium text-greenContactFormText md:text-sm">
@@ -93,11 +93,11 @@ export function ContactForm() {
                   <Input
                     placeholder="Kowalski"
                     {...field}
-                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
+                    className="h-[8vw] min-h-[40px] bg-transparent text-input placeholder:text-input/70 md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage
-                  message={form.formState.errors.surname?.message}
+                  message={form.formState.errors.lastName?.message}
                 />
               </FormItem>
             )}
@@ -118,7 +118,7 @@ export function ContactForm() {
                   <Input
                     placeholder="515 509 747"
                     {...field}
-                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
+                    className="h-[8vw] min-h-[40px] bg-transparent text-input placeholder:text-input/70 md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage
@@ -141,7 +141,7 @@ export function ContactForm() {
                   <Input
                     placeholder="jankowalski@gmail.com"
                     {...field}
-                    className="placeholder:text-input/70 h-[8vw] min-h-[40px] bg-transparent text-input md:h-10"
+                    className="h-[8vw] min-h-[40px] bg-transparent text-input placeholder:text-input/70 md:h-10"
                   />
                 </FormControl>
                 <UncontrolledFormMessage

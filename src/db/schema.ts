@@ -16,12 +16,13 @@ import {
 export const clinics = mysqlTable("clinics", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 191 }).notNull(),
-  name: varchar("name", { length: 32 }).notNull(),
-  slug: text("slug"),
+  longitude: varchar("longitude", { length: 24 }).notNull(),
+  latitude: varchar("latitude", { length: 24 }).notNull(),
   address: varchar("address", { length: 128 }).notNull(),
   phone: varchar("phone", { length: 16 }).notNull(),
   email: varchar("email", { length: 64 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow(),
 })
 
 export type Clinic = typeof clinics.$inferSelect
@@ -48,6 +49,7 @@ export const businessHours = mysqlTable("openingHours", {
   closingTime: time("closingTime").notNull(),
   clinicId: int("clinicId").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow(),
 })
 
 export type BusinessHour = typeof businessHours.$inferSelect
@@ -67,15 +69,26 @@ export const bookings = mysqlTable("bookings", {
     .notNull()
     .default("weterynarz"),
   slot: datetime("slot").notNull(),
+  date: date("date").notNull(),
+  time: time("time").notNull(),
   // date: date("date").notNull(),
   // time: varchar("time", { length: 5 }).notNull(),
-  name: varchar("name", { length: 32 }).notNull(),
-  surname: varchar("surname", { length: 32 }).notNull(),
+  firstName: varchar("firstName", { length: 32 }).notNull(),
+  lastName: varchar("lastName", { length: 32 }).notNull(),
   email: varchar("email", { length: 64 }).notNull(),
   phone: varchar("phone", { length: 16 }).notNull(),
   rodo: boolean("rodo").notNull().default(false),
+  status: mysqlEnum("status", [
+    "niepotwierdzone",
+    "potwierdzone",
+    "anulowane",
+    "odrzucone",
+  ])
+    .notNull()
+    .default("niepotwierdzone"),
   clinicId: int("clinicId").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow(),
 })
 
 export type Booking = typeof bookings.$inferSelect

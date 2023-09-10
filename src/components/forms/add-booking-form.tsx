@@ -1,11 +1,13 @@
 "use client"
 
 import * as React from "react"
+import { addBookingAction, checkBookingAction } from "@/actions/booking"
 import { bookings } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Checkbox } from "@radix-ui/react-checkbox"
 import { format } from "date-fns"
 import { pl } from "date-fns/locale"
+import dayjs from "dayjs"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import type { z } from "zod"
@@ -38,7 +40,6 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
-import { addBookingAction, checkBookingAction } from "@/app/_actions/booking"
 
 type Inputs = z.infer<typeof bookingSchema>
 
@@ -50,28 +51,35 @@ export function AddBookingForm() {
     defaultValues: {
       type: "weterynarz",
       date: undefined,
-      time: undefined,
-      name: "",
-      surname: "",
+      // time: undefined,
+      firstName: "",
+      lastName: "",
       email: "",
       phone: "",
       message: "",
-      rodo: false,
+      // rodo: false,
+      status: "niepotwierdzone",
     },
   })
 
+  const handleDayClick = (date: Date) => {
+    // form.setValue("date", date)
+    form.setValue()
+    console.log("date: ", date)
+  }
+
   function onSubmit(data: Inputs) {
-    startTransition(() => {
+    startTransition(async () => {
       try {
         // await checkBookingAction({
         //   date: data.date,
-        //   time: data.time,
+        //   // time: data.time,
         //   type: data.type,
         // })
 
-        // await addBookingAction({
-        //   ...data,
-        // })
+        await addBookingAction({
+          ...data,
+        })
 
         console.log(data)
 
@@ -164,10 +172,15 @@ export function AddBookingForm() {
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
+                      locale={pl}
+                      required
                       mode="single"
                       selected={field.value}
-                      onSelect={field.onChange}
+                      // onSelect={field.onChange}
+                      onSelect={handleDayClick}
                       disabled={(date) => date < new Date()}
+                      // modifiers={{ booked: bookedDays }}
+                      // modifiersStyles={{ booked: bookedStyle }}
                       initialFocus
                     />
                   </PopoverContent>
@@ -177,7 +190,7 @@ export function AddBookingForm() {
           />
 
           {/* Time */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="time"
             render={({ field }) => (
@@ -194,7 +207,19 @@ export function AddBookingForm() {
                       <SelectValue placeholder={field.value} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup></SelectGroup>
+                      <SelectGroup>
+                        {Object.values(bookings.time.enumValues).map(
+                          (option) => (
+                            <SelectItem
+                              key={option}
+                              value={option}
+                              className="capitalize"
+                            >
+                              {option}
+                            </SelectItem>
+                          )
+                        )}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -203,34 +228,34 @@ export function AddBookingForm() {
                 </UncontrolledFormMessage>
               </FormItem>
             )}
-          />
+          /> */}
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {/* Name */}
+          {/* First Name */}
           <FormField
             control={form.control}
-            name="name"
+            name="firstName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Imię</FormLabel>
                 <FormControl>
                   <Input
-                    aria-invalid={!!form.formState.errors.name}
+                    aria-invalid={!!form.formState.errors.firstName}
                     placeholder="Jan"
                     {...field}
                   />
                 </FormControl>
                 <UncontrolledFormMessage
-                  message={form.formState.errors.name?.message}
+                  message={form.formState.errors.firstName?.message}
                 />
               </FormItem>
             )}
           />
 
-          {/* Surname */}
+          {/* Last Name */}
           <FormField
             control={form.control}
-            name="surname"
+            name="lastName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nazwisko</FormLabel>
@@ -238,7 +263,7 @@ export function AddBookingForm() {
                   <Input placeholder="Kowalski" {...field} />
                 </FormControl>
                 <UncontrolledFormMessage
-                  message={form.formState.errors.surname?.message}
+                  message={form.formState.errors.lastName?.message}
                 />
               </FormItem>
             )}
@@ -271,7 +296,7 @@ export function AddBookingForm() {
               <FormItem>
                 <FormLabel>Telefon</FormLabel>
                 <FormControl>
-                  <Input placeholder="123456789" {...field} />
+                  <Input type="tel" placeholder="123456789" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -300,7 +325,7 @@ export function AddBookingForm() {
         />
 
         {/* Rodo */}
-        <FormField
+        {/* <FormField
           control={form.control}
           name="rodo"
           render={({ field }) => (
@@ -318,7 +343,7 @@ export function AddBookingForm() {
               </FormLabel>
             </FormItem>
           )}
-        />
+        /> */}
 
         {/* Submit */}
         <Button type="submit" disabled={isPending}>

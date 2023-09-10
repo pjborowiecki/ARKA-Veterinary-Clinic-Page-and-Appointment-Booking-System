@@ -56,3 +56,17 @@ export function scrollToSection(sectionName: string) {
     ?.getElementById(`${sectionName}`)
     ?.scrollIntoView({ behavior: "smooth" })
 }
+
+export function slugify(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+}
+
+export function toSentenceCase(str: string) {
+  return str
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase())
+}

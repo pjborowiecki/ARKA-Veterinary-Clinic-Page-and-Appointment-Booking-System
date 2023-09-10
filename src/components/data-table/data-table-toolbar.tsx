@@ -42,7 +42,7 @@ export function DataTableToolbar<TData>({
               table.getColumn(column.id ? String(column.id) : "") && (
                 <Input
                   key={String(column.id)}
-                  placeholder={`Nazwisko...`}
+                  placeholder={`Filter ${column.title}...`}
                   value={
                     (table
                       .getColumn(String(column.id))
@@ -71,20 +71,20 @@ export function DataTableToolbar<TData>({
           )}
         {isFiltered && (
           <Button
-            aria-label="Zresetuj ustawienia filtrowania"
+            aria-label="Zresetuj filtry"
             variant="ghost"
             className="h-8 px-2 lg:px-3"
             onClick={() => table.resetColumnFilters()}
           >
             Zresetuj
-            <Cross2Icon className="ml-2 h-4 w-4" />
+            <Cross2Icon className="ml-2 h-4 w-4" aria-hidden="true" />
           </Button>
         )}
       </div>
       <div className="flex items-center space-x-2">
         {deleteRowsAction && table.getSelectedRowModel().rows.length > 0 ? (
           <Button
-            aria-label="Usuń zaznaczone wiersz"
+            aria-label="Usuń zaznaczony wiersz"
             variant="outline"
             size="sm"
             className="h-8"
@@ -100,7 +100,7 @@ export function DataTableToolbar<TData>({
             Usuń
           </Button>
         ) : newRowLink ? (
-          <Link aria-label="Utwórz nowy wiersz" href={newRowLink}>
+          <Link aria-label="Dodaj wiersz" href={newRowLink}>
             <div
               className={cn(
                 buttonVariants({

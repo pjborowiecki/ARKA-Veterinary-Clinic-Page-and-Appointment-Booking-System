@@ -1,10 +1,13 @@
 import {
+  AlertTriangle,
   ArrowRight,
   Calendar,
   CalendarClock,
   Eye,
   EyeOff,
   FileTerminal,
+  Home,
+  Info,
   Loader2,
   LogOut,
   Menu,
@@ -24,8 +27,10 @@ export const Icons = {
   arrowRight: ArrowRight,
   availability: CalendarClock,
   calendar: Calendar,
+  clinic: Home,
   close: X,
   hide: EyeOff,
+  info: Info,
   logout: LogOut,
   user: User,
   menu: Menu,
@@ -36,6 +41,7 @@ export const Icons = {
   spinner: Loader2,
   terminal: FileTerminal,
   view: Eye,
+  warning: AlertTriangle,
   google: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"

@@ -21,7 +21,7 @@ export function LogOutButtons() {
         <SignOutButton
           signOutCallback={() =>
             startTransition(() => {
-              router.push(`${window.location.origin}/?redirect=false`)
+              router.push(`${window.location.origin}`)
             })
           }
         >

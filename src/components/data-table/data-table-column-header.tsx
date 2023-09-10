@@ -59,11 +59,11 @@ export function DataTableColumnHeader<TData, TValue>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           <DropdownMenuItem
-            aria-label="Srtowanie rosnące"
+            aria-label="Sortowanie rosnące"
             onClick={() => column.toggleSorting(false)}
           >
             <ArrowUpIcon
-              className="text-muted-foreground/70 mr-2 h-3.5 w-3.5"
+              className="mr-2 h-3.5 w-3.5 text-muted-foreground/70"
               aria-hidden="true"
             />
             Rosnąco
@@ -73,18 +73,18 @@ export function DataTableColumnHeader<TData, TValue>({
             onClick={() => column.toggleSorting(true)}
           >
             <ArrowDownIcon
-              className="text-muted-foreground/70 mr-2 h-3.5 w-3.5"
+              className="mr-2 h-3.5 w-3.5 text-muted-foreground/70"
               aria-hidden="true"
             />
             Malejąco
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            aria-label="Ukryj kolumnę"
+            aria-label="Hide column"
             onClick={() => column.toggleVisibility(false)}
           >
             <EyeNoneIcon
-              className="text-muted-foreground/70 mr-2 h-3.5 w-3.5"
+              className="mr-2 h-3.5 w-3.5 text-muted-foreground/70"
               aria-hidden="true"
             />
             Ukryj

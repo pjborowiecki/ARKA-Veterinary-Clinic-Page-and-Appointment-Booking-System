@@ -86,6 +86,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
+
   // Server-side pagination
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
@@ -118,6 +119,7 @@ export function DataTable<TData, TValue>({
         scroll: false,
       }
     )
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex, pageSize])
 

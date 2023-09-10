@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
+import { filterBookingsAction } from "@/actions/booking"
 import type { Booking } from "@/db/schema"
 
 import { cn, isMacOs } from "@/lib/utils"
@@ -17,7 +18,6 @@ import {
 } from "@/components/ui/command"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Icons } from "@/components/icons"
-import { filterBookingsAction } from "@/app/_actions/booking"
 
 export function Combobox() {
   const router = useRouter()

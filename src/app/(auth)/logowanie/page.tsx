@@ -23,7 +23,10 @@ export const metadata: Metadata = {
 
 export default async function SignInPage() {
   const user = await currentUser()
-  if (user) redirect("/rezerwacje")
+
+  if (user) {
+    redirect("/admin")
+  }
 
   return (
     <Shell className="max-w-lg">

@@ -13,6 +13,13 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  redirects: () => [
+    {
+      source: "/admin",
+      destination: "/admin/przychodnia",
+      permanent: false,
+    },
+  ],
 }
 
 export default nextConfig
