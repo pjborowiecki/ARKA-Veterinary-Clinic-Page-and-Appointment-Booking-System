@@ -25,9 +25,6 @@
 
 ## About the Project
 
-[https://arka-weterynaria.pl](https://arka-weterynaria.pl)
-<br>
-
 ![public/images/screenshots/screenshot_1](./public/images/screenshots/screenshot_1.png)
 <br>
 
