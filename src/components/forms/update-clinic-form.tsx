@@ -51,7 +51,6 @@ export function UpdateClinicForm({ clinic, userId }: UpdateClinicFormProps) {
         await updateClinicAction({ ...data, userId })
         form.reset()
         toast.success("Dane przychodni zostały zaktualizowane")
-        router.push("admin/przychodnia")
         router.refresh()
       } catch (error) {
         catchError(error)
@@ -62,10 +61,10 @@ export function UpdateClinicForm({ clinic, userId }: UpdateClinicFormProps) {
   return (
     <Form {...form}>
       <form
-        className="grid w-full max-w-xl gap-5"
+        className="grid w-full max-w-xl gap-6"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
             control={form.control}
             name="phone"
@@ -110,7 +109,7 @@ export function UpdateClinicForm({ clinic, userId }: UpdateClinicFormProps) {
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
             control={form.control}
             name="latitude"

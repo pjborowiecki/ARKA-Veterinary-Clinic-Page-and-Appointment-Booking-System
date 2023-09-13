@@ -14,6 +14,7 @@
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#tech-stack">Tech Stack</a></li>
+    <li><a href="#features">Features</a></li>
     <li><a href="#getting-started">Getting Started</li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -34,6 +35,15 @@
 <br>
 
 ![public/images/screenshots/screenshot_3](./public/images/screenshots/screenshot_3.png)
+<br>
+
+![public/images/screenshots/screenshot_4](./public/images/screenshots/screenshot_4.png)
+<br>
+
+![public/images/screenshots/screenshot_5](./public/images/screenshots/screenshot_5.png)
+<br>
+
+![public/images/screenshots/screenshot_6](./public/images/screenshots/screenshot_6.png)
 <br>
 
 This project is a re-build of a website I receintly build with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
@@ -58,6 +68,22 @@ The client wanted a simple website with a contact form and a full booking manage
 - **Validations:** [Zod](https://zod.dev/)
 - **Hosting:** [Vercel](https://vercel.com)
 - **Project Management:** [Jira](https://www.atlassian.com/software/jira)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p><br>
+
+## Features
+
+- [ ] Landing page with dynamic clinic details, contact information, and opening hours
+- [ ] Admin panel for appointment management, protected by authentication
+- [ ] Ability to edit clinic details, contact information, opening hours, days off, services, and user information from the admin panel
+- [ ] Contact form on the landing page for client messages
+- [ ] Interactive Google Maps widget on the landing page
+- [ ] Client appointment booking functionality on the landing page
+- [ ] Client and clinic appointment cancellation and rescheduling
+- [ ] Clinic's ability to confirm or reject appointments
+- [ ] Email notifications to clients for booking, confirmation, rejection, and rescheduling of appointments
+- [ ] Email notifications to the clinic for appointment bookings and contact form messages
+- [ ] Server-side pagination, filtering, and sorting of appointments in the admin panel
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p><br>
 

@@ -17,9 +17,14 @@ export function ClinicTabs() {
       isActive: segment === null,
     },
     {
-      title: "Dostępność",
-      href: `/admin/przychodnia/dostepnosc`,
-      isActive: segment === "dostepnosc",
+      title: "Godziny przyjęć",
+      href: `/admin/przychodnia/godziny`,
+      isActive: segment === "godziny",
+    },
+    {
+      title: "Dni wolne",
+      href: `/admin/przychodnia/dni-wolne`,
+      isActive: segment === "dni-wolne",
     },
     {
       title: "Rezerwacje",
@@ -34,7 +39,7 @@ export function ClinicTabs() {
       className="sticky top-0 z-30 w-full overflow-auto bg-background px-1"
       onValueChange={(value) => router.push(value)}
     >
-      <TabsList className="inline-flex items-center justify-center space-x-1.5 text-muted-foreground">
+      <TabsList className="inline-flex items-center justify-center space-x-2 whitespace-nowrap text-muted-foreground">
         {tabs.map((tab) => (
           <div
             role="none"

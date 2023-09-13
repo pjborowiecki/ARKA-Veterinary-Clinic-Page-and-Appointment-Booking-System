@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 
 import {
   DialogContent,
@@ -7,11 +7,9 @@ import {
 } from "@/components/ui/dialog"
 import { AddBookingForm } from "@/components/forms/add-booking-form"
 
-interface AddBookingDialogProps {}
-
-export function AddBookingDialog({}: AddBookingDialogProps) {
+export function AddBookingDialog() {
   return (
-    <DialogContent>
+    <DialogContent className="bg-primary-foreground">
       <DialogHeader></DialogHeader>
       <AddBookingForm />
       <DialogFooter></DialogFooter>

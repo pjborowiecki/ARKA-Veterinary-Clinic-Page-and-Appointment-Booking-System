@@ -19,8 +19,14 @@ export const adminConfig: AdminConfigProps = {
       items: [],
     },
     {
-      title: "Dostępność",
-      href: "/admin/przychodnia/dostepnosc",
+      title: "Godziny przyjęć",
+      href: "/admin/przychodnia/godziny",
+      icon: "availability",
+      items: [],
+    },
+    {
+      title: "Dni wolne",
+      href: "/admin/przychodnia/dni-wolne",
       icon: "availability",
       items: [],
     },

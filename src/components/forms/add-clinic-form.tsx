@@ -35,8 +35,6 @@ export function AddClinicForm({ userId }: AddClinicFormProps) {
   const form = useForm<Inputs>({
     resolver: zodResolver(clinicSchema),
     defaultValues: {
-      name: "",
-      description: "",
       address: "",
       phone: "",
       email: "",

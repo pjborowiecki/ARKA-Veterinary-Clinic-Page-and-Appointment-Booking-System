@@ -115,18 +115,6 @@ export function BookingsTableShell({
           <DataTableColumnHeader column={column} title="Termin" />
         ),
       },
-      // {
-      //   accessorKey: "date",
-      //   header: ({ column }) => (
-      //     <DataTableColumnHeader column={column} title="Data" />
-      //   ),
-      // },
-      // {
-      //   accessorKey: "time",
-      //   header: ({ column }) => (
-      //     <DataTableColumnHeader column={column} title="Godzina" />
-      //   ),
-      // },
       {
         accessorKey: "firstName",
         header: ({ column }) => (

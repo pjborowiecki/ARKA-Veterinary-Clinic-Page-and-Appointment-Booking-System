@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
-import { addClinicAction } from "@/actions/clinic"
-import { db } from "@/db"
-import { clinics } from "@/db/schema"
+import {
+  addClinicAction,
+  checkIfClinicExistsAction,
+  getClinicAction,
+} from "@/actions/clinic"
 import { env } from "@/env.mjs"
 import { currentUser } from "@clerk/nextjs"
-import { eq } from "drizzle-orm"
 
 import { catchError } from "@/lib/utils"
 import {
@@ -19,7 +20,7 @@ import { UpdateClinicForm } from "@/components/forms/update-clinic-form"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Zarządzanie placówką",
+  title: "Zarządzanie przychodnią",
   description: "Zarządzaj danymi, dostępnością i rezerwacjami przychodni",
 }
 
@@ -30,11 +31,9 @@ export default async function ClinicDataPage() {
     redirect("/logowanie")
   }
 
-  const allClinics = await db.query.clinics.findMany({
-    where: eq(clinics.userId, user.id),
-  })
+  const clinicExists = await checkIfClinicExistsAction(user.id)
 
-  if (!allClinics || allClinics.length === 0) {
+  if (!clinicExists) {
     try {
       await addClinicAction({
         userId: user.id,
@@ -49,21 +48,21 @@ export default async function ClinicDataPage() {
     }
   }
 
-  const clinic = await db.query.clinics.findFirst({
-    where: eq(clinics.userId, user.id),
-  })
+  const clinic = await getClinicAction(user.id)
 
   return (
-    <div>
-      <Card as="section">
-        <CardHeader className="my-2">
-          <CardTitle className="text-2xl">Dane przychodni</CardTitle>
-          <CardDescription>Aktualizacja danych przychodni</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {clinic && <UpdateClinicForm clinic={clinic} userId={user.id} />}
-        </CardContent>
-      </Card>
-    </div>
+    <Card as="section">
+      <CardHeader className="my-2">
+        <CardTitle className="text-2xl">Dane kontaktowe</CardTitle>
+        <CardDescription>Aktualizuj dane przychodni</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {user && clinic ? (
+          <UpdateClinicForm clinic={clinic} userId={user.id} />
+        ) : (
+          <p>Wczytywanie...</p>
+        )}
+      </CardContent>
+    </Card>
   )
 }

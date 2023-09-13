@@ -15,8 +15,8 @@
     "db:studio": "drizzle-kit studio",
     "shadcn:add": "pnpm dlx shadcn-ui@latest add",
     "typecheck": "tsc --noEmit",
-    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+    "prettier:format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "prettier:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.4",
@@ -38,6 +38,7 @@
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.6",
     "@react-email/components": "^0.0.7",

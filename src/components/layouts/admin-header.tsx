@@ -32,7 +32,7 @@ export function AdminHeader({ user }: AdminHeaderProps) {
       ?.emailAddress ?? ""
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 items-center justify-between">
         <Link
           aria-label="Home"
@@ -94,16 +94,26 @@ export function AdminHeader({ user }: AdminHeaderProps) {
                             aria-hidden="true"
                           />
                           Rezerwacje
-                          <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
+                          <DropdownMenuShortcut>⇧⌘R</DropdownMenuShortcut>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/admin/przychodnia/dostepnosc">
+                        <Link href="/admin/przychodnia/godziny">
                           <Icons.user
                             className="mr-2 h-4 w-4"
                             aria-hidden="true"
                           />
-                          Dostępność
+                          Godziny przyjęć
+                          <DropdownMenuShortcut>⇧⌘G</DropdownMenuShortcut>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/admin/przychodnia/dni-wolne">
+                          <Icons.user
+                            className="mr-2 h-4 w-4"
+                            aria-hidden="true"
+                          />
+                          Dni wolne
                           <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                         </Link>
                       </DropdownMenuItem>
@@ -126,7 +136,7 @@ export function AdminHeader({ user }: AdminHeaderProps) {
                           aria-hidden="true"
                         />
                         Wyloguj
-                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                        <DropdownMenuShortcut>⇧⌘W</DropdownMenuShortcut>
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>

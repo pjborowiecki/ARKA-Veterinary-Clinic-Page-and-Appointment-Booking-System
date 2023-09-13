@@ -50,8 +50,12 @@ export const siteConfig = {
       href: "/admin/przychodnia/rezerwacje",
     },
     {
-      title: "Dostępność",
-      href: "/admin/przychodnia/dostepnosc",
+      title: "Godziny przyjęć",
+      href: "/admin/przychodnia/godziny",
+    },
+    {
+      title: "Dni wolne",
+      href: "/admin/przychodnia/dni-wolne",
     },
     {
       title: "Profil",

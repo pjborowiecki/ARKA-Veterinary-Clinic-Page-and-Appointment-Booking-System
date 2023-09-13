@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "ff7d57fc-ace3-42fd-a34f-510e4ed6996e",
+  "id": "4b4466db-7565-4984-9f02-3731247caefa",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "bookings": {
@@ -116,8 +116,8 @@
       },
       "uniqueConstraints": {}
     },
-    "openingHours": {
-      "name": "openingHours",
+    "businessHours": {
+      "name": "businessHours",
       "columns": {
         "id": {
           "name": "id",
@@ -126,33 +126,187 @@
           "notNull": true,
           "autoincrement": true
         },
-        "dayOfWeek": {
-          "name": "dayOfWeek",
-          "type": "enum('monday','tuesday','wednesday','thursday','friday','saturday','sunday')",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "openingTime": {
-          "name": "openingTime",
-          "type": "time",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "closingTime": {
-          "name": "closingTime",
-          "type": "time",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "clinicId": {
           "name": "clinicId",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "mondayStatus": {
+          "name": "mondayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "tuesdayStatus": {
+          "name": "tuesdayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "wednesdayStatus": {
+          "name": "wednesdayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "thursdayStatus": {
+          "name": "thursdayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "fridayStatus": {
+          "name": "fridayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "saturdayStatus": {
+          "name": "saturdayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "sundayStatus": {
+          "name": "sundayStatus",
+          "type": "enum('otwarte','zamknięte')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'otwarte'"
+        },
+        "mondayOpening": {
+          "name": "mondayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "tuesdayOpening": {
+          "name": "tuesdayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "wednesdayOpening": {
+          "name": "wednesdayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "thursdayOpening": {
+          "name": "thursdayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "fridayOpening": {
+          "name": "fridayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "saturdayOpening": {
+          "name": "saturdayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "sundayOpening": {
+          "name": "sundayOpening",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'09:00'"
+        },
+        "mondayClosing": {
+          "name": "mondayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
+        },
+        "tuesdayClosing": {
+          "name": "tuesdayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
+        },
+        "wednesdayClosing": {
+          "name": "wednesdayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
+        },
+        "thursdayClosing": {
+          "name": "thursdayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
+        },
+        "fridayClosing": {
+          "name": "fridayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
+        },
+        "saturdayClosing": {
+          "name": "saturdayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
+        },
+        "sundayClosing": {
+          "name": "sundayClosing",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'17:00'"
         },
         "createdAt": {
           "name": "createdAt",
@@ -174,8 +328,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "openingHours_id": {
-          "name": "openingHours_id",
+        "businessHours_id": {
+          "name": "businessHours_id",
           "columns": [
             "id"
           ]
@@ -276,7 +430,7 @@
         },
         "date": {
           "name": "date",
-          "type": "date",
+          "type": "datetime",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

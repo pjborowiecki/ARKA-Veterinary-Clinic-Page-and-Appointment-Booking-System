@@ -8,17 +8,17 @@ import type { z } from "zod"
 
 import type { clinicSchema } from "@/lib/validations/clinic"
 
+export async function checkIfClinicExistsAction(userId: string) {
+  const alreadyExists = await db.query.clinics.findFirst({
+    where: eq(clinics.userId, userId),
+  })
+
+  return alreadyExists !== null
+}
+
 export async function addClinicAction(
   input: z.infer<typeof clinicSchema> & { userId: string }
 ) {
-  const alreadyExists = await db.query.clinics.findFirst({
-    where: eq(clinics.userId, input.userId),
-  })
-
-  if (alreadyExists) {
-    throw new Error("Klinika już istnieje")
-  }
-
   await db.insert(clinics).values({
     userId: input.userId,
     latitude: input.latitude,
@@ -31,17 +31,17 @@ export async function addClinicAction(
   revalidatePath("/admin/przychodnia")
 }
 
+export async function getClinicAction(userId: string) {
+  const clinic = await db.query.clinics.findFirst({
+    where: eq(clinics.userId, userId),
+  })
+
+  return clinic
+}
+
 export async function updateClinicAction(
   input: z.infer<typeof clinicSchema> & { userId: string }
 ) {
-  const correctId = await db.query.clinics.findFirst({
-    where: eq(clinics.id, 1),
-  })
-
-  if (!correctId) {
-    throw new Error("Klinika o podanym id nie istnieje")
-  }
-
   await db
     .update(clinics)
     .set({
@@ -52,7 +52,7 @@ export async function updateClinicAction(
       phone: input.phone,
       email: input.email,
     })
-    .where(eq(clinics.id, 1))
+    .where(eq(clinics.userId, input.userId))
 
   revalidatePath("/admin/przychodnia")
 }

@@ -1,12 +1,12 @@
 import { bookings } from "@/db/schema"
-import dayjs from "dayjs"
 import * as z from "zod"
 
 export const bookingSchema = z.object({
   message: z.string().optional(),
   type: z
     .enum(bookings.type.enumValues, {
-      required_error: "Nieprawidłowy typ rezerwacji",
+      required_error: "Wybierz rodzaj wizyty",
+      invalid_type_error: "Nieprawidłowy typ danych",
     })
     .default(bookings.type.enumValues[0]),
   // date: z.coerce.date({

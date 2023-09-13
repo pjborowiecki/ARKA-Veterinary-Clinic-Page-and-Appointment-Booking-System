@@ -4,9 +4,15 @@ import { db } from "@/db"
 import { bookings, clinics, type Booking } from "@/db/schema"
 import { env } from "@/env.mjs"
 import { currentUser } from "@clerk/nextjs"
-import { format } from "date-fns"
 import { and, asc, desc, eq, gte, inArray, like, lte, sql } from "drizzle-orm"
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { DateRangePicker } from "@/components/date-range-picker"
 import { BookingsTableShell } from "@/components/shells/bookings-table-shell"
 
@@ -31,19 +37,8 @@ export default async function ClinicBookingsPage({
     redirect("/logowanie")
   }
 
-  const {
-    page,
-    per_page,
-    sort,
-    from,
-    to,
-    lastName,
-    type,
-    date,
-    time,
-    slot,
-    email,
-  } = searchParams ?? {}
+  const { page, per_page, sort, from, to, lastName, type, slot, email } =
+    searchParams ?? {}
 
   const clinic = await db.query.clinics.findFirst({
     where: eq(clinics.userId, user.id),
@@ -162,16 +157,22 @@ export default async function ClinicBookingsPage({
   const pageCount = Math.ceil(count / limit)
 
   return (
-    <div>
-      <div className="mb-8 flex flex-col gap-4 xs:flex-row xs:items-center xs:justify-between">
-        <h2 className="text-2xl font-bold tracking-tight">Rezerwacje</h2>
+    <Card as="section">
+      <CardHeader className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <CardTitle className="text-2xl">Rezerwacje</CardTitle>
+          <CardDescription>Zarządzaj rezerwacjami</CardDescription>
+        </div>
+
         <DateRangePicker align="end" />
-      </div>
-      <BookingsTableShell
-        data={items}
-        pageCount={pageCount}
-        clinicId={clinic.id}
-      />
-    </div>
+      </CardHeader>
+      <CardContent>
+        <BookingsTableShell
+          data={items}
+          pageCount={pageCount}
+          clinicId={clinic.id}
+        />
+      </CardContent>
+    </Card>
   )
 }

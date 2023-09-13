@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { addBookingAction, checkBookingAction } from "@/actions/booking"
 import { bookings } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,7 +15,7 @@ import type { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { bookingSchema } from "@/lib/validations/booking"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
   Form,
@@ -42,6 +43,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
 type Inputs = z.infer<typeof bookingSchema>
+
+// const bookings =
 
 export function AddBookingForm() {
   const [isPending, startTransition] = React.useTransition()
@@ -345,17 +348,29 @@ export function AddBookingForm() {
           )}
         /> */}
 
-        {/* Submit */}
-        <Button type="submit" disabled={isPending}>
-          {isPending && (
-            <Icons.spinner
-              className="mr-2 h-4 w-4 animate-spin"
-              aria-hidden="true"
-            />
-          )}
-          Zarezerwuj
-          <span className="sr-only">Zarezerwuj</span>
-        </Button>
+        {/* Buttons */}
+        <div className="grid grid-cols-2 gap-4">
+          <Link
+            href="/"
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+              })
+            )}
+          >
+            Wróć
+          </Link>
+          <Button type="submit" disabled={isPending}>
+            {isPending && (
+              <Icons.spinner
+                className="mr-2 h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />
+            )}
+            Zarezerwuj
+            <span className="sr-only">Zarezerwuj</span>
+          </Button>
+        </div>
       </form>
     </Form>
   )
