@@ -32,7 +32,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
-}: DataTableFacetedFilter<TData, TValue>) {
+}: DataTableFacetedFilter<TData, TValue>): JSX.Element {
   const selectedValues = new Set(column?.getFilterValue() as string[])
 
   return (

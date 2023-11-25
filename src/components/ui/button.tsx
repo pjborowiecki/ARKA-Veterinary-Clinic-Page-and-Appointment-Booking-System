@@ -20,13 +20,13 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         landingPrimary:
-          "bg-greenButtonBackground border-[3px] border-primaryButtonBorder rounded-full text-greenButtonText font-medium tracking-wider md:hover:scale-110 py-[4.5vw] md:px-[4vw] md:py-[1.3vw] w-1400:px-[56px] w-1400:py-[18px] text-[4vw] md:text-[1.4vw] w-1400:text-[18px]",
+          "rounded-full border-[3px] border-primaryButtonBorder bg-greenButtonBackground py-[4.5vw] text-[4vw] font-medium tracking-wider text-greenButtonText md:px-[4vw] md:py-[1.3vw] md:text-[1.4vw] md:hover:scale-110 w-1400:px-[56px] w-1400:py-[18px] w-1400:text-[18px]",
         landingSecondary:
-          "bg-peach border-[2px] border-secondaryButtonBorder rounded-full text-greenNavbarText font-medium tracking-wider gap-[16px] md:hover:scale-110 py-[4vw] md:px-[4vw] md:py-[1.32vw] w-1400:px-[56px] w-1400:py-[18px] text-[4vw] md:text-[1.4vw] w-1400:text-[18px]",
+          "gap-[16px] rounded-full border-[2px] border-secondaryButtonBorder bg-peach py-[4vw] text-[4vw] font-medium tracking-wider text-greenNavbarText md:px-[4vw] md:py-[1.32vw] md:text-[1.4vw] md:hover:scale-110 w-1400:px-[56px] w-1400:py-[18px] w-1400:text-[18px]",
         landingAppointment:
-          "hidden xl:flex font-medium text-offWhiteText text-[18px] border-[3px] border-appointmentButtonBorder rounded-full bg-greenButtonBackground px-[30px] py-[10px] shadow-sm cursor-pointer from-greenNavbarBackground to-greenNavbarText hover:scale-[1.1] active:shadow-none relative z-[2] tracking-wide",
+          "from-greenNavbarBackground relative z-[2] hidden cursor-pointer rounded-full border-[3px] border-appointmentButtonBorder bg-greenButtonBackground to-greenNavbarText px-[30px] py-[10px] text-[18px] font-medium tracking-wide text-offWhiteText shadow-sm hover:scale-[1.1] active:shadow-none xl:flex",
         landingContact:
-          "flex items-center justify-center gap-2 px-6 py-2.5 shadow-sm border-[2px] border-contactButtonBorder font-semibold tracking-wider focus:outline-none hover:scale-110 hover:shadow-md disabled:bg-gray-400 disabled:hover:scale-100 disabled:cursor-not-allowed text-greenNavbarText bg-contactButtonBackground",
+          "flex items-center justify-center gap-2 border-[2px] border-contactButtonBorder bg-contactButtonBackground px-6 py-2.5 font-semibold tracking-wider text-greenNavbarText shadow-sm hover:scale-110 hover:shadow-md focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:scale-100",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -36,7 +36,7 @@ const buttonVariants = cva(
         action: "w-[70vw] sm:w-[60vw] md:w-[auto]",
         datePicker: "h-10 px-3 py-2",
         contact:
-          "w-[50vw] h-[16vw] md:w-[20vw] md:h-[6vw] lg:w-auto lg:h-auto px-6 py-[10px] shadow-sm border-[2px] tracking-wider text-[4.8vw] md:text-[2vw] lg:text-[16px] rounded-full",
+          "h-[16vw] w-[50vw] rounded-full border-[2px] px-6 py-[10px] text-[4.8vw] tracking-wider shadow-sm md:h-[6vw] md:w-[20vw] md:text-[2vw] lg:h-auto lg:w-auto lg:text-[16px]",
       },
     },
     defaultVariants: {

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "4b4466db-7565-4984-9f02-3731247caefa",
+  "id": "2ffa8682-84a8-473e-8bc4-d70e17f79f02",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "bookings": {

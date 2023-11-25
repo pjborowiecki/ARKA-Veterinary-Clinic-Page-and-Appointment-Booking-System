@@ -12,7 +12,7 @@ export function Header({
   size = "default",
   className,
   ...props
-}: HeaderProps) {
+}: HeaderProps): JSX.Element {
   return (
     <div className={cn("grid gap-1", className)} {...props}>
       <h1

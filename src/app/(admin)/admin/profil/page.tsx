@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { env } from "@/env.mjs"
-import { currentUser } from "@clerk/nextjs"
 
+import { getCurrentUser } from "@/lib/auth"
 import { UserProfile } from "@/components/auth/user-profile"
 import {
   PageHeader,
@@ -17,12 +17,9 @@ export const metadata: Metadata = {
   description: "Zarządzaj danymi administratora",
 }
 
-export default async function ProfilePage() {
-  const user = await currentUser()
-
-  if (!user) {
-    redirect("/")
-  }
+export default async function ProfilePage(): Promise<JSX.Element> {
+  const user = await getCurrentUser()
+  if (!user) redirect("/")
 
   return (
     <Shell variant="sidebar">

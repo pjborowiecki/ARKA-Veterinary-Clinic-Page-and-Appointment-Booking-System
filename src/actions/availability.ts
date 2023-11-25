@@ -3,12 +3,11 @@
 import { revalidatePath } from "next/cache"
 import { db } from "@/db"
 import { businessHours } from "@/db/schema"
+import type { businessHoursSchema } from "@/validations/availability"
 import { and, eq } from "drizzle-orm"
 import type { z } from "zod"
 
-import type { businessHoursSchema } from "@/lib/validations/availability"
-
-export async function checkIfBusinessHoursExistAction(
+export async function checkIfBusinessHoursExist(
   userId: string,
   clinicId: number
 ) {
@@ -20,7 +19,7 @@ export async function checkIfBusinessHoursExistAction(
   })
 }
 
-export async function addBusinessHoursAction(
+export async function addBusinessHours(
   input: z.infer<typeof businessHoursSchema> & {
     userId: string
     clinicId: number
@@ -55,13 +54,13 @@ export async function addBusinessHoursAction(
   revalidatePath("/admin/przychodnia/godziny")
 }
 
-export async function getBusinessHoursAction() {
+export async function getBusinessHours() {
   return await db.query.businessHours.findFirst({
     where: eq(businessHours.id, 1),
   })
 }
 
-export async function updateBusinessHoursAction(
+export async function updateBusinessHours(
   input: z.infer<typeof businessHoursSchema> & {
     userId: string
     clinicId: number
@@ -104,8 +103,8 @@ export async function updateBusinessHoursAction(
   revalidatePath("/admin/przychodnia/godziny")
 }
 
-export async function getDatesUnavailableAction() {}
+export async function getDatesUnavailable() {}
 
-export async function updateDatesUnavailableAction() {}
+export async function updateDatesUnavailable() {}
 
-export async function deleteDatesUnavailableAction() {}
+export async function deleteDatesUnavailable() {}

@@ -6,9 +6,9 @@ import { deleteBookingAction } from "@/actions/booking"
 import { bookings, type Booking } from "@/db/schema"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { type ColumnDef } from "@tanstack/react-table"
-import { toast } from "sonner"
 
-import { catchError, formatDate } from "@/lib/utils"
+import { toast } from "@/hooks/use-toast"
+import { formatDate } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -33,7 +33,7 @@ export function BookingsTableShell({
   data,
   pageCount,
   clinicId,
-}: BookingsTableShellProps) {
+}: BookingsTableShellProps): JSX.Element {
   const [isPending, startTransition] = React.useTransition()
   const [selectedRowIds, setSelectedRowIds] = React.useState<number[]>([])
 
@@ -189,17 +189,17 @@ export function BookingsTableShell({
                   startTransition(() => {
                     row.toggleSelected(false)
 
-                    toast.promise(
-                      deleteBookingAction({
-                        id: row.original.id,
-                        clinicId,
-                      }),
-                      {
-                        loading: "Usuwanie...",
-                        success: () => "Rezerwacja pomyślnie usunięta",
-                        error: (err: unknown) => catchError(err),
-                      }
-                    )
+                    // toast(
+                    //   deleteBookingAction({
+                    //     id: row.original.id,
+                    //     clinicId,
+                    //   }),
+                    //   {
+                    //     loading: "Usuwanie...",
+                    //     success: () => "Rezerwacja pomyślnie usunięta",
+                    //     error: (err: unknown) => console.error(err),
+                    //   }
+                    // )
                   })
                 }}
                 disabled={isPending}

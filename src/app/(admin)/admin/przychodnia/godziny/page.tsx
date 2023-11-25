@@ -1,20 +1,15 @@
 import type { Metadata } from "next"
 import { notFound, redirect } from "next/navigation"
 import {
-  addBusinessHoursAction,
-  checkIfBusinessHoursExistAction,
-  getBusinessHoursAction,
+  addBusinessHours,
+  checkIfBusinessHoursExist,
+  getBusinessHours,
 } from "@/actions/availability"
-import {
-  addClinicAction,
-  checkIfClinicExistsAction,
-  getClinicAction,
-} from "@/actions/clinic"
+import { addClinic, checkIfClinicExists, getClinic } from "@/actions/clinic"
 import { env } from "@/env.mjs"
-import { currentUser } from "@clerk/nextjs"
-import { toast } from "sonner"
 
-import { catchError } from "@/lib/utils"
+import { useToast } from "@/hooks/use-toast"
+import { getCurrentUser } from "@/lib/auth"
 import {
   Card,
   CardContent,
@@ -22,7 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { UpdateBusinessHoursForm } from "@/components/forms/update-business-hours-form"
+import { BusinessHoursUpdateForm } from "@/components/forms/clinic/business-hours-update-form"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -30,18 +25,17 @@ export const metadata: Metadata = {
   description: "Edytuj godziny pracy przychodni oraz dni wolne",
 }
 
-export default async function ClinicBusinessHoursPage() {
-  const user = await currentUser()
+export default async function ClinicBusinessHoursPage(): Promise<JSX.Element> {
+  const user = await getCurrentUser()
+  if (!user) redirect("/logowanie")
 
-  if (!user) {
-    redirect("/logowanie")
-  }
+  const { toast } = useToast()
 
-  const clinicExists = await checkIfClinicExistsAction(user.id)
+  const clinicExists = await checkIfClinicExists(user.id)
 
   if (!clinicExists) {
     try {
-      await addClinicAction({
+      await addClinic({
         userId: user.id,
         latitude: "49.963502626301796",
         longitude: "20.41957162751482",
@@ -50,7 +44,13 @@ export default async function ClinicBusinessHoursPage() {
         email: "pjborowiecki@gmail.com",
       })
     } catch (error) {
-      catchError(error)
+      // TODO
+      console.error("Error adding new clinic", error)
+      toast({
+        title: "Something went wrong",
+        decription: "Error adding new clinic",
+        variant: "desctructive",
+      })
     }
   }
 
@@ -59,14 +59,14 @@ export default async function ClinicBusinessHoursPage() {
   if (!clinic) {
     notFound()
   } else {
-    const businessHoursExist = await checkIfBusinessHoursExistAction(
+    const businessHoursExist = await checkIfBusinessHoursExist(
       user.id,
       clinic.id
     )
 
     if (!businessHoursExist) {
       try {
-        await addBusinessHoursAction({
+        await addBusinessHours({
           userId: user.id,
           clinicId: clinic.id,
           mondayStatus: "otwarte",
@@ -92,12 +92,14 @@ export default async function ClinicBusinessHoursPage() {
           sundayClosing: "17:00",
         })
       } catch (error) {
-        catchError(error)
+        // TODO
+        console.log(error)
+        throw new Error("Nie udało się dodać godzin przychodni")
       }
     }
   }
 
-  const currentBusinessHours = await getBusinessHoursAction()
+  const currentBusinessHours = await getBusinessHours()
 
   return (
     <Card as="section">
@@ -107,7 +109,7 @@ export default async function ClinicBusinessHoursPage() {
       </CardHeader>
       <CardContent>
         {user && clinic && currentBusinessHours ? (
-          <UpdateBusinessHoursForm
+          <BusinessHoursUpdateForm
             currentBusinessHours={currentBusinessHours}
             userId={user.id}
             clinicId={clinic.id}

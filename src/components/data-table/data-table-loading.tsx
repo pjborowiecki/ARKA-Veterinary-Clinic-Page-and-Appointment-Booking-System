@@ -24,7 +24,7 @@ export function DataTableLoading({
   isRowsDeletable = false,
   searchableFieldCount = 1,
   filterableFieldCount = 1,
-}: DataTableLoadingProps) {
+}: DataTableLoadingProps): JSX.Element {
   return (
     <div className="w-full space-y-3 overflow-auto">
       <div className="flex w-full items-center justify-between space-x-2 overflow-auto p-1">

@@ -9,7 +9,7 @@ interface ServiceCardProps {
   }
 }
 
-export function ServiceCard({ service }: ServiceCardProps) {
+export function ServiceCard({ service }: ServiceCardProps): JSX.Element {
   return (
     <Card className="rounded-xl border-none bg-transparent p-4 pr-[18%] shadow-none md:mb-0 md:pr-[12%] lg:pr-[2%] lg:hover:scale-[1.02] lg:hover:shadow-xl">
       <CardHeader className="flex flex-row gap-4">

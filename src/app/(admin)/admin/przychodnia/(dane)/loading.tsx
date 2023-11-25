@@ -1,3 +1,3 @@
-export default function ClinicDataLoading() {
-  return <div>Wczytywanie</div>
+export default function ClinicDataLoading(): JSX.Element {
+  return <div>TODO: Clinic Data Wczytywanie</div>
 }

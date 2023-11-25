@@ -5,13 +5,13 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@/components/ui/dialog"
-import { AddBookingForm } from "@/components/forms/add-booking-form"
+import { BookingAddForm } from "@/components/forms/booking/booking-add-form"
 
-export function AddBookingDialog() {
+export function AddBookingDialog(): JSX.Element {
   return (
     <DialogContent className="bg-primary-foreground">
       <DialogHeader></DialogHeader>
-      <AddBookingForm />
+      <BookingAddForm />
       <DialogFooter></DialogFooter>
     </DialogContent>
   )

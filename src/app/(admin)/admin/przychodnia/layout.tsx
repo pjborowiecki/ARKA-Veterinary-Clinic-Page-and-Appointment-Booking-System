@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
 
-import { ClinicTabs } from "@/components/layouts/clinic-tabs"
+import { getCurrentUser } from "@/lib/auth"
+import { ClinicTabs } from "@/components/nav/admin/clinic-tabs"
 import {
   PageHeader,
   PageHeaderDescription,
@@ -11,12 +11,9 @@ import { Shell } from "@/components/shells/shell"
 
 export default async function ClinicLayout({
   children,
-}: React.PropsWithChildren) {
-  const user = await currentUser()
-
-  if (!user) {
-    redirect("/logowanie")
-  }
+}: React.PropsWithChildren): Promise<JSX.Element> {
+  const user = await getCurrentUser()
+  if (!user) redirect("/logowanie")
 
   return (
     <Shell variant="sidebar">

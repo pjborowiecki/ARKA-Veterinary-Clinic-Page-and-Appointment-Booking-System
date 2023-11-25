@@ -27,7 +27,7 @@ function Shell({
   as: Comp = "section",
   variant,
   ...props
-}: ShellProps) {
+}: ShellProps): JSX.Element {
   return (
     <Comp className={cn(shellVariants({ variant }), className)} {...props} />
   )

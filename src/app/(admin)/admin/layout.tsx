@@ -1,24 +1,16 @@
-import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
+import { Footer } from "@/components/nav/admin/footer"
+import { Header } from "@/components/nav/admin/header"
 
-import { AdminFooter } from "@/components/layouts/admin-footer"
-import { AdminHeader } from "@/components/layouts/admin-header"
-
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
-}: React.PropsWithChildren) {
-  const user = await currentUser()
-
-  if (!user) {
-    redirect("/logowanie")
-  }
+}: React.PropsWithChildren): JSX.Element {
   return (
     <div className="flex min-h-screen flex-col">
-      <AdminHeader user={user} />
+      <Header />
       <main className="container h-full flex-1 overflow-hidden">
         {children}
       </main>
-      <AdminFooter />
+      <Footer />
     </div>
   )
 }

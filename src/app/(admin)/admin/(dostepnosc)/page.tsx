@@ -1,13 +1,12 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { env } from "@/env.mjs"
-import { currentUser } from "@clerk/nextjs"
 
+import { getCurrentUser } from "@/lib/auth"
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -24,12 +23,9 @@ export const metadata: Metadata = {
   description: "Określaj dni i godziny przyjęć",
 }
 
-export default async function AvailabilityPage() {
-  const user = await currentUser()
-
-  if (!user) {
-    redirect("/")
-  }
+export default async function AvailabilityPage(): Promise<JSX.Element> {
+  const user = await getCurrentUser()
+  if (!user) redirect("/")
 
   return (
     <Shell variant="sidebar">

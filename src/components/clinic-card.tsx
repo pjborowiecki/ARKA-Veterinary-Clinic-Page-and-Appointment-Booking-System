@@ -15,7 +15,7 @@ interface ClinicCardProps {
   href: string
 }
 
-export function ClinicCard({ clinic, href }: ClinicCardProps) {
+export function ClinicCard({ clinic, href }: ClinicCardProps): JSX.Element {
   return (
     <Link href={href}>
       <Card className="h-full overflow-hidden">

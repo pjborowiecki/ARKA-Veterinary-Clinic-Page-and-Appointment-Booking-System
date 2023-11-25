@@ -8,7 +8,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 
 // TODO: Structure and styyle the skeletons
-export default function DatesUnavailabileLoading() {
+export default function DatesUnavailabileLoading(): JSX.Element {
   return (
     <Card as="section">
       <CardHeader className="my-2">

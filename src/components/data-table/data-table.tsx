@@ -50,7 +50,7 @@ export function DataTable<TData, TValue>({
   searchableColumns = [],
   newRowLink,
   deleteRowsAction,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()

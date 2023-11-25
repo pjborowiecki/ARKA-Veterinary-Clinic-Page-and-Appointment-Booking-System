@@ -1,14 +1,9 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
-import {
-  addClinicAction,
-  checkIfClinicExistsAction,
-  getClinicAction,
-} from "@/actions/clinic"
+import { addClinic, checkIfClinicExists, getClinic } from "@/actions/clinic"
 import { env } from "@/env.mjs"
-import { currentUser } from "@clerk/nextjs"
 
-import { catchError } from "@/lib/utils"
+import { getCurrentUser } from "@/lib/auth"
 import {
   Card,
   CardContent,
@@ -16,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { UpdateClinicForm } from "@/components/forms/update-clinic-form"
+import { ClinicUpdateForm } from "@/components/forms/clinic/clinic-update-form"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -24,18 +19,15 @@ export const metadata: Metadata = {
   description: "Zarządzaj danymi, dostępnością i rezerwacjami przychodni",
 }
 
-export default async function ClinicDataPage() {
-  const user = await currentUser()
+export default async function ClinicDataPage(): Promise<JSX.Element> {
+  const user = await getCurrentUser()
+  if (!user) redirect("/logowanie")
 
-  if (!user) {
-    redirect("/logowanie")
-  }
-
-  const clinicExists = await checkIfClinicExistsAction(user.id)
+  const clinicExists = await checkIfClinicExists(user.id)
 
   if (!clinicExists) {
     try {
-      await addClinicAction({
+      await addClinic({
         userId: user.id,
         latitude: "49.963502626301796",
         longitude: "20.41957162751482",
@@ -44,11 +36,12 @@ export default async function ClinicDataPage() {
         email: "pjborowiecki@gmail.com",
       })
     } catch (error) {
-      catchError(error)
+      // TODO
+      console.error(error)
     }
   }
 
-  const clinic = await getClinicAction(user.id)
+  const clinic = await getClinic(user.id)
 
   return (
     <Card as="section">
@@ -58,8 +51,9 @@ export default async function ClinicDataPage() {
       </CardHeader>
       <CardContent>
         {user && clinic ? (
-          <UpdateClinicForm clinic={clinic} userId={user.id} />
+          <ClinicUpdateForm clinic={clinic} userId={user.id} />
         ) : (
+          // TODO
           <p>Wczytywanie...</p>
         )}
       </CardContent>

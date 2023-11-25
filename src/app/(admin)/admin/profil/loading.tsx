@@ -6,7 +6,7 @@ import {
 } from "@/components/page-header"
 import { Shell } from "@/components/shells/shell"
 
-export default function ProfileLoading() {
+export default function ProfileLoading(): JSX.Element {
   return (
     <Shell variant="sidebar">
       <PageHeader>

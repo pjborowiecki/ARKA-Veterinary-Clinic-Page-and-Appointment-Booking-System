@@ -3,12 +3,11 @@
 import { revalidatePath } from "next/cache"
 import { db } from "@/db"
 import { clinics } from "@/db/schema"
+import type { clinicSchema } from "@/validations/clinic"
 import { eq } from "drizzle-orm"
 import type { z } from "zod"
 
-import type { clinicSchema } from "@/lib/validations/clinic"
-
-export async function checkIfClinicExistsAction(userId: string) {
+export async function checkIfClinicExists(userId: string) {
   const alreadyExists = await db.query.clinics.findFirst({
     where: eq(clinics.userId, userId),
   })
@@ -16,7 +15,7 @@ export async function checkIfClinicExistsAction(userId: string) {
   return alreadyExists !== null
 }
 
-export async function addClinicAction(
+export async function addClinic(
   input: z.infer<typeof clinicSchema> & { userId: string }
 ) {
   await db.insert(clinics).values({
@@ -31,7 +30,7 @@ export async function addClinicAction(
   revalidatePath("/admin/przychodnia")
 }
 
-export async function getClinicAction(userId: string) {
+export async function getClinic(userId: string) {
   const clinic = await db.query.clinics.findFirst({
     where: eq(clinics.userId, userId),
   })
@@ -39,7 +38,7 @@ export async function getClinicAction(userId: string) {
   return clinic
 }
 
-export async function updateClinicAction(
+export async function updateClinic(
   input: z.infer<typeof clinicSchema> & { userId: string }
 ) {
   await db

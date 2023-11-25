@@ -1,3 +1,3 @@
-export default function ClinicBusinessHoursLoading() {
-  return <div>Wczytywanie</div>
+export default function ClinicBusinessHoursLoading(): JSX.Element {
+  return <div>TODO: Godziny Wczytywanie</div>
 }

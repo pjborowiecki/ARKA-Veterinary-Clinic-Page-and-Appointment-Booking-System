@@ -3,9 +3,9 @@ import { notFound, redirect } from "next/navigation"
 import { db } from "@/db"
 import { bookings, clinics, type Booking } from "@/db/schema"
 import { env } from "@/env.mjs"
-import { currentUser } from "@clerk/nextjs"
 import { and, asc, desc, eq, gte, inArray, like, lte, sql } from "drizzle-orm"
 
+import { getCurrentUser } from "@/lib/auth"
 import {
   Card,
   CardContent,
@@ -30,12 +30,9 @@ interface ClinicBookingsPageProps {
 
 export default async function ClinicBookingsPage({
   searchParams,
-}: ClinicBookingsPageProps) {
-  const user = await currentUser()
-
-  if (!user) {
-    redirect("/logowanie")
-  }
+}: ClinicBookingsPageProps): Promise<JSX.Element> {
+  const user = await getCurrentUser()
+  if (!user) redirect("/logowanie")
 
   const { page, per_page, sort, from, to, lastName, type, slot, email } =
     searchParams ?? {}

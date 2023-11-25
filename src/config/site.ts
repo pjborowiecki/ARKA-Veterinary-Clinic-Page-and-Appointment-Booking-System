@@ -1,45 +1,59 @@
-import type { MainNavItem } from "@/types"
-
-export type SiteConfig = typeof siteConfig
+import { type NavItem } from "@/types"
 
 const links = {
   facebook: "",
   github:
     "https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Page-and-Appointment-Booking-System.git",
+  openGraphImage: "https://arka-weterynaria.pl/opengraph-image.png",
+  manifestFile: "https://saasyland.com/site.webmanifest",
 }
 
 export const siteConfig = {
+  links,
   nameShort: "ARKA",
   nameLong: "Przychodnia weterynaryjna ARKA w Bochni",
   description: "",
   url: "https://arka-weterynaria.pl",
-  ogImage: "https://arka-weterynaria.pl/og.jpg",
-  mainNav: [
+  ogImage: links.openGraphImage,
+  author: "pjborowiecki",
+  hostingRegion: "fra1",
+  keywords: [
+    "Przychodnia weterynaryjna",
+    "Weterynarz",
+    "Weterynaria",
+    "Weterynaria Bochnia",
+    "Weterynaria Brzesko",
+    "Weterynaria Małopolska",
+    "ARKA",
+    "Piotr Surma",
+  ],
+  mainNavItems: [
     {
       title: "Przychodnia",
-      href: "#przychodnia",
+      href: "/#przychodnia",
     },
     {
       title: "Usługi",
-      href: "#uslugi",
+      href: "/#uslugi",
     },
     {
       title: "Personel",
-      href: "#personel",
+      href: "/#personel",
     },
-    {
-      title: "Salon fryzur",
-      href: "#salon-fryzur",
-    },
-    {
-      title: "Galeria",
-      href: "#galeria",
-    },
+    // {
+    //   title: "Salon fryzur",
+    //   href: "/#salon-fryzur",
+    // },
+    // {
+    //   title: "Galeria",
+    //   href: "/#galeria",
+    // },
     {
       title: "Kontakt",
-      href: "#kontakt",
+      href: "/#kontakt",
     },
-  ] satisfies MainNavItem[],
+  ] satisfies NavItem[],
+
   mobileNav: [
     {
       title: "Przychodnia",
@@ -61,8 +75,5 @@ export const siteConfig = {
       title: "Profil",
       href: "/admin/profil",
     },
-  ],
-  links: {
-    facebook: links.facebook,
-  },
+  ] satisfies NavItem[],
 }

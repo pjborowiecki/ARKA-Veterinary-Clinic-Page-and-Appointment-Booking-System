@@ -1,12 +1,12 @@
 "use client"
 
 import * as React from "react"
+import { enquiryEmailSchema } from "@/validations/email"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { toast } from "sonner"
 import type { z } from "zod"
 
-import { enquiryEmailSchema } from "@/lib/validations/email"
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -22,12 +22,13 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type Inputs = z.infer<typeof enquiryEmailSchema>
+type ContactFormInputs = z.infer<typeof enquiryEmailSchema>
 
-export function ContactForm() {
+export function ContactForm(): JSX.Element {
+  const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<Inputs>({
+  const form = useForm<ContactFormInputs>({
     resolver: zodResolver(enquiryEmailSchema),
     defaultValues: {
       firstName: "",
@@ -39,7 +40,7 @@ export function ContactForm() {
     },
   })
 
-  function onSubmit(data: Inputs) {
+  function onSubmit(data: ContactFormInputs) {
     startTransition(() => {
       try {
         console.log(data)

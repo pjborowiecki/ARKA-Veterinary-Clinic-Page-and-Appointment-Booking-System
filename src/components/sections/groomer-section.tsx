@@ -1,3 +1,3 @@
-export function GroomerSection() {
-  return <section id="groomer">Groomer section</section>
+export function GroomerSection(): JSX.Element {
+  return <section id="salon-fryzur">Groomer section</section>
 }

@@ -1,12 +1,9 @@
-import { Shell } from "@/components/shells/shell"
-
-export function TeamSection() {
+export function TeamSection(): JSX.Element {
   return (
     <section
-      id="team"
+      id="personel"
       className="w-full max-w-[2560px] bg-[url('/images/svg/team-section-background.svg')] bg-cover bg-no-repeat"
     >
-      {/* Top wave pattern */}
       <div>
         <img
           src="/images/svg/team-top-wave.svg"
@@ -15,7 +12,6 @@ export function TeamSection() {
         />
       </div>
 
-      {/* Section content */}
       <div
         // variant="landingConstrained"
         className="mx-auto mt-[48px] min-h-[680px] w-full max-w-[1440px] px-5 md:px-6 lg:px-7"
@@ -40,7 +36,6 @@ export function TeamSection() {
         </div>
       </div>
 
-      {/* Bottom wave pattern */}
       <div>
         <img
           src="/images/svg/team-bottom-wave.svg"

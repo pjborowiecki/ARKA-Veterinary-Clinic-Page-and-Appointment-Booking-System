@@ -3,6 +3,11 @@
 import { revalidatePath } from "next/cache"
 import { db } from "@/db"
 import { bookings } from "@/db/schema"
+import type {
+  bookingSchema,
+  getBookingSchema,
+  getBookingsSchema,
+} from "@/validations/booking"
 import {
   and,
   asc,
@@ -19,13 +24,7 @@ import {
 } from "drizzle-orm"
 import type { z } from "zod"
 
-import type {
-  bookingSchema,
-  getBookingSchema,
-  getBookingsSchema,
-} from "@/lib/validations/booking"
-
-export async function filterBookingsAction(query: string) {
+export async function filterBookings(query: string) {
   if (query.length === 0) return null
 
   const filteredBookings = await db
@@ -49,9 +48,9 @@ export async function filterBookingsAction(query: string) {
   return bookingsByType
 }
 
-export async function getBookingsAction() {}
+export async function getBookings() {}
 
-export async function checkBookingAction(input: {
+export async function checkBooking(input: {
   // date: Date (?)
   // time: string (?)
   // type: string (?)
@@ -65,22 +64,20 @@ export async function checkBookingAction(input: {
   }
 }
 
-export async function addBookingAction(input: z.infer<typeof bookingSchema>) {
+export async function addBooking(input: z.infer<typeof bookingSchema>) {
   await db.insert(bookings).values({ ...input })
 
   revalidatePath(`/rezerwacje`)
 }
 
-export async function updateBookingAction() {}
+export async function updateBooking() {}
 
-export async function deleteBookingAction(
-  input: z.infer<typeof getBookingSchema>
-) {
+export async function deleteBooking(input: z.infer<typeof getBookingSchema>) {
   eq(bookings.id, input.id),
     await db.delete(bookings).where(eq(bookings.id, input.id))
 }
 
-export async function getNextBookingIdAction(
+export async function getNextBookingId(
   input: z.infer<typeof getBookingSchema>
 ) {
   const booking = await db.query.bookings.findFirst({
@@ -95,7 +92,7 @@ export async function getNextBookingIdAction(
   return booking.id
 }
 
-export async function getPreviousBookingIdAction(
+export async function getPreviousBookingId(
   input: z.infer<typeof getBookingSchema>
 ) {
   const booking = await db.query.bookings.findFirst({

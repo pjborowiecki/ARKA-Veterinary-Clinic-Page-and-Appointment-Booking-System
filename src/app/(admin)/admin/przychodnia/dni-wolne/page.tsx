@@ -1,3 +1,4 @@
+import { type Metadata } from "next"
 import { env } from "@/env.mjs"
 
 import {
@@ -7,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { UpdateDatesUnavailableForm } from "@/components/forms/update-dates-unavailable-form"
+import { DatesUnavailableUpdateForm } from "@/components/forms/update-dates-unavailable-form"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -15,9 +16,9 @@ export const metadata: Metadata = {
   description: "Wybierz terminy, w których przychodnia będzie nieczynna",
 }
 
-export default function ClinicDatesUnavailablePage() {
+export default function ClinicDatesUnavailablePage(): JSX.Element {
   return (
-    <Card as="section">
+    <Card>
       <CardHeader className="my-2">
         <CardTitle className="text-2xl">Dni wolne</CardTitle>
         <CardDescription>

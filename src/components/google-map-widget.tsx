@@ -2,11 +2,11 @@
 
 import { env } from "@/env.mjs"
 
-export function GoogleMapWidget() {
+export function GoogleMapWidget(): JSX.Element {
   return (
     <div className="h-full w-full">
       <iframe
-        src={env.NEXT_PUBLIC_GOOGLE_MAPS_URL}
+        src={env.GOOGLE_MAPS_URL}
         width="100%"
         height="100%"
         style={{ borderRadius: "20px" }}

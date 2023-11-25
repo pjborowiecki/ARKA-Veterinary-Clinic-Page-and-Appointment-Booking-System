@@ -2,11 +2,11 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { filterBookingsAction } from "@/actions/booking"
+import { filterBookings } from "@/actions/booking"
 import type { Booking } from "@/db/schema"
 
-import { cn, isMacOs } from "@/lib/utils"
 import { useDebounce } from "@/hooks/use-debounce"
+import { cn, isMacOs } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   CommandDialog,
@@ -19,7 +19,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import { Icons } from "@/components/icons"
 
-export function Combobox() {
+export function Combobox(): JSX.Element {
   const router = useRouter()
   const [isOpen, setIsOpen] = React.useState(false)
   const [query, setQuery] = React.useState("")
@@ -38,7 +38,7 @@ export function Combobox() {
 
     if (debouncedQuery.length > 0) {
       startTransition(async () => {
-        const data = await filterBookingsAction(debouncedQuery)
+        const data = await filterBookings(debouncedQuery)
         setData(data)
       })
     }

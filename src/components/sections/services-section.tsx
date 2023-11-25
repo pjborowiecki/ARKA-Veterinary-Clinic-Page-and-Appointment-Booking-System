@@ -1,12 +1,11 @@
 import { servicesSectionParagraphs } from "@/data/promo-text"
 import { services } from "@/data/services"
-
 import { ServiceCard } from "@/components/service-card"
 
-export function ServicesSection() {
+export function ServicesSection(): JSX.Element {
   return (
     <section
-      id="services"
+      id="uslugi"
       className="w-full max-w-[2560px] bg-[url('/images/svg/radial-background.svg')] bg-cover bg-center bg-no-repeat"
     >
       <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center px-5 md:px-6 lg:px-7">

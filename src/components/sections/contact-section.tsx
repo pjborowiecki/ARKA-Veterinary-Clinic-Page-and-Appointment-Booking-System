@@ -1,10 +1,10 @@
 import { ContactForm } from "@/components/forms/contact-form"
 import { GoogleMapWidget } from "@/components/google-map-widget"
 
-export function ContactSection() {
+export function ContactSection(): JSX.Element {
   return (
     <section
-      id="contact"
+      id="kontakt"
       className="w-full max-w-[2560px] bg-primaryGreen bg-[url('/images/svg/radial-background.svg')] bg-cover bg-center bg-no-repeat"
     >
       <div

@@ -26,7 +26,7 @@ export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
-}: DataTableColumnHeaderProps<TData, TValue>) {
+}: DataTableColumnHeaderProps<TData, TValue>): JSX.Element {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>
   }
@@ -40,8 +40,8 @@ export function DataTableColumnHeader<TData, TValue>({
               column.getIsSorted() === "desc"
                 ? `Sortowanie malejące. Kliknij by sortować rosnąco`
                 : column.getIsSorted() === "asc"
-                ? `Sortowanie rosnące. Kliknij by sortować malejąco`
-                : `Brak sortowania. Kliknij by sortować rosnąco`
+                  ? `Sortowanie rosnące. Kliknij by sortować malejąco`
+                  : `Brak sortowania. Kliknij by sortować rosnąco`
             }
             variant="ghost"
             size="sm"

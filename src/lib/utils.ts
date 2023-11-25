@@ -1,10 +1,8 @@
-import { isClerkAPIResponseError } from "@clerk/nextjs"
+import { env } from "@/env.mjs"
 import { clsx, type ClassValue } from "clsx"
 import { addMinutes, format } from "date-fns"
 import dayjs from "dayjs"
-import { toast } from "sonner"
 import { twMerge } from "tailwind-merge"
-import * as z from "zod"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -16,34 +14,6 @@ export function formatDate(date: Date | string) {
 
 export function formatTime(date: Date | string) {
   return dayjs(date).format("HH:mm")
-}
-
-export function catchError(err: unknown) {
-  if (err instanceof z.ZodError) {
-    const errors = err.issues.map((issue) => {
-      return issue.message
-    })
-    return toast(errors.join("\n"))
-  } else if (err instanceof Error) {
-    return toast(err.message)
-  } else {
-    return toast("Coś poszło nie tak. Spróbuj ponownie")
-  }
-}
-
-export function catchClerkError(error: unknown) {
-  const unknownErr = "Coś poszło nie tak. Spróbuj ponownie"
-
-  if (error instanceof z.ZodError) {
-    const errors = error.issues.map((issue) => {
-      return issue.message
-    })
-    return toast(errors.join("\n"))
-  } else if (isClerkAPIResponseError(error)) {
-    return toast.error(error.errors[0]?.longMessage ?? unknownErr)
-  } else {
-    return toast.error(unknownErr)
-  }
 }
 
 export function isMacOs() {
@@ -89,4 +59,8 @@ export function generateTimeOptions(interval: number): string[] | null {
     )
     return null
   }
+}
+
+export function absoluteUrl(path: string) {
+  return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }

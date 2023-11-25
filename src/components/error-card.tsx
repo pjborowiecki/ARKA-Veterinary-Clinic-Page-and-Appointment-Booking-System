@@ -31,7 +31,7 @@ export function ErrorCard({
   reset,
   className,
   ...props
-}: ErrorCardProps) {
+}: ErrorCardProps): JSX.Element {
   const Icon = Icons[icon ?? "warning"]
 
   return (

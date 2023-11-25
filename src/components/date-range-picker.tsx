@@ -28,7 +28,7 @@ export function DateRangePicker({
   align = "start",
   className,
   ...props
-}: DateRangePickerProps) {
+}: DateRangePickerProps): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
