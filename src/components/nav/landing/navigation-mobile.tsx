@@ -9,6 +9,5 @@ interface NavigationMobileProps {
 export function NavigationMobile({
   navItems,
 }: NavigationMobileProps): JSX.Element {
-  console.log(navItems)
   return <div className="hidden">Navigation Mobile</div>
 }

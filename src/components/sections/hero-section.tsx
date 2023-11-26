@@ -4,7 +4,11 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { AddBookingDialog } from "@/components/add-booking-dialog"
 import { Header } from "@/components/nav/landing/header"
 
-export function HeroSection(): JSX.Element {
+interface HeroSectionProps {
+  address: string | undefined
+}
+
+export function HeroSection({ address }: HeroSectionProps): JSX.Element {
   return (
     <header className="overflow-hidden" id="hero">
       <div className="w-full max-w-[2560px] bg-peach bg-[url('/images/navbar-and-hero-background.png')] bg-cover bg-right bg-no-repeat md:pb-10 xl:bg-contain">
@@ -95,7 +99,7 @@ export function HeroSection(): JSX.Element {
                 className="h-[24px] w-[24px]"
               />
               <p className="text-[12px] font-bold tracking-wide text-locationText opacity-80">
-                Ul. Brodzińskiego 2c, 32-700 Bochnia
+                Ul. {address}
               </p>
             </div>
           </div>

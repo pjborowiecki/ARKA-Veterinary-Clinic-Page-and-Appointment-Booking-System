@@ -1,5 +1,5 @@
 import { db } from "@/db"
-import { users } from "@/db/schema"
+import { clinics, users } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
 
 export const psGetUserByEmail = db
@@ -21,3 +21,5 @@ export const psGetUserByResetPasswordToken = db
   .from(users)
   .where(eq(users.resetPasswordToken, sql.placeholder("resetPasswordToken")))
   .prepare()
+
+export const psGetClinic = db.select().from(clinics).prepare()

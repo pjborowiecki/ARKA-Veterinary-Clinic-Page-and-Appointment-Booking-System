@@ -1,0 +1,1 @@
+ALTER TABLE `clinics` DROP COLUMN `userId`;

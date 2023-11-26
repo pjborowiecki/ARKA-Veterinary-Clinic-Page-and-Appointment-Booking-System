@@ -1,13 +1,21 @@
 import Link from "next/link"
 import { getBusinessHours } from "@/actions/availability"
-import { getClinic } from "@/actions/clinic"
 import { type BusinessHours } from "@/db/schema"
 
 import { siteConfig } from "@/config/site"
 import { DAY_MAPPINGS, DAYS_OF_WEEK } from "@/data/constants"
 
-export async function Footer(): Promise<JSX.Element> {
-  const clinic = await getClinic()
+interface FooterProps {
+  address: string
+  phone_1: string
+  phone_2: string
+}
+
+export async function Footer({
+  address,
+  phone_1,
+  phone_2,
+}: FooterProps): Promise<JSX.Element> {
   const businessHours = await getBusinessHours()
 
   return (
@@ -38,7 +46,7 @@ export async function Footer(): Promise<JSX.Element> {
 
             <div className="flex flex-col gap-4 px-[16%] xl:px-0">
               <p className="text-center text-[5.6vw] font-extrabold md:px-[16%] md:text-[1.8vw] w-1400:text-[16px]">
-                Przychodnia weterynaryjna ARKA
+                Przychodnia weterynaryjna {siteConfig.nameShort}
               </p>
 
               <div className="text-center text-[4.8vw] md:text-[1.7vw] w-1400:text-[18px]">
@@ -47,13 +55,13 @@ export async function Footer(): Promise<JSX.Element> {
               </div>
 
               <div className="text-center text-[4.8vw] md:text-[1.7vw] w-1400:text-[18px]">
-                <p>ul. Brodzińskiego 2c</p>
-                <p>32-700 Bochnia</p>
+                <p>ul. {address.split(",")[0]}</p>
+                <p>{address.split(",")[1]}</p>
               </div>
 
               <div className="mt-2 flex flex-col items-center justify-center gap-1 text-center text-[4.8vw] font-extrabold md:text-[1.7vw] w-1400:text-[18px]">
-                <p>kom. 501 01 45 54</p>
-                <p>tel. (14) 61 16 499</p>
+                <p>kom. {phone_1}</p>
+                <p>tel. {phone_2}</p>
               </div>
             </div>
           </div>
@@ -83,7 +91,7 @@ export async function Footer(): Promise<JSX.Element> {
                   <div key={day}>
                     {businessHours?.[`${day}Status` as keyof BusinessHours] ===
                     "otwarte" ? (
-                      <span>
+                      <div>
                         {businessHours?.[
                           `${day}Opening` as keyof BusinessHours
                         ]?.toString()}{" "}
@@ -91,9 +99,9 @@ export async function Footer(): Promise<JSX.Element> {
                         {businessHours?.[
                           `${day}Closing` as keyof BusinessHours
                         ]?.toString()}
-                      </span>
+                      </div>
                     ) : (
-                      <span className="uppercase">nieczynne</span>
+                      <div className="uppercase">nieczynne</div>
                     )}
                   </div>
                 ))}

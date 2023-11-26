@@ -15,6 +15,27 @@
       "when": 1700249388484,
       "tag": "0001_luxuriant_marvel_zombies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1701009766361,
+      "tag": "0002_thick_lord_hawal",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1701037910462,
+      "tag": "0003_harsh_sentinels",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1701039391627,
+      "tag": "0004_lethal_proteus",
+      "breakpoints": true
     }
   ]
 }

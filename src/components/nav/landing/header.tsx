@@ -24,7 +24,7 @@ export function Header(): JSX.Element {
           <DialogTrigger asChild>
             <Button
               variant="landingAppointment"
-              className="group ml-10"
+              className="group"
               size="action"
             >
               <span

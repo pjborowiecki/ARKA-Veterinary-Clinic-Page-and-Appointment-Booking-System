@@ -100,11 +100,11 @@ export const verificationTokens = mysqlTable(
 
 export const clinics = mysqlTable("clinics", {
   id: serial("id").primaryKey().autoincrement(),
-  userId: varchar("userId", { length: 191 }).notNull(),
   longitude: varchar("longitude", { length: 24 }).notNull(),
   latitude: varchar("latitude", { length: 24 }).notNull(),
   address: varchar("address", { length: 128 }).notNull(),
-  phone: varchar("phone", { length: 16 }).notNull(),
+  phone_1: varchar("phone_1", { length: 16 }).notNull(),
+  phone_2: varchar("phone_2", { length: 16 }).notNull(),
   email: varchar("email", { length: 64 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
   updatedAt: timestamp("updatedAt").defaultNow(),
