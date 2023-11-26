@@ -3,33 +3,22 @@ import { generateTimeOptions } from "@/lib/utils"
 export const TIME_INTERVAL = 30
 export const TIME_OPTIONS = generateTimeOptions(TIME_INTERVAL)
 
-export const DAYS = [
-  {
-    value: "monday",
-    label: "Poniedziałek",
-  },
-  {
-    value: "tuesday",
-    label: "Wtorek",
-  },
-  {
-    value: "wednesday",
-    label: "Środa",
-  },
-  {
-    value: "thursday",
-    label: "Czwartek",
-  },
-  {
-    value: "friday",
-    label: "Piątek",
-  },
-  {
-    value: "saturday",
-    label: "Sobota",
-  },
-  {
-    value: "sunday",
-    label: "Niedziela",
-  },
-]
+export const DAYS_OF_WEEK = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+] satisfies string[]
+
+export const DAY_MAPPINGS = {
+  monday: "poniedziałek",
+  tuesday: "wtorek",
+  wednesday: "środa",
+  thursday: "czwartek",
+  friday: "piątek",
+  saturday: "sobota",
+  sunday: "niedziela",
+}

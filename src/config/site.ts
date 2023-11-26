@@ -6,6 +6,7 @@ const links = {
     "https://github.com/pjborowiecki/ARKA-Veterinary-Clinic-Page-and-Appointment-Booking-System.git",
   openGraphImage: "https://arka-weterynaria.pl/opengraph-image.png",
   manifestFile: "https://saasyland.com/site.webmanifest",
+  authorsWebsite: "https://pjborowiecki.com",
 }
 
 export const siteConfig = {
@@ -15,7 +16,7 @@ export const siteConfig = {
   description: "",
   url: "https://arka-weterynaria.pl",
   ogImage: links.openGraphImage,
-  author: "pjborowiecki",
+  author: "Piotr Borowiecki",
   hostingRegion: "fra1",
   keywords: [
     "Przychodnia weterynaryjna",

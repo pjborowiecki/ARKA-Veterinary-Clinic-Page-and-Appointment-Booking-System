@@ -15,7 +15,7 @@ The client wanted a simple website with a contact form and a full booking manage
 >
 > It uses new technologies (server actions, serverless database connection, etc. ), which are subject to change and may break your application.
 >
-> **Current version is not functional, so do not waste your time trying to run rhis project on your own. However, a major update is expected to be delivered within the next few days, addressing all the functional issues and nearing the project to completion.**
+> **Current version is not functional, so do not waste your time trying to run this project on your own. However, a major update is expected to be delivered within the next few days, addressing all the functional issues and nearing the project to completion.**
 
 <br />
 

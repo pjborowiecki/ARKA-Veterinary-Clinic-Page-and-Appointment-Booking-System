@@ -1,3 +1,5 @@
+import Balancer from "react-wrap-balancer"
+
 import { servicesSectionParagraphs } from "@/data/promo-text"
 import { services } from "@/data/services"
 import { ServiceCard } from "@/components/service-card"
@@ -26,7 +28,7 @@ export function ServicesSection(): JSX.Element {
                 key={index}
                 className="w-[86%] text-center text-[4.8vw] leading-[150%] text-darkSectionText opacity-60 md:w-[90%] md:pr-[14.5%] md:text-start md:text-[1.7vw] xl:pr-[16%] w-1400:pr-[23%] w-1400:text-[22px]"
               >
-                {paragraph.content}
+                <Balancer>{paragraph.content}</Balancer>
               </p>
             ))}
           </div>

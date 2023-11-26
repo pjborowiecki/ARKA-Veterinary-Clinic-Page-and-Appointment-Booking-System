@@ -199,7 +199,7 @@ export const businessHours = mysqlTable("businessHours", {
 //     "friday",
 //     "saturday",
 //     "sunday",
-//   ]).notNull(),
+//   ]).notNull().unique(),
 //   ordinal: int("dayOfWeek").notNull(),
 //   status: mysqlEnum("status", ["otwarte", "zamknięte"]).notNull().default("otwarte"),
 //   openingTime: time("openingTime").notNull(),
