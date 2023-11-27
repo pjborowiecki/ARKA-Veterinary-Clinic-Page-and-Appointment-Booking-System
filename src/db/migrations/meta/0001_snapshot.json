@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "ab6edcb7-deb3-42a5-9657-2772dfc4c0fb",
-  "prevId": "2ffa8682-84a8-473e-8bc4-d70e17f79f02",
+  "id": "33772116-52a1-4c36-bd20-ad04e3af4d0d",
+  "prevId": "12ab28b9-b161-44bd-abf2-3c3f015198f3",
   "tables": {
     "account": {
       "name": "account",
@@ -174,13 +174,6 @@
           "autoincrement": false,
           "default": "'niepotwierdzone'"
         },
-        "clinicId": {
-          "name": "clinicId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -219,20 +212,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": true
-        },
-        "clinicId": {
-          "name": "clinicId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(191)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         },
         "mondayStatus": {
           "name": "mondayStatus",
@@ -441,13 +420,6 @@
           "notNull": true,
           "autoincrement": true
         },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(191)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "longitude": {
           "name": "longitude",
           "type": "varchar(24)",
@@ -469,8 +441,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "phone": {
-          "name": "phone",
+        "phone_1": {
+          "name": "phone_1",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "phone_2": {
+          "name": "phone_2",
           "type": "varchar(16)",
           "primaryKey": false,
           "notNull": true,
@@ -525,13 +504,6 @@
         "date": {
           "name": "date",
           "type": "datetime",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "clinicId": {
-          "name": "clinicId",
-          "type": "int",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -615,7 +587,7 @@
           "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "emailVerificationToken": {

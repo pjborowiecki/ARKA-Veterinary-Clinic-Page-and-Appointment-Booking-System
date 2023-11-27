@@ -1,0 +1,1 @@
+ALTER TABLE `bookings` ADD `time` varchar(5) NOT NULL;

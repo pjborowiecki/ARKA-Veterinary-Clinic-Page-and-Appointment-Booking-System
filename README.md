@@ -70,6 +70,8 @@ The client wanted a simple website with a contact form and a full booking manage
 - [ ] Booking re-scheduling functionality
 - [ ] Transactional emails for customers and admin
 - [ ] User profile and settings pages
+- [ ] Smooth scroll to sections
+- [ ] Scroll back up button
 - [ ] Custom loading pages with skeleton loaders
 - [ ] Custom error pages
 - [ ] Improve performance and make Edge compatible

@@ -1,12 +1,12 @@
 import * as z from "zod"
 
-const hourSchema = z
+export const hourSchema = z
   .string({
     required_error: "Podaj godzinę otwarcia",
     invalid_type_error: "Nieprawidłowy typ danych",
   })
   .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, {
-    message: "Nieprawidłowy format godziny. Poprawny format to HH:mm",
+    message: "Nieprawidłowy format godziny. Poprawny format to HH:MM",
   })
 
 const statusSchema = z

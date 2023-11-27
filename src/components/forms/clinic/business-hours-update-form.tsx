@@ -40,8 +40,6 @@ type BusinessHoursUpdateFormInputs = z.infer<typeof businessHoursSchema>
 
 export function BusinessHoursUpdateForm({
   currentBusinessHours,
-  userId,
-  clinicId,
 }: BusinessHoursUpdateFormProps) {
   const router = useRouter()
   const { toast } = useToast()
@@ -77,9 +75,19 @@ export function BusinessHoursUpdateForm({
   function onSubmit(data: BusinessHoursUpdateFormInputs) {
     startTransition(async () => {
       try {
-        await updateBusinessHours({ ...data, userId, clinicId })
+        const response = await updateBusinessHours({ ...data })
+
+        if (response) {
+          toast({ title: "Godziny przyjęć zostały zaktualizowane" })
+        } else {
+          toast({
+            title: "Coś poszło nie tak",
+            description: "Godziny przyjęć nie zostały zaktualizowane",
+            variant: "destructive",
+          })
+        }
+
         form.reset()
-        toast({ title: "Godziny przyjęć zostały zaktualizowane" })
         router.refresh()
       } catch (error) {
         console.error(error)

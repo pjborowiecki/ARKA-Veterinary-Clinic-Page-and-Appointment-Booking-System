@@ -26,7 +26,6 @@
     "db:pull": "drizzle-kit introspect:mysql --config=drizzle.config.ts",
     "db:drop": "drizzle-kit drop --config=drizzle.config.ts",
     "db:check": "drizzle-kit check:mysql --config=drizzle.config.ts",
-    "db:update": "drizzle-kit up --config=drizzle.config.ts",
     "db:studio": "drizzle-kit studio --port 4000 --verbose",
     "shadcn:add": "pnpm dlx shadcn-ui@latest add",
     "packages:update-all": "pnpm update --latest",

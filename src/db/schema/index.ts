@@ -32,7 +32,9 @@ export const accounts = mysqlTable(
     session_state: varchar("session_state", { length: 255 }),
   },
   (account) => ({
-    compoundKey: primaryKey(account.provider, account.providerAccountId),
+    compoundKey: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
   })
 )
 
@@ -60,7 +62,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 export const users = mysqlTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }),
   emailVerificationToken: varchar("emailVerificationToken", {
     length: 255,
   }).unique(),
@@ -94,7 +96,9 @@ export const verificationTokens = mysqlTable(
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (vt) => ({
-    compoundKey: primaryKey(vt.identifier, vt.token),
+    compoundKey: primaryKey({
+      columns: [vt.identifier, vt.token],
+    }),
   })
 )
 
@@ -110,16 +114,8 @@ export const clinics = mysqlTable("clinics", {
   updatedAt: timestamp("updatedAt").defaultNow(),
 })
 
-export const clinicsRelations = relations(clinics, ({ one, many }) => ({
-  bookings: many(bookings),
-  openingHours: one(businessHours),
-  datesUnavailable: many(datesUnavailable),
-}))
-
 export const businessHours = mysqlTable("businessHours", {
   id: serial("id").primaryKey().autoincrement(),
-  clinicId: int("clinicId").notNull(),
-  userId: varchar("userId", { length: 191 }).notNull(),
   mondayStatus: mysqlEnum("mondayStatus", ["otwarte", "zamknięte"])
     .notNull()
     .default("otwarte"),
@@ -187,45 +183,14 @@ export const businessHours = mysqlTable("businessHours", {
   updatedAt: timestamp("updatedAt").defaultNow(),
 })
 
-// export const businessHours = mysqlTable("businessHours", {
-//   id: serial("id").primaryKey(),
-//   clinicId: int("clinicId").notNull(),
-//   userId: varchar("userId", { length: 191 }).notNull(),
-//   day: mysqlEnum("dayOfWeek", [
-//     "monday",
-//     "tuesday",
-//     "wednesday",
-//     "thursday",
-//     "friday",
-//     "saturday",
-//     "sunday",
-//   ]).notNull().unique(),
-//   ordinal: int("dayOfWeek").notNull(),
-//   status: mysqlEnum("status", ["otwarte", "zamknięte"]).notNull().default("otwarte"),
-//   openingTime: time("openingTime").notNull(),
-//   closingTime: time("closingTime").notNull(),
-//   createdAt: timestamp("createdAt").defaultNow(),
-//   updatedAt: timestamp("updatedAt").defaultNow(),
-// })
-
-export const businessHoursRelations = relations(businessHours, ({ one }) => ({
-  clinic: one(clinics, {
-    fields: [businessHours.clinicId],
-    references: [clinics.id],
-  }),
-}))
-
 export const bookings = mysqlTable("bookings", {
   id: serial("id").primaryKey().autoincrement(),
   message: text("message"),
   type: mysqlEnum("type", ["weterynarz", "salon fryzur"])
     .notNull()
     .default("weterynarz"),
-  slot: datetime("slot").notNull(),
-  // date: date("date").notNull(),
-  // time: time("time").notNull(),
-  // date: date("date").notNull(),
-  // time: varchar("time", { length: 5 }).notNull(),
+  date: datetime("date").notNull(),
+  time: varchar("time", { length: 5 }).notNull(),
   firstName: varchar("firstName", { length: 32 }).notNull(),
   lastName: varchar("lastName", { length: 32 }).notNull(),
   email: varchar("email", { length: 64 }).notNull(),
@@ -239,34 +204,15 @@ export const bookings = mysqlTable("bookings", {
   ])
     .notNull()
     .default("niepotwierdzone"),
-  clinicId: int("clinicId").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
   updatedAt: timestamp("updatedAt").defaultNow(),
 })
 
-export const bookingsRelations = relations(bookings, ({ one }) => ({
-  clinic: one(clinics, {
-    fields: [bookings.clinicId],
-    references: [clinics.id],
-  }),
-}))
-
 export const datesUnavailable = mysqlTable("datesUnavailable", {
-  id: serial("id").primaryKey(),
+  id: serial("id").primaryKey().autoincrement(),
   date: datetime("date").notNull(),
-  clinicId: int("clinicId").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 })
-
-export const datesUnavailableRelations = relations(
-  datesUnavailable,
-  ({ one }) => ({
-    clinic: one(clinics, {
-      fields: [datesUnavailable.clinicId],
-      references: [clinics.id],
-    }),
-  })
-)
 
 export type User = typeof users.$inferSelect
 export type NewUser = typeof users.$inferInsert

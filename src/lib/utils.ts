@@ -4,11 +4,11 @@ import { addMinutes, format } from "date-fns"
 import dayjs from "dayjs"
 import { twMerge } from "tailwind-merge"
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(date: Date | string) {
+export function formatDate(date: Date | string): string {
   return dayjs(date).format("MMMM D, YYYY")
 }
 
@@ -16,19 +16,17 @@ export function formatTime(date: Date | string) {
   return dayjs(date).format("HH:mm")
 }
 
-export function isMacOs() {
+export function isMacOs(): boolean {
   return window.navigator.userAgent.includes("Mac")
 }
 
-export function handleClickSecondaryButton() {}
-
-export function scrollToSection(sectionName: string) {
+export function scrollToSection(sectionName: string): void {
   document
     ?.getElementById(`${sectionName}`)
     ?.scrollIntoView({ behavior: "smooth" })
 }
 
-export function slugify(str: string) {
+export function slugify(str: string): string {
   return str
     .toLowerCase()
     .replace(/ /g, "-")
@@ -36,7 +34,7 @@ export function slugify(str: string) {
     .replace(/--+/g, "-")
 }
 
-export function toSentenceCase(str: string) {
+export function toSentenceCase(str: string): string {
   return str
     .replace(/([A-Z])/g, " $1")
     .replace(/^./, (str) => str.toUpperCase())
@@ -61,6 +59,8 @@ export function generateTimeOptions(interval: number): string[] | null {
   }
 }
 
-export function absoluteUrl(path: string) {
+export function absoluteUrl(path: string): string {
   return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }
+
+export function handleClickSecondaryButton() {}

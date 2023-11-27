@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "e38acda1-90f0-4b82-bc8a-d56526a4f6f9",
-  "prevId": "817e3a3c-0d0b-4332-97f5-6e0b5e46b61e",
+  "id": "7b46c0f3-b9cf-4bba-8c46-d7472f1d7bc1",
+  "prevId": "f4575f2f-d5a0-4853-8795-7c18442599b0",
   "tables": {
     "account": {
       "name": "account",
@@ -123,9 +123,16 @@
           "autoincrement": false,
           "default": "'weterynarz'"
         },
-        "slot": {
-          "name": "slot",
+        "date": {
+          "name": "date",
           "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "time": {
+          "name": "time",
+          "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -174,13 +181,6 @@
           "autoincrement": false,
           "default": "'niepotwierdzone'"
         },
-        "clinicId": {
-          "name": "clinicId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -219,20 +219,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": true
-        },
-        "clinicId": {
-          "name": "clinicId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(191)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         },
         "mondayStatus": {
           "name": "mondayStatus",
@@ -473,7 +459,7 @@
           "name": "phone_2",
           "type": "varchar(16)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "email": {
@@ -525,13 +511,6 @@
         "date": {
           "name": "date",
           "type": "datetime",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "clinicId": {
-          "name": "clinicId",
-          "type": "int",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -615,7 +594,7 @@
           "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "emailVerificationToken": {
@@ -738,7 +717,7 @@
     "schemas": {},
     "tables": {},
     "columns": {
-      "\"clinics\".\"phone\"": "\"clinics\".\"phone_1\""
+      "\"bookings\".\"slot\"": "\"bookings\".\"date\""
     }
   }
 }

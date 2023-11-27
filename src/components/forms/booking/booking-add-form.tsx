@@ -1,21 +1,27 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { addBooking, checkBooking } from "@/actions/booking"
-import { bookings } from "@/db/schema"
+// import Link from "next/link"
+import { addBooking } from "@/actions/booking"
+import {
+  bookings,
+  type Booking,
+  type BusinessHours,
+  type DateUnavailable,
+} from "@/db/schema"
 import { bookingSchema } from "@/validations/booking"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Checkbox } from "@radix-ui/react-checkbox"
+// import { Checkbox } from "@radix-ui/react-checkbox"
 import { format } from "date-fns"
 import { pl } from "date-fns/locale"
-import dayjs from "dayjs"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
+import { TIME_OPTIONS } from "@/data/constants"
 import { useToast } from "@/hooks/use-toast"
+// import { isBusinessHour, isDateBooked, isDateUnavailable } from "@/lib/booking"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
   Form,
@@ -44,9 +50,17 @@ import { Icons } from "@/components/icons"
 
 type BookingAddFormInputs = z.infer<typeof bookingSchema>
 
-// const bookings =
+interface BookingAddFormProps {
+  existingBookings: Booking | null
+  datesUnavailable: DateUnavailable | null
+  businessHours: BusinessHours | null
+}
 
-export function BookingAddForm(): JSX.Element {
+export function BookingAddForm({
+  existingBookings,
+  datesUnavailable,
+  businessHours,
+}: BookingAddFormProps): JSX.Element {
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
@@ -55,32 +69,20 @@ export function BookingAddForm(): JSX.Element {
     defaultValues: {
       type: "weterynarz",
       date: undefined,
-      // time: undefined,
+      time: undefined,
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
       message: "",
-      // rodo: false,
       status: "niepotwierdzone",
+      // rodo: false,
     },
   })
-
-  const handleDayClick = (date: Date) => {
-    // form.setValue("date", date)
-    form.setValue()
-    console.log("date: ", date)
-  }
 
   function onSubmit(data: BookingAddFormInputs) {
     startTransition(async () => {
       try {
-        // await checkBookingAction({
-        //   date: data.date,
-        //   // time: data.time,
-        //   type: data.type,
-        // })
-
         await addBooking({
           ...data,
         })
@@ -94,8 +96,13 @@ export function BookingAddForm(): JSX.Element {
         })
 
         form.reset()
-      } catch (err) {
-        console.error(err)
+      } catch (error) {
+        console.error(error)
+        toast({
+          title: "Coś poszło nie tak",
+          description: "Spróbuj zarezerwować ponownie",
+          variant: "destructive",
+        })
       }
     })
   }
@@ -182,9 +189,12 @@ export function BookingAddForm(): JSX.Element {
                       required
                       mode="single"
                       selected={field.value}
-                      // onSelect={field.onChange}
-                      onSelect={handleDayClick}
-                      disabled={(date) => date < new Date()}
+                      onSelect={field.onChange}
+                      disabled={
+                        (date) => date < new Date()
+                        // ||
+                        // isDataUnavailable(data, datesUnavailable)
+                      }
                       // modifiers={{ booked: bookedDays }}
                       // modifiersStyles={{ booked: bookedStyle }}
                       initialFocus
@@ -196,7 +206,7 @@ export function BookingAddForm(): JSX.Element {
           />
 
           {/* Time */}
-          {/* <FormField
+          <FormField
             control={form.control}
             name="time"
             render={({ field }) => (
@@ -214,17 +224,15 @@ export function BookingAddForm(): JSX.Element {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {Object.values(bookings.time.enumValues).map(
-                          (option) => (
-                            <SelectItem
-                              key={option}
-                              value={option}
-                              className="capitalize"
-                            >
-                              {option}
-                            </SelectItem>
-                          )
-                        )}
+                        {TIME_OPTIONS?.map((option) => (
+                          <SelectItem
+                            key={option}
+                            value={option}
+                            className="capitalize"
+                          >
+                            {option}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -234,7 +242,7 @@ export function BookingAddForm(): JSX.Element {
                 </UncontrolledFormMessage>
               </FormItem>
             )}
-          /> */}
+          />
         </div>
         <div className="grid grid-cols-2 gap-4">
           {/* First Name */}
@@ -351,29 +359,21 @@ export function BookingAddForm(): JSX.Element {
           )}
         /> */}
 
-        {/* Buttons */}
-        <div className="grid grid-cols-2 gap-4">
-          <Link
-            href="/"
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-              })
-            )}
-          >
-            Wróć
-          </Link>
-          <Button type="submit" disabled={isPending}>
-            {isPending && (
+        {/* Button */}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? (
+            <>
               <Icons.spinner
                 className="mr-2 h-4 w-4 animate-spin"
                 aria-hidden="true"
               />
-            )}
-            Zarezerwuj
-            <span className="sr-only">Zarezerwuj</span>
-          </Button>
-        </div>
+              <span>Rezerwuję...</span>
+            </>
+          ) : (
+            <span>Zarezerwuj</span>
+          )}
+          <span className="sr-only">Zarezerwuj</span>
+        </Button>
       </form>
     </Form>
   )

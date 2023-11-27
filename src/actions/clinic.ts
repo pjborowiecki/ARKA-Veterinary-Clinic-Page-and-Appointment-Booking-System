@@ -1,16 +1,15 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+// import { revalidatePath } from "next/cache"
 import { db } from "@/db"
 import { psGetClinic } from "@/db/prepared/statements"
 import { clinics, type Clinic } from "@/db/schema"
 import type { clinicSchema } from "@/validations/clinic"
-import { eq } from "drizzle-orm"
 import type { z } from "zod"
 
 export async function addClinic(
   input: z.infer<typeof clinicSchema>
-): Promise<string> {
+): Promise<"success" | "fail"> {
   try {
     const response = await db.insert(clinics).values({
       latitude: input.latitude,
@@ -22,6 +21,7 @@ export async function addClinic(
     })
 
     // revalidatePath("/admin/przychodnia")
+    // revalidatePath("/")
 
     return response ? "success" : "fail"
   } catch (error) {
@@ -56,20 +56,20 @@ export async function getClinic(): Promise<Clinic | null> {
   }
 }
 
-export async function updateClinic(
-  input: z.infer<typeof clinicSchema> & { userId: string }
-) {
-  await db
-    .update(clinics)
-    .set({
-      userId: input.userId,
-      latitude: input.latitude,
-      longitude: input.longitude,
-      address: input.address,
-      phone: input.phone,
-      email: input.email,
-    })
-    .where(eq(clinics.userId, input.userId))
+// export async function updateClinic(
+//   input: z.infer<typeof clinicSchema> & { userId: string }
+// ) {
+//   await db
+//     .update(clinics)
+//     .set({
+//       userId: input.userId,
+//       latitude: input.latitude,
+//       longitude: input.longitude,
+//       address: input.address,
+//       phone: input.phone,
+//       email: input.email,
+//     })
+//     .where(eq(clinics.userId, input.userId))
 
-  revalidatePath("/admin/przychodnia")
-}
+//   revalidatePath("/admin/przychodnia")
+// }

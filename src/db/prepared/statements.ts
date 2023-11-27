@@ -1,5 +1,11 @@
 import { db } from "@/db"
-import { clinics, users } from "@/db/schema"
+import {
+  bookings,
+  businessHours,
+  clinics,
+  datesUnavailable,
+  users,
+} from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
 
 export const psGetUserByEmail = db
@@ -23,3 +29,24 @@ export const psGetUserByResetPasswordToken = db
   .prepare()
 
 export const psGetClinic = db.select().from(clinics).prepare()
+
+export const psGetAllBookings = db.select().from(bookings).prepare()
+
+export const psGetBusinessHours = db.select().from(businessHours).prepare()
+
+export const psGetDatesUnavailable = db
+  .select()
+  .from(datesUnavailable)
+  .prepare()
+
+export const psGetAllDoctorBookings = db
+  .select()
+  .from(bookings)
+  .where(eq(bookings.type, "weterynarz"))
+  .prepare()
+
+export const psGetAllGroomerBookings = db
+  .select()
+  .from(bookings)
+  .where(eq(bookings.type, "salon fryzur"))
+  .prepare()
