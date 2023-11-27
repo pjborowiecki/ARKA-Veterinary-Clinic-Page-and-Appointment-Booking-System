@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         landingPrimary:
-          "rounded-full border-[3px] border-primaryButtonBorder bg-greenButtonBackground py-[4.5vw] text-[4vw] font-medium tracking-wider text-greenButtonText md:px-[4vw] md:py-[1.3vw] md:text-[1.4vw] md:hover:scale-110 w-1400:px-[56px] w-1400:py-[18px] w-1400:text-[18px]",
+          "border-[3px] border-primaryButtonBorder bg-greenButtonBackground py-[4.5vw] text-[4vw] font-medium tracking-wider text-greenButtonText md:px-[4vw] md:py-[1.3vw] md:text-[1.4vw] md:hover:scale-110 w-1400:px-[56px] w-1400:py-[18px] w-1400:text-[18px]",
         landingSecondary:
           "gap-[16px] rounded-full border-[2px] border-secondaryButtonBorder bg-peach py-[4vw] text-[4vw] font-medium tracking-wider text-greenNavbarText md:px-[4vw] md:py-[1.32vw] md:text-[1.4vw] md:hover:scale-110 w-1400:px-[56px] w-1400:py-[18px] w-1400:text-[18px]",
         landingAppointment:
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
-        action: "w-[70vw] sm:w-[60vw] md:w-[auto]",
+        action: "w-[70vw] rounded-full sm:w-[60vw] md:w-[auto]",
         datePicker: "h-10 px-3 py-2",
         contact:
           "h-[16vw] w-[50vw] rounded-full border-[2px] px-6 py-[10px] text-[4.8vw] tracking-wider shadow-sm md:h-[6vw] md:w-[20vw] md:text-[2vw] lg:h-auto lg:w-auto lg:text-[16px]",

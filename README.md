@@ -69,6 +69,7 @@ The client wanted a simple website with a contact form and a full booking manage
 - [ ] CRUD operations for bookings in the admin dashboard (confirm, update, reject, delete)
 - [ ] Booking re-scheduling functionality
 - [ ] Transactional emails for customers and admin
+- [ ] Style the booking page
 - [ ] User profile and settings pages
 - [ ] Smooth scroll to sections
 - [ ] Scroll back up button

@@ -1,7 +1,7 @@
+import Link from "next/link"
+
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-import { AddBookingDialog } from "@/components/add-booking-dialog"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Header } from "@/components/nav/landing/header"
 
 interface HeroSectionProps {
@@ -17,15 +17,18 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
         <section className="mx-auto flex h-full w-full max-w-[1440px] grid-cols-12 flex-col-reverse px-5 transition-all duration-500 ease-in-out md:grid md:pl-[58px] md:pr-0 lg:pl-[64px]">
           {/* Hero buttons on Mobile */}
           <div className="mb-[6vw] mt-[8vw] flex flex-col items-center gap-[4vw] whitespace-nowrap md:hidden">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="landingPrimary" size="action">
-                  Umów wizytę
-                </Button>
-              </DialogTrigger>
-              <AddBookingDialog />
-            </Dialog>
-
+            <Link
+              href="/rezerwacja"
+              className={cn(
+                buttonVariants({
+                  variant: "landingPrimary",
+                  size: "action",
+                }),
+                "rounded-full"
+              )}
+            >
+              Umów wizytę
+            </Link>
             <Button
               variant="landingSecondary"
               size="action"
@@ -55,14 +58,18 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
               </h3>
 
               <div className="mt-2 hidden w-full items-center gap-[1vw] whitespace-nowrap md:flex">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="landingPrimary" size="action">
-                      Umów wizytę
-                    </Button>
-                  </DialogTrigger>
-                  <AddBookingDialog />
-                </Dialog>
+                <Link
+                  href="/rezerwacja"
+                  className={cn(
+                    buttonVariants({
+                      variant: "landingPrimary",
+                      size: "action",
+                    }),
+                    "rounded-full"
+                  )}
+                >
+                  Umów wizytę
+                </Link>
 
                 <Button
                   variant="landingSecondary"

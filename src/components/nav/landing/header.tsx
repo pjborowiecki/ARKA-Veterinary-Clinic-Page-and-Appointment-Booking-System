@@ -1,9 +1,8 @@
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-import { AddBookingDialog } from "@/components/add-booking-dialog"
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
 import { Navigation } from "@/components/nav/landing/navigation"
 import { NavigationMobile } from "@/components/nav/landing/navigation-mobile"
 
@@ -20,24 +19,21 @@ export function Header(): JSX.Element {
       <div className="flex flex-1 items-center justify-end whitespace-nowrap">
         <Navigation navItems={siteConfig.mainNavItems} />
 
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              variant="landingAppointment"
-              className="group"
-              size="action"
-            >
-              <span
-                className="absolute h-0 w-0 rounded-full bg-white opacity-10 transition-all duration-300 ease-out group-hover:h-32 group-hover:w-full"
-                aira-hidden="true"
-              />
-              <span aria-label="Umów wizytę" className="relative">
-                Umów wizytę
-              </span>
-            </Button>
-          </DialogTrigger>
-          <AddBookingDialog />
-        </Dialog>
+        <Link
+          href="/rezerwacja"
+          className={cn(
+            buttonVariants({ variant: "landingAppointment", size: "action" }),
+            "group"
+          )}
+        >
+          <span
+            className="absolute h-0 w-0 rounded-full bg-white opacity-10 transition-all duration-300 ease-out group-hover:h-32 group-hover:w-full"
+            aira-hidden="true"
+          />
+          <span aria-label="Umów wizytę" className="relative">
+            Umów wizytę
+          </span>
+        </Link>
 
         <NavigationMobile navItems={siteConfig.mainNavItems} />
       </div>

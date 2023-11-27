@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-// import Link from "next/link"
+import Link from "next/link"
 import { addBooking } from "@/actions/booking"
 import {
   bookings,
@@ -21,7 +21,7 @@ import { TIME_OPTIONS } from "@/data/constants"
 import { useToast } from "@/hooks/use-toast"
 // import { isBusinessHour, isDateBooked, isDateUnavailable } from "@/lib/booking"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
   Form,
@@ -222,7 +222,7 @@ export function BookingAddForm({
                     <SelectTrigger className="capitalize">
                       <SelectValue placeholder={field.value} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="h-[220px] max-h-[220px] overflow-y-scroll">
                       <SelectGroup>
                         {TIME_OPTIONS?.map((option) => (
                           <SelectItem
@@ -359,21 +359,27 @@ export function BookingAddForm({
           )}
         /> */}
 
-        {/* Button */}
-        <Button type="submit" disabled={isPending} className="w-full">
-          {isPending ? (
-            <>
-              <Icons.spinner
-                className="mr-2 h-4 w-4 animate-spin"
-                aria-hidden="true"
-              />
-              <span>Rezerwuję...</span>
-            </>
-          ) : (
-            <span>Zarezerwuj</span>
-          )}
-          <span className="sr-only">Zarezerwuj</span>
-        </Button>
+        {/* Buttons */}
+        <div className="grid w-full grid-cols-2 gap-4">
+          <Link href="/" className={buttonVariants({ variant: "outline" })}>
+            Wróć do strony
+          </Link>
+
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Icons.spinner
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />
+                <span>Rezerwuję...</span>
+              </>
+            ) : (
+              <span>Zarezerwuj</span>
+            )}
+            <span className="sr-only">Zarezerwuj</span>
+          </Button>
+        </div>
       </form>
     </Form>
   )
