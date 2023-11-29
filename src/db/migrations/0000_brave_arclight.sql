@@ -17,7 +17,7 @@ CREATE TABLE `bookings` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`message` text,
 	`type` enum('weterynarz','salon fryzur') NOT NULL DEFAULT 'weterynarz',
-	`slot` datetime NOT NULL,
+	`time` varchar(5) NOT NULL,
 	`firstName` varchar(32) NOT NULL,
 	`lastName` varchar(32) NOT NULL,
 	`email` varchar(64) NOT NULL,
@@ -71,9 +71,10 @@ CREATE TABLE `clinics` (
 );
 --> statement-breakpoint
 CREATE TABLE `datesUnavailable` (
+	`id` serial AUTO_INCREMENT NOT NULL,
 	`date` datetime NOT NULL,
 	`createdAt` timestamp DEFAULT (now()),
-	CONSTRAINT `datesUnavailable_date` PRIMARY KEY(`date`)
+	CONSTRAINT `datesUnavailable_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
 CREATE TABLE `session` (

@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "33772116-52a1-4c36-bd20-ad04e3af4d0d",
-  "prevId": "12ab28b9-b161-44bd-abf2-3c3f015198f3",
+  "id": "1a2cfac8-c48f-4ddb-916f-9165baaf6915",
+  "prevId": "ff82ae70-0a2c-44fb-9746-4a10b17ec59f",
   "tables": {
     "account": {
       "name": "account",
@@ -123,9 +123,16 @@
           "autoincrement": false,
           "default": "'weterynarz'"
         },
-        "slot": {
-          "name": "slot",
-          "type": "datetime",
+        "date": {
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "time": {
+          "name": "time",
+          "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -503,7 +510,7 @@
         },
         "date": {
           "name": "date",
-          "type": "datetime",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

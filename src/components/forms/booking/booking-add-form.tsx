@@ -2,24 +2,19 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { addBooking } from "@/actions/booking"
-import {
-  bookings,
-  type Booking,
-  type BusinessHours,
-  type DateUnavailable,
-} from "@/db/schema"
+import { bookings, type Booking, type BusinessHours } from "@/db/schema"
 import { bookingSchema } from "@/validations/booking"
 import { zodResolver } from "@hookform/resolvers/zod"
-// import { Checkbox } from "@radix-ui/react-checkbox"
 import { format } from "date-fns"
 import { pl } from "date-fns/locale"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
-import { TIME_OPTIONS } from "@/data/constants"
+import { DAYS_OF_WEEK, TIME_INTERVAL } from "@/data/constants"
 import { useToast } from "@/hooks/use-toast"
-// import { isBusinessHour, isDateBooked, isDateUnavailable } from "@/lib/booking"
+import { getDaysClosed, getTimeOptions } from "@/lib/booking"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -51,8 +46,8 @@ import { Icons } from "@/components/icons"
 type BookingAddFormInputs = z.infer<typeof bookingSchema>
 
 interface BookingAddFormProps {
-  existingBookings: Booking | null
-  datesUnavailable: DateUnavailable | null
+  existingBookings: Booking[] | null
+  datesUnavailable: Date[]
   businessHours: BusinessHours | null
 }
 
@@ -61,8 +56,13 @@ export function BookingAddForm({
   datesUnavailable,
   businessHours,
 }: BookingAddFormProps): JSX.Element {
+  const router = useRouter()
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
+
+  const daysClosed = businessHours
+    ? getDaysClosed(businessHours, DAYS_OF_WEEK)
+    : []
 
   const form = useForm<BookingAddFormInputs>({
     resolver: zodResolver(bookingSchema),
@@ -76,26 +76,31 @@ export function BookingAddForm({
       phone: "",
       message: "",
       status: "niepotwierdzone",
-      // rodo: false,
     },
   })
 
   function onSubmit(data: BookingAddFormInputs) {
     startTransition(async () => {
       try {
-        await addBooking({
+        const response = await addBooking({
           ...data,
         })
 
-        console.log(data)
+        if (response === "success") {
+          toast({
+            title: "Dziękujemy!",
+            description:
+              "Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę.",
+          })
 
-        toast({
-          title: "Dziękujemy!",
-          description:
-            "Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę.",
-        })
-
-        form.reset()
+          router.push("/")
+        } else {
+          toast({
+            title: "Coś poszło nie tak",
+            description: "Spróbuj zarezerwować ponownie",
+            variant: "destructive",
+          })
+        }
       } catch (error) {
         console.error(error)
         toast({
@@ -107,10 +112,18 @@ export function BookingAddForm({
     })
   }
 
+  const timeOptions = getTimeOptions(
+    form.watch("date"),
+    form.watch("type"),
+    existingBookings || [],
+    businessHours || ({} as BusinessHours),
+    TIME_INTERVAL
+  )
+
   return (
     <Form {...form}>
       <form
-        className="grid gap-4"
+        className="grid w-full gap-4"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
         {/* Service */}
@@ -190,13 +203,13 @@ export function BookingAddForm({
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={
-                        (date) => date < new Date()
-                        // ||
-                        // isDataUnavailable(data, datesUnavailable)
-                      }
-                      // modifiers={{ booked: bookedDays }}
-                      // modifiersStyles={{ booked: bookedStyle }}
+                      modifiers={{
+                        disabled: [
+                          { before: new Date() },
+                          { dayOfWeek: daysClosed },
+                          ...datesUnavailable,
+                        ],
+                      }}
                       initialFocus
                     />
                   </PopoverContent>
@@ -206,43 +219,49 @@ export function BookingAddForm({
           />
 
           {/* Time */}
-          <FormField
-            control={form.control}
-            name="time"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Godzina</FormLabel>
-                <FormControl>
-                  <Select
-                    value={field.value}
-                    onValueChange={(value: typeof field.value) =>
-                      field.onChange(value)
-                    }
-                  >
-                    <SelectTrigger className="capitalize">
-                      <SelectValue placeholder={field.value} />
-                    </SelectTrigger>
-                    <SelectContent className="h-[220px] max-h-[220px] overflow-y-scroll">
-                      <SelectGroup>
-                        {TIME_OPTIONS?.map((option) => (
-                          <SelectItem
-                            key={option}
-                            value={option}
-                            className="capitalize"
-                          >
-                            {option}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <UncontrolledFormMessage>
-                  {form.formState.errors.time?.message}
-                </UncontrolledFormMessage>
-              </FormItem>
-            )}
-          />
+          {form.watch("date") && (
+            <FormField
+              control={form.control}
+              name="time"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Godzina</FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value}
+                      onValueChange={(value: typeof field.value) =>
+                        field.onChange(value)
+                      }
+                      disabled={timeOptions && timeOptions.length === 0}
+                    >
+                      <SelectTrigger className="capitalize">
+                        <SelectValue
+                          placeholder={field.value || "Wybierz godzinę"}
+                        />
+                      </SelectTrigger>
+                      <SelectContent className="h-[220pmax-h-[220px] overflow-y-scroll">
+                        <SelectGroup>
+                          {timeOptions &&
+                            timeOptions.map((option) => (
+                              <SelectItem
+                                key={option}
+                                value={option}
+                                className="capitalize"
+                              >
+                                {option}
+                              </SelectItem>
+                            ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <UncontrolledFormMessage>
+                    {form.formState.errors.time?.message}
+                  </UncontrolledFormMessage>
+                </FormItem>
+              )}
+            />
+          )}
         </div>
         <div className="grid grid-cols-2 gap-4">
           {/* First Name */}
@@ -338,34 +357,24 @@ export function BookingAddForm({
           )}
         />
 
-        {/* Rodo */}
-        {/* <FormField
-          control={form.control}
-          name="rodo"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-
-              <FormLabel>
-                Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
-                realizacji usługi
-              </FormLabel>
-            </FormItem>
-          )}
-        /> */}
-
         {/* Buttons */}
         <div className="grid w-full grid-cols-2 gap-4">
           <Link href="/" className={buttonVariants({ variant: "outline" })}>
-            Wróć do strony
+            Anuluj
           </Link>
 
-          <Button type="submit" disabled={isPending}>
+          <Button
+            type="submit"
+            disabled={
+              isPending ||
+              form.getValues("date") === undefined ||
+              form.getValues("time") === undefined ||
+              form.getValues("firstName") === "" ||
+              form.getValues("lastName") === "" ||
+              form.getValues("email") === "" ||
+              form.getValues("phone") === ""
+            }
+          >
             {isPending ? (
               <>
                 <Icons.spinner

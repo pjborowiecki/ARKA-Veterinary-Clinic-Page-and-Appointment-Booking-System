@@ -1,7 +1,6 @@
 import { type AdapterAccount } from "@auth/core/adapters"
 import { relations } from "drizzle-orm"
 import {
-  boolean,
   datetime,
   int,
   mysqlEnum,
@@ -185,17 +184,16 @@ export const businessHours = mysqlTable("businessHours", {
 
 export const bookings = mysqlTable("bookings", {
   id: serial("id").primaryKey().autoincrement(),
-  message: text("message"),
   type: mysqlEnum("type", ["weterynarz", "salon fryzur"])
     .notNull()
     .default("weterynarz"),
-  date: datetime("date").notNull(),
+  date: datetime("date", { mode: "date", fsp: 3 }).notNull(),
   time: varchar("time", { length: 5 }).notNull(),
   firstName: varchar("firstName", { length: 32 }).notNull(),
   lastName: varchar("lastName", { length: 32 }).notNull(),
   email: varchar("email", { length: 64 }).notNull(),
   phone: varchar("phone", { length: 16 }).notNull(),
-  rodo: boolean("rodo").notNull().default(false),
+  message: text("message"),
   status: mysqlEnum("status", [
     "niepotwierdzone",
     "potwierdzone",
@@ -210,7 +208,7 @@ export const bookings = mysqlTable("bookings", {
 
 export const datesUnavailable = mysqlTable("datesUnavailable", {
   id: serial("id").primaryKey().autoincrement(),
-  date: datetime("date").notNull(),
+  date: datetime("date", { mode: "date", fsp: 3 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 })
 

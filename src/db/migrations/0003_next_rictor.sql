@@ -1,1 +1,0 @@
-ALTER TABLE `bookings` RENAME COLUMN `slot` TO `date`;

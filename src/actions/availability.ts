@@ -129,16 +129,34 @@ export async function updateBusinessHours(
   }
 }
 
-export async function getDatesUnavailable(): Promise<DateUnavailable | null> {
+export async function getDatesUnavailable(): Promise<DateUnavailable[] | null> {
   try {
-    const [datesUnavailable] = await psGetDatesUnavailable.execute()
-    return datesUnavailable ? datesUnavailable : null
+    const datesUnavailable = await psGetDatesUnavailable.execute()
+    return datesUnavailable || null
   } catch (error) {
     console.error()
     throw new Error("Błąd wczytywania niedostępnych terminów")
   }
 }
 
-export async function updateDatesUnavailable() {}
+export async function getDatesUnavailableAsAnArrayOfDates(): Promise<Date[]> {
+  try {
+    const datesUnavailableObjects = await psGetDatesUnavailable.execute()
+    if (!datesUnavailableObjects) return []
 
-export async function deleteDatesUnavailable() {}
+    const datesUnavailable = datesUnavailableObjects.map(
+      (dateUnavailable) => new Date(dateUnavailable.date)
+    )
+
+    return datesUnavailable || []
+  } catch (error) {
+    console.error()
+    throw new Error("Błąd wczytywania niedostępnych terminów")
+  }
+}
+
+export async function addDateUnavailable() {}
+
+export async function updateDateUnavailable() {}
+
+export async function deleteDateUnavailable() {}

@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "71b7ab21-b623-4423-9669-6ce2c9e1ef4b",
-  "prevId": "b31905ff-d312-4a3d-97f0-84406f306778",
+  "id": "aa8f2371-4a3f-4470-8926-c8f50d82b0f1",
+  "prevId": "71b7ab21-b623-4423-9669-6ce2c9e1ef4b",
   "tables": {
     "account": {
       "name": "account",
@@ -157,14 +157,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
-        },
-        "rodo": {
-          "name": "rodo",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": false
         },
         "message": {
           "name": "message",

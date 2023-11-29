@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "12ab28b9-b161-44bd-abf2-3c3f015198f3",
+  "id": "ff82ae70-0a2c-44fb-9746-4a10b17ec59f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -123,9 +123,9 @@
           "autoincrement": false,
           "default": "'weterynarz'"
         },
-        "slot": {
-          "name": "slot",
-          "type": "datetime",
+        "time": {
+          "name": "time",
+          "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -494,6 +494,13 @@
     "datesUnavailable": {
       "name": "datesUnavailable",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
         "date": {
           "name": "date",
           "type": "datetime",
@@ -513,10 +520,10 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "datesUnavailable_date": {
-          "name": "datesUnavailable_date",
+        "datesUnavailable_id": {
+          "name": "datesUnavailable_id",
           "columns": [
-            "date"
+            "id"
           ]
         }
       },

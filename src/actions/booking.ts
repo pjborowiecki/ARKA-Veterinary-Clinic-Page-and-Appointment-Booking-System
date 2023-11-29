@@ -8,11 +8,11 @@ import type { bookingSchema, getBookingSchema } from "@/validations/booking"
 import { eq } from "drizzle-orm"
 import { type z } from "zod"
 
-export async function getAllBookings(): Promise<Booking | null> {
+export async function getAllBookings(): Promise<Booking[] | null> {
   try {
     noStore()
-    const [bookings] = await psGetAllBookings.execute()
-    return bookings || null
+    const bookings = await psGetAllBookings.execute()
+    return bookings ? bookings : null
     // revalidatePath("")
   } catch (error) {
     console.error(error)
@@ -20,10 +20,18 @@ export async function getAllBookings(): Promise<Booking | null> {
   }
 }
 
-export async function addBooking(input: z.infer<typeof bookingSchema>) {
-  await db.insert(bookings).values({ ...input })
-
-  // revalidatePath(`/rezerwacje`)
+export async function addBooking(
+  input: z.infer<typeof bookingSchema>
+): Promise<"success" | "fail"> {
+  try {
+    const response = await db.insert(bookings).values({ ...input })
+    revalidatePath("/")
+    revalidatePath(`/rezerwacja`)
+    return response ? "success" : "fail"
+  } catch (error) {
+    console.error(error)
+    throw new Error("Błąd przy dodawaniu rezerwacji")
+  }
 }
 
 export async function updateBooking() {}
