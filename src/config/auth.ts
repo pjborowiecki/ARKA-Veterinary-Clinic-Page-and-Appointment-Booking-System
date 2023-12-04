@@ -19,9 +19,9 @@ export const authOptions: AuthOptions = {
     updateAge: 24 * 60 * 60, // 24 hours
   },
   pages: {
-    signIn: "/signin",
+    signIn: "/logowanie",
     signOut: "/signout",
-    verifyRequest: "/signin/magic-link-signin",
+    verifyRequest: "/logowanie/magic-link-signin",
   },
   providers: [
     CredentialsProvider({

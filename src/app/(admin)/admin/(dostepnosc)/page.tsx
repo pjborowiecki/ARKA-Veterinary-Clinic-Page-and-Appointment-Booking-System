@@ -44,9 +44,7 @@ export default async function AvailabilityPage(): Promise<JSX.Element> {
               Godziny, w których przyjmujesz klientów
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <OperatingHoursForm />
-          </CardContent>
+          <CardContent>{/* <OperatingHoursForm /> */}</CardContent>
         </Card>
 
         {/* Days unavailable */}

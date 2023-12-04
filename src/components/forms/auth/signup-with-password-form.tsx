@@ -49,31 +49,31 @@ export function SignUpWithPasswordForm(): JSX.Element {
         switch (message) {
           case "exists":
             toast({
-              title: "User with this email address already exists",
-              description: "If this is you, please sign in instead",
+              title: "Użytkownik o podanym adresie email już istnieje",
+              description: "Jeżeli to Ty, przejdź do strony logowania",
               variant: "destructive",
             })
             form.reset()
             break
           case "success":
             toast({
-              title: "Success!",
-              description: "Check your inbox to verify your email address",
+              title: "Link weryfikacyjny został wysłany",
+              description: "Sprawdź maila aby dokończyć rejestrację",
             })
-            router.push("/signin")
+            router.push("/logowanie")
             break
           default:
             toast({
-              title: "Something went wrong",
-              description: "Please try again",
+              title: "Coś poszło nie tak",
+              description: "Spróbuj ponownie",
               variant: "destructive",
             })
             console.error(message)
         }
       } catch (error) {
         toast({
-          title: "Something went wrong",
-          description: "Please try again",
+          title: "Coś poszło nie tak",
+          description: "Spróbuj ponownie",
           variant: "destructive",
         })
         console.error(error)
@@ -106,7 +106,7 @@ export function SignUpWithPasswordForm(): JSX.Element {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Hasło</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="**********" {...field} />
               </FormControl>
@@ -120,7 +120,7 @@ export function SignUpWithPasswordForm(): JSX.Element {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>Potwierdź hasło</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="**********" {...field} />
               </FormControl>
@@ -136,10 +136,10 @@ export function SignUpWithPasswordForm(): JSX.Element {
                 className="mr-2 h-4 w-4 animate-spin"
                 aria-hidden="true"
               />
-              <span>Signing up...</span>
+              <span>Rejestruję...</span>
             </>
           ) : (
-            <span>Continue</span>
+            <span>Kontynuuj</span>
           )}
           <span className="sr-only">
             Continue signing up with email and password

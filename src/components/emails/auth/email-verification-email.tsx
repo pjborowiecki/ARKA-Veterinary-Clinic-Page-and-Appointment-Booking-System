@@ -21,7 +21,7 @@ export function EmailVerificationEmail({
   email,
   emailVerificationToken,
 }: Readonly<EmailVerificationEmailProps>): JSX.Element {
-  const previewText = `${siteConfig.nameShort} email verification.`
+  const previewText = `Weryfikacja maila na stronie ${siteConfig.nameShort}`
   return (
     <Html lang="en">
       <Head>
@@ -32,36 +32,32 @@ export function EmailVerificationEmail({
         <Body>
           <Container>
             <Section>
-              <Text className="text-xl">Hi,</Text>
+              <Text className="text-xl">Heja,</Text>
               <Text className="text-base">
-                Your email address, {email}, was recently used to sign up at{" "}
+                Ktoś spróbował właśnie użyć adresu {email} w celu założenia
+                konta administratora na stronie{" "}
                 <span className="font-semibold tracking-wide">
-                  {siteConfig.name}
+                  {siteConfig.nameShort}
                 </span>
                 .
               </Text>
               <Text className="text-base">
-                Please verify this address by clicking the button below
+                Jeżeli to byłeś Ty, kliknij w poniższy link aby potwierdzić swój
+                adres email i dokończyć proces zakładanie konta.
               </Text>
               <Button
-                href={`${env.NEXT_PUBLIC_APP_URL}/signup/verify-email?token=${emailVerificationToken}`}
+                href={`${env.NEXT_PUBLIC_APP_URL}/rejestracja/potwierdz-email?token=${emailVerificationToken}`}
               >
-                Verify email now
+                Potwierdź adres email
               </Button>
             </Section>
 
             <Section>
               <Text className="text-xs">
-                If you didn&apos;t sign up at {siteConfig.name}, just ignore and
-                delete this message.
+                Jeżeli to nie Ty próbowałeś się zarejestrować, zignoruj tego
+                maila.
               </Text>
-              <Text className="text-base font-medium">
-                Enjoy{" "}
-                <span className="font-semibold tracking-wide">
-                  {siteConfig.name}
-                </span>{" "}
-                and have a nice day!
-              </Text>
+              <Text className="text-base font-medium">Miłego dnia!</Text>
             </Section>
           </Container>
         </Body>

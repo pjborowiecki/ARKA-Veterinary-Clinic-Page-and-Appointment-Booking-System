@@ -13,6 +13,10 @@ export interface NavItem {
   disabled?: boolean
 }
 
+export interface SidebarNavItem extends NavItem {
+  icon: string
+}
+
 export interface Option {
   label: string
   value: string

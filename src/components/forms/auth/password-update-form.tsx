@@ -53,30 +53,31 @@ export function PasswordUpdateForm({
         switch (message) {
           case "expired":
             toast({
-              title: "Token is missing or expired",
-              description: "Please try again",
+              title: "Nieprawidłowy lub brakujący token",
+              description: "Spróbuj ponownie",
               variant: "destructive",
             })
-            router.push("/signin")
+            router.push("/logowanie")
             break
           case "success":
             toast({
-              title: "Success!",
-              description: "You can now sign in with new password",
+              title: "Hasło zostało zaktualizowane",
+              description:
+                "Od teraz możesz logować się przy użyciu nowego hasła",
             })
-            router.push("/signin")
+            router.push("/logowanie")
             break
           default:
             toast({
-              title: "Error updating password",
-              description: "Please try again",
+              title: "Błąd przy aktualizacja hasła",
+              description: "Spróbuj ponownie",
               variant: "destructive",
             })
         }
       } catch (error) {
         toast({
-          title: "Something went wrong",
-          description: "Please try again",
+          title: "Coś poszło nie tak",
+          description: "Spróbuj ponownie",
           variant: "destructive",
         })
         console.error(error)

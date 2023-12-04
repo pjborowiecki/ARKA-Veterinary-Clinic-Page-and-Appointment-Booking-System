@@ -18,6 +18,23 @@ export const Icons = {
       <path d="m12 5 7 7-7 7" />
     </svg>
   ),
+  arrowLeft: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m12 19-7-7 7-7" />
+      <path d="M19 12H5" />
+    </svg>
+  ),
   chevronLeft: (props: IconProps) => (
     <svg
       {...props}
@@ -117,6 +134,22 @@ export const Icons = {
       <path d="M3 10h5" />
       <path d="M17.5 17.5 16 16.25V14" />
       <path d="M22 16a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z" />
+    </svg>
+  ),
+  circle: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
     </svg>
   ),
   calendar: (props: IconProps) => (

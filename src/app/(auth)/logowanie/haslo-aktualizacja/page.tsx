@@ -1,8 +1,6 @@
-import { type Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
-import { redirect } from "next/navigation"
-import { markEmailAsVerified } from "@/actions/email"
-import { getUserByEmailVerificationToken } from "@/actions/user"
+import { getUserByResetPasswordToken } from "@/actions/user"
 import { env } from "@/env.mjs"
 
 import { cn } from "@/lib/utils"
@@ -14,40 +12,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { PasswordUpdateForm } from "@/components/forms/auth/password-update-form"
 import { Icons } from "@/components/icons"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Email Verification",
-  description: "Verify your email address to continue",
+  title: "Aktualizacja hasła",
+  description: "Ustaw nowe hasło",
 }
 
-export interface VerifyEmailPageProps {
+interface PasswordUpdatePageProps {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function VerifyEmailPage({
+export default async function PasswordUpdatePage({
   searchParams,
-}: VerifyEmailPageProps): Promise<JSX.Element> {
-  const emailVerificationToken = searchParams.token as string
-
-  if (emailVerificationToken) {
-    const user = await getUserByEmailVerificationToken(emailVerificationToken)
+}: PasswordUpdatePageProps): Promise<JSX.Element> {
+  if (searchParams.token) {
+    const user = await getUserByResetPasswordToken(String(searchParams.token))
 
     if (!user) {
       return (
         <div className="flex min-h-screen w-full items-center justify-center">
-          <Card className="max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
+          <Card className="bg-background max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
             <CardHeader>
-              <CardTitle>Invalid Email Verification Token</CardTitle>
+              <CardTitle>Invalid Reset Password Token</CardTitle>
               <CardDescription>
-                Please return to the sign up page and try again
+                Please return to the sign in page and try again
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Link
                 aria-label="Go back to sign in page"
-                href="/signup"
+                href="/logowanie"
                 className={cn(
                   buttonVariants({ variant: "secondary" }),
                   "w-full"
@@ -63,26 +60,24 @@ export default async function VerifyEmailPage({
       )
     }
 
-    const updatedUser = await markEmailAsVerified(emailVerificationToken)
-    if (!updatedUser) redirect("/signup")
-
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
         <Card className="max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
           <CardHeader>
-            <CardTitle>Email successfully verified</CardTitle>
-            <CardDescription>
-              You can now sign in to your account
-            </CardDescription>
+            <CardTitle>Password Update</CardTitle>
+            <CardDescription>Set your new password</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="grid gap-2">
+            <PasswordUpdateForm
+              resetPasswordToken={String(searchParams.token)}
+            />
             <Link
-              aria-label="Go back to sign in page"
-              href="/signin"
-              className={buttonVariants()}
+              aria-label="Cancel password update"
+              href="/logowanie"
+              className={buttonVariants({ variant: "outline" })}
             >
-              <span className="sr-only">Go to Sign In page</span>
-              Go to Sign In page
+              <span className="sr-only">Cancel password update</span>
+              Cancel
             </Link>
           </CardContent>
         </Card>
@@ -91,17 +86,17 @@ export default async function VerifyEmailPage({
   } else {
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
-        <Card className="max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
+        <Card className="bg-background max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
           <CardHeader>
-            <CardTitle>Missing Email Verification Token</CardTitle>
+            <CardTitle>Missing Reset Password Token</CardTitle>
             <CardDescription>
-              Please return to the sign up page and try again
+              Please return to the sign in page and try again
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Link
-              aria-label="Go back to sign up page"
-              href="/signup"
+              aria-label="Go back to sign in page"
+              href="/logowanie"
               className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
             >
               <Icons.arrowLeft className="mr-2 h-4 w-4" />

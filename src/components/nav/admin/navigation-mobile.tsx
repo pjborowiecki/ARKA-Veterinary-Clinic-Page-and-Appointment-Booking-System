@@ -2,24 +2,53 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useSelectedLayoutSegment } from "next/navigation"
 import type { NavItem } from "@/types"
 
 import { siteConfig } from "@/config/site"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Icons } from "@/components/icons"
-import { MobileNavLink } from "@/components/nav/admin-mobile-nav-link"
 
 interface NavigationMobileProps {
   items?: NavItem[]
 }
 
+interface MobileLinkProps extends React.PropsWithChildren {
+  href: string
+  disabled?: boolean
+  segment: string
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function MobileLink({
+  children,
+  href,
+  disabled,
+  segment,
+  setIsOpen,
+}: MobileLinkProps): JSX.Element {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "text-foreground transition-colors hover:text-primary/60",
+        href.includes(segment) && "text-foreground",
+        disabled && "pointer-events-none opacity-60"
+      )}
+      onClick={() => setIsOpen(false)}
+    >
+      {children}
+    </Link>
+  )
+}
+
 export function NavigationMobile({
   items,
 }: NavigationMobileProps): JSX.Element {
-  const pathname = usePathname()
+  const segment = useSelectedLayoutSegment()
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
@@ -47,15 +76,15 @@ export function NavigationMobile({
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-2 pl-1 pr-7 text-lg capitalize">
             {items?.map((item, index) => (
-              <MobileNavLink
+              <MobileLink
                 key={index}
                 href={String(item.href)}
-                pathname={pathname}
+                segment={String(segment)}
                 setIsOpen={setIsOpen}
                 disabled={item.disabled}
               >
                 {item.title}
-              </MobileNavLink>
+              </MobileLink>
             ))}
           </div>
         </ScrollArea>

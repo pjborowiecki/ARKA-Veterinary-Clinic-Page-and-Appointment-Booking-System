@@ -1,4 +1,3 @@
-import { Footer } from "@/components/nav/admin/footer"
 import { Header } from "@/components/nav/admin/header"
 
 export default function AdminLayout({
@@ -10,7 +9,6 @@ export default function AdminLayout({
       <main className="container h-full flex-1 overflow-hidden">
         {children}
       </main>
-      <Footer />
     </div>
   )
 }

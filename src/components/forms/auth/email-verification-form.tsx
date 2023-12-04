@@ -43,30 +43,31 @@ export function EmailVerificationForm(): JSX.Element {
         switch (message) {
           case "not-found":
             toast({
-              title: "User with this email address does not exist",
+              title: "Użytkownik z podanym adresem email nie istnieje",
               variant: "destructive",
             })
             form.reset()
             break
           case "success":
             toast({
-              title: "Success!",
-              description: "Check your inbox and verify your email address",
+              title: "Link weryfikacyjny został wysłany",
+              description:
+                "Kliknij w otrzymanego linka w celu dokończenia weryfikacji",
             })
-            router.push("/signin")
+            router.push("/logowanie")
             break
           default:
             toast({
-              title: "Error sending verification link",
-              description: "Please try again",
+              title: "Błąd przy wysyłaniu linka weryfikacyjnego",
+              description: "Spróbuj ponownie",
               variant: "destructive",
             })
-            router.push("/signup")
+            router.push("/rejestracja")
         }
       } catch (error) {
         toast({
-          title: "Something went wrong",
-          description: "Please try again",
+          title: "Coś poszło nie tak",
+          description: "Spróbuj ponownie",
           variant: "destructive",
         })
         console.error(error)
@@ -101,12 +102,14 @@ export function EmailVerificationForm(): JSX.Element {
                 className="mr-2 h-4 w-4 animate-spin"
                 aria-hidden="true"
               />
-              <span>Pending...</span>
+              <span>Wysyłanie...</span>
             </>
           ) : (
-            <span>Get verification link</span>
+            <span>Wyślij link</span>
           )}
-          <span className="sr-only">Resend email verification link</span>
+          <span className="sr-only">
+            Prześlij link weryfikacyjny na podany adres email
+          </span>
         </Button>
       </form>
     </Form>

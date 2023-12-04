@@ -44,16 +44,17 @@ export async function Header(): Promise<JSX.Element> {
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      className="relative h-8 w-8 rounded-full"
-                    >
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage
-                          src={user.image ? user.image : ""}
-                          alt={user.username ?? ""}
-                        />
-                        <AvatarFallback>{initials}</AvatarFallback>
+                    <Button variant="user" size="icon">
+                      <Avatar className="h-full w-full">
+                        {user.image && (
+                          <AvatarImage
+                            src={user.image}
+                            alt={user.name ?? "user's profile picture"}
+                          />
+                        )}
+                        <AvatarFallback className="text-xs capitalize">
+                          {user.email && user.email.charAt(0)}
+                        </AvatarFallback>
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>

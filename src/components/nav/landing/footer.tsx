@@ -17,6 +17,7 @@ export async function Footer({
   phone_2,
 }: FooterProps): Promise<JSX.Element> {
   const businessHours = await getBusinessHours()
+  const DAYS_OF_WEEK_REARRANGED = [...DAYS_OF_WEEK.slice(1), DAYS_OF_WEEK[0]]
 
   return (
     <footer
@@ -79,7 +80,7 @@ export async function Footer({
 
             <div className="grid w-full grid-cols-2 justify-between text-[4.8vw] md:text-[1.7vw] w-1400:text-[18px]">
               <div className="flex flex-col gap-2 font-extrabold">
-                {DAYS_OF_WEEK.map((day) => (
+                {DAYS_OF_WEEK_REARRANGED.map((day) => (
                   <span key={day}>
                     {(DAY_MAPPINGS as { [key: string]: string })[day]}
                   </span>
@@ -87,7 +88,7 @@ export async function Footer({
               </div>
 
               <div className="flex flex-col items-end gap-2">
-                {DAYS_OF_WEEK.map((day) => (
+                {DAYS_OF_WEEK_REARRANGED.map((day) => (
                   <div key={day}>
                     {businessHours?.[`${day}Status` as keyof BusinessHours] ===
                     "otwarte" ? (

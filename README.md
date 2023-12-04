@@ -4,18 +4,29 @@
 
 ## Description
 
-This project is a re-build of a website I receintly built with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
-
-The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel. When completed, I intend to replace the original website with this rebuild. Rather than Remix and MongoDb, like in the original build, this version version relies on the latest version of [Next.js](https://nextjs.org/) and its features, such as server actions. It also takes advantage of serverless MySQL database connection, using [PlanetScale](https://planetscale.com/) and [Drizzle ORM](https://orm.drizzle.team/). Contact form and transactional emails are implemented using [Resend](https://resend.com) and [ReactEmail](https://react.email/)
+> **Warning**
+> This project is still under active development.
 
 <br />
 
-> **Warning**
-> This project is still in active development.
->
-> It uses new technologies (server actions, serverless database connection, etc. ), which are subject to change and may break your application.
->
-> **Current version is not functional, so do not waste your time trying to run this project on your own. However, a major update is expected to be delivered within the next few days, addressing all the functional issues and nearing the project to completion.**
+This project is a re-build of a website I receintly built with [Remix](https://remix.run/) and [MongoDB Atlas](https://www.mongodb.com/atlas/database) for one of my clients in Poland. I decided to re-build it with the latest and greatest in tech for my own learning purposes.
+
+The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel.
+
+Rather than Remix and MongoDb, like in the original build, this version version relies on the latest version of [Next.js](https://nextjs.org/) and its features, such as server actions. It also takes advantage of serverless MySQL database connection, using [PlanetScale](https://planetscale.com/) and [Drizzle ORM](https://orm.drizzle.team/). Contact form and transactional emails are implemented using [Resend](https://resend.com) and [ReactEmail](https://react.email/)
+
+<br />
+
+## Usage instructions:
+
+To safeguard against the creation of test bookings in the live environment, which may interfere with my client's actual appointments, I have implemented a dedicated demo environment for you to explore the functionality of this website and accompanying booking system. To access the demo, go [TODO: UPDATE THIS LINK AND INCLUDE /ADMIN](https:/) to use the following credentials:
+
+- **Email**: `arka@pjborowiecki.com`
+- **Password**: `ArkaDemo1!`
+
+Feel free to navigate the platform, and test various features, including booking management. Please note that any actions performed in this demo environment are for testing purposes only and will not impact the actual database or real bookings.
+
+**As access is provided to the wider internet, I would like to emphasize that I do not assume responsibility for any content or actions initiated by other users during testing. This includes, but is not limited to, bookings with inappropriate messages or any other unintended use of the platform. I appreciate your understanding and encourage responsible exploration of this demo environment. If you have any concerns or questions, please feel free to contact me.**
 
 <br />
 

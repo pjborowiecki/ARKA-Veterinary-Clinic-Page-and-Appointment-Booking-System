@@ -43,30 +43,30 @@ export function PasswordResetForm(): JSX.Element {
         switch (message) {
           case "not-found":
             toast({
-              title: "User with this email address does not exist",
+              title: "Użytkownik o podanym adresie email nie istnieje",
               variant: "destructive",
             })
             form.reset()
             break
           case "success":
             toast({
-              title: "Success!",
-              description: "Check your email for a password reset link",
+              title: "Link został wysłany",
+              description: "Sprawdź maila aby dokończyć resetowanie hasła",
             })
-            router.push("/signin")
+            router.push("/logowanie")
             break
           default:
             toast({
-              title: "Error resetting password",
-              description: "Please try again",
+              title: "Błąd przy resetowaniu kasła",
+              description: "Spróbuj ponownie",
               variant: "destructive",
             })
-            router.push("/signin")
+            router.push("/logowanie")
         }
       } catch (error) {
         toast({
-          title: "Something went wrong",
-          description: "Try again",
+          title: "Coś poszło nie tak",
+          description: "Spróbuj ponownie",
           variant: "destructive",
         })
         console.error(error)

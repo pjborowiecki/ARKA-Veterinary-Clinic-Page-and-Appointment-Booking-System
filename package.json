@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "arka-weterynaria-full-stack-appointment-booking-and-management-website",
-  "description": "",
+  "description": "Przychodnia wterynaryjna ARKA. Poza podstawowymi informacjami na  temat przychodnia oraz danymi kontaktowymi, z łatwością zarezerwujesz wizytę za pomocą intuicyjnego i prostego formularza.",
   "version": "0.1.0",
   "license": "MIT",
   "author": {
@@ -17,7 +17,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "next dev --experimental-https",
+    "dev": "pnpm db:generate && pnpm db:push && next dev --experimental-https",
     "build": "next build",
     "start": "next start",
     "postinstall": "drizzle-kit generate:mysql --config=drizzle.config.ts",

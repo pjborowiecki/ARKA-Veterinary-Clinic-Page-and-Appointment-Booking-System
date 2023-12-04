@@ -45,8 +45,9 @@ export function SignInWithPasswordForm(): JSX.Element {
         const user = await getUserByEmail(formData.email)
         if (!user) {
           toast({
-            title: "First things first",
-            description: "Please make sure you are signed up before signing in",
+            title: "Wszystko po kolei",
+            description:
+              "Upewniej się, że założyłeś konto, zanim spróbujesz się zalogować",
           })
           return
         }
@@ -54,8 +55,9 @@ export function SignInWithPasswordForm(): JSX.Element {
         const emailVerified = await checkIfEmailVerified(formData.email)
         if (!emailVerified) {
           toast({
-            title: "First things first",
-            description: "Please verify your email address before sign in",
+            title: "Wszystko po kolei",
+            description:
+              "Zweryfikuj adres email zanim spróbujesz się zalogować",
           })
           return
         }
@@ -67,20 +69,20 @@ export function SignInWithPasswordForm(): JSX.Element {
         })
 
         if (signInResponse?.ok) {
-          toast({ title: "Success!", description: "You are now signed in" })
+          toast({ title: "Witaj!", description: "Jesteś zalogowany" })
           router.push("/")
           router.refresh()
         } else {
           toast({
-            title: "Invalid email or password",
-            description: "Please check your credentials and try again",
+            title: "Nieprawidłowy email lub hasło",
+            description: "Sprawdź dane logowania i spróbuj ponownie",
             variant: "destructive",
           })
         }
       } catch (error) {
         toast({
-          title: "Something went wrong",
-          description: "Please try again",
+          title: "Coś poszło nie tak",
+          description: "Spróbuj ponownie",
           variant: "destructive",
         })
         console.error(error)
@@ -117,7 +119,7 @@ export function SignInWithPasswordForm(): JSX.Element {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Hasło</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="********" {...field} />
               </FormControl>
@@ -132,12 +134,12 @@ export function SignInWithPasswordForm(): JSX.Element {
                 className="mr-2 h-4 w-4 animate-spin"
                 aria-hidden="true"
               />
-              <span>Signing in...</span>
+              <span>Logowanie...</span>
             </>
           ) : (
-            <span>Sign in</span>
+            <span>Zaloguj</span>
           )}
-          <span className="sr-only">Sign in with email and password</span>
+          <span className="sr-only">Zaloguj się przy użyciu hasła</span>
         </Button>
       </form>
     </Form>

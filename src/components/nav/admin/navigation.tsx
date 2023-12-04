@@ -18,8 +18,8 @@ interface NavigationProps {
 
 export function Navigation({ items }: NavigationProps): JSX.Element {
   return (
-    <NavigationMenu>
-      <NavigationMenuList className="hidden items-center gap-x-8 transition-all duration-300 ease-in-out lg:flex">
+    <NavigationMenu className="ld:flex hidden">
+      <NavigationMenuList className="items-center gap-x-8 transition-all duration-300 ease-in-out">
         {items?.map((item) => (
           <NavigationMenuItem
             asChild

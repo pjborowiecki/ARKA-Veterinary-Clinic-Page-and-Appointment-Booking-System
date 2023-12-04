@@ -16,7 +16,7 @@ interface EnquiryNotificationForArkaEmailProps {
   message?: string
 }
 
-export default function EnquiryNotificationForArkaEmail({
+export function EnquiryNotificationForArkaEmail({
   firstName,
   lastName,
   email,

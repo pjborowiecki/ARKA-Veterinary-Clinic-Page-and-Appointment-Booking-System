@@ -10,33 +10,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { EmailVerificationForm } from "@/components/forms/email-verification-form"
+import { EmailVerificationForm } from "@/components/forms/auth/email-verification-form"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Email Verification",
-  description: "Provide your email address to receive the verification link",
+  title: "Weryfikacja maila",
+  description: "Podaj email aby otrzymać link weryfikacyjny",
 }
 
 export default function ReverifyEmailPage(): JSX.Element {
   return (
     <div className="flex min-h-screen w-full items-center justify-center">
-      <Card className="max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
+      <Card className="bg-background max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Email Verification</CardTitle>
+          <CardTitle className="text-2xl">Weryfikacja maila</CardTitle>
           <CardDescription>
-            Enter your email to receive a verification link
+            Podaj email aby otrzymać link weryfikacyjny
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-2">
           <EmailVerificationForm />
           <Link
             aria-label="Cancel email reverification"
-            href="/signin"
+            href="/logowanie"
             className={buttonVariants({ variant: "outline" })}
           >
-            <span className="sr-only">Cancel email reverification</span>
-            Cancel
+            <span className="sr-only">
+              Anuluj prośbę o wysłanie linka weryfikacyjnego
+            </span>
+            Anuluj
           </Link>
         </CardContent>
       </Card>

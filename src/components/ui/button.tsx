@@ -27,6 +27,7 @@ const buttonVariants = cva(
           "from-greenNavbarBackground relative z-[2] hidden cursor-pointer rounded-full border-[3px] border-appointmentButtonBorder bg-greenButtonBackground to-greenNavbarText px-[30px] py-[10px] text-lg font-medium tracking-wide text-offWhiteText shadow-sm hover:scale-[1.1] active:shadow-none md:flex lg:text-base xl:text-[18px]",
         landingContact:
           "flex items-center justify-center gap-2 border-[2px] border-contactButtonBorder bg-contactButtonBackground px-6 py-2.5 font-semibold tracking-wider text-greenNavbarText shadow-sm hover:scale-110 hover:shadow-md focus:outline-none  disabled:bg-gray-400 disabled:hover:scale-100",
+        user: "flex items-center justify-center",
       },
       size: {
         default: "h-9 px-4 py-2",

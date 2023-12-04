@@ -16,7 +16,7 @@ interface EnquiryNotificationForCustomerEmailProps {
   message?: string
 }
 
-export default function EnquiryNotificationForCustomerEmail({
+export function EnquiryNotificationForCustomerEmail({
   firstName,
   lastName,
   email,
