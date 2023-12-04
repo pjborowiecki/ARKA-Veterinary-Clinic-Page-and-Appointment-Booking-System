@@ -31,9 +31,7 @@ import {
 import { Icons } from "@/components/icons"
 
 interface BusinessHoursUpdateFormProps {
-  currentBusinessHours: BusinessHours
-  userId: string
-  clinicId: number
+  currentBusinessHours: BusinessHours | null
 }
 
 type BusinessHoursUpdateFormInputs = z.infer<typeof businessHoursSchema>
@@ -48,27 +46,27 @@ export function BusinessHoursUpdateForm({
   const form = useForm<BusinessHoursUpdateFormInputs>({
     resolver: zodResolver(businessHoursSchema),
     defaultValues: {
-      mondayStatus: currentBusinessHours.mondayStatus,
-      tuesdayStatus: currentBusinessHours.tuesdayStatus,
-      wednesdayStatus: currentBusinessHours.wednesdayStatus,
-      thursdayStatus: currentBusinessHours.thursdayStatus,
-      fridayStatus: currentBusinessHours.fridayStatus,
-      saturdayStatus: currentBusinessHours.saturdayStatus,
-      sundayStatus: currentBusinessHours.sundayStatus,
-      mondayOpening: currentBusinessHours.mondayOpening,
-      tuesdayOpening: currentBusinessHours.tuesdayOpening,
-      wednesdayOpening: currentBusinessHours.wednesdayOpening,
-      thursdayOpening: currentBusinessHours.thursdayOpening,
-      fridayOpening: currentBusinessHours.fridayOpening,
-      saturdayOpening: currentBusinessHours.saturdayOpening,
-      sundayOpening: currentBusinessHours.sundayOpening,
-      mondayClosing: currentBusinessHours.mondayClosing,
-      tuesdayClosing: currentBusinessHours.tuesdayClosing,
-      wednesdayClosing: currentBusinessHours.wednesdayClosing,
-      thursdayClosing: currentBusinessHours.thursdayClosing,
-      fridayClosing: currentBusinessHours.fridayClosing,
-      saturdayClosing: currentBusinessHours.saturdayClosing,
-      sundayClosing: currentBusinessHours.sundayClosing,
+      mondayStatus: currentBusinessHours?.mondayStatus,
+      tuesdayStatus: currentBusinessHours?.tuesdayStatus,
+      wednesdayStatus: currentBusinessHours?.wednesdayStatus,
+      thursdayStatus: currentBusinessHours?.thursdayStatus,
+      fridayStatus: currentBusinessHours?.fridayStatus,
+      saturdayStatus: currentBusinessHours?.saturdayStatus,
+      sundayStatus: currentBusinessHours?.sundayStatus,
+      mondayOpening: currentBusinessHours?.mondayOpening,
+      tuesdayOpening: currentBusinessHours?.tuesdayOpening,
+      wednesdayOpening: currentBusinessHours?.wednesdayOpening,
+      thursdayOpening: currentBusinessHours?.thursdayOpening,
+      fridayOpening: currentBusinessHours?.fridayOpening,
+      saturdayOpening: currentBusinessHours?.saturdayOpening,
+      sundayOpening: currentBusinessHours?.sundayOpening,
+      mondayClosing: currentBusinessHours?.mondayClosing,
+      tuesdayClosing: currentBusinessHours?.tuesdayClosing,
+      wednesdayClosing: currentBusinessHours?.wednesdayClosing,
+      thursdayClosing: currentBusinessHours?.thursdayClosing,
+      fridayClosing: currentBusinessHours?.fridayClosing,
+      saturdayClosing: currentBusinessHours?.saturdayClosing,
+      sundayClosing: currentBusinessHours?.sundayClosing,
     },
   })
 
@@ -77,7 +75,7 @@ export function BusinessHoursUpdateForm({
       try {
         const response = await updateBusinessHours({ ...data })
 
-        if (response) {
+        if (response === "success") {
           toast({ title: "Godziny przyjęć zostały zaktualizowane" })
         } else {
           toast({
@@ -103,7 +101,7 @@ export function BusinessHoursUpdateForm({
   return (
     <Form {...form}>
       <form
-        className="grid w-full max-w-xl gap-6"
+        className="grid w-full max-w-xl gap-4"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
         {/* Monday */}

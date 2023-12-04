@@ -37,17 +37,17 @@ export default async function ClinicBookingsPage({
   const { page, per_page, sort, from, to, lastName, type, slot, email } =
     searchParams ?? {}
 
-  const clinic = await db.query.clinics.findFirst({
-    where: eq(clinics.userId, user.id),
-    columns: {
-      id: true,
-      userId: true,
-    },
-  })
+  // const clinic = await db.query.clinics.findFirst({
+  //   where: eq(clinics.userId, user.id),
+  //   columns: {
+  //     id: true,
+  //     userId: true,
+  //   },
+  // })
 
-  if (!clinic) {
-    notFound()
-  }
+  // if (!clinic) {
+  //   notFound()
+  // }
 
   const limit = typeof per_page === "string" ? parseInt(per_page) : 10
 
@@ -80,7 +80,7 @@ export default async function ClinicBookingsPage({
       .offset(offset)
       .where(
         and(
-          eq(bookings.clinicId, clinic.id),
+          // eq(bookings.clinicId, clinic.id),
 
           // Filter by lat name
           typeof lastName === "string"
@@ -119,7 +119,7 @@ export default async function ClinicBookingsPage({
       .from(bookings)
       .where(
         and(
-          eq(bookings.clinicId, clinic.id),
+          // eq(bookings.clinicId, clinic.id),
 
           // Filter by lastname
           typeof lastName === "string"
@@ -154,7 +154,7 @@ export default async function ClinicBookingsPage({
   const pageCount = Math.ceil(count / limit)
 
   return (
-    <Card as="section">
+    <Card>
       <CardHeader className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <CardTitle className="text-2xl">Rezerwacje</CardTitle>
@@ -164,11 +164,7 @@ export default async function ClinicBookingsPage({
         <DateRangePicker align="end" />
       </CardHeader>
       <CardContent>
-        <BookingsTableShell
-          data={items}
-          pageCount={pageCount}
-          clinicId={clinic.id}
-        />
+        <BookingsTableShell data={items} pageCount={pageCount} />
       </CardContent>
     </Card>
   )

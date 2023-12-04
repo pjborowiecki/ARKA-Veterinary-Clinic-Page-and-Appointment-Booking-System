@@ -24,14 +24,12 @@ import { Icons } from "@/components/icons"
 
 interface ClinicUpdateFormProps {
   clinic: Clinic
-  userId: string
 }
 
 type ClinicUpdateFormInputs = z.infer<typeof clinicSchema>
 
 export function ClinicUpdateForm({
   clinic,
-  userId,
 }: ClinicUpdateFormProps): JSX.Element {
   const router = useRouter()
   const { toast } = useToast()
@@ -43,7 +41,8 @@ export function ClinicUpdateForm({
       latitude: clinic.latitude,
       longitude: clinic.longitude,
       address: clinic.address,
-      phone: clinic.phone,
+      phone_1: clinic.phone_1,
+      phone_2: clinic.phone_2,
       email: clinic.email,
     },
   })
@@ -51,10 +50,16 @@ export function ClinicUpdateForm({
   function onSubmit(data: ClinicUpdateFormInputs) {
     startTransition(async () => {
       try {
-        await updateClinic({ ...data, userId })
-        form.reset()
-        toast({ title: "Dane przychodni zostały zaktualizowane" })
-        router.refresh()
+        const response = await updateClinic({ ...data })
+        if (response === "success") {
+          toast({ title: "Dane przychodni zostały zaktualizowane" })
+        } else {
+          toast({
+            title: "Coś poszło nie tak",
+            description: "Nie udało się zaktualizować danych przychodni",
+            variant: "destructive",
+          })
+        }
       } catch (error) {
         console.error(error)
         toast({
@@ -75,31 +80,46 @@ export function ClinicUpdateForm({
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
             control={form.control}
-            name="phone"
+            name="phone_1"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Telefon</FormLabel>
+                <FormLabel>Telefon stacjonarny</FormLabel>
                 <FormControl>
-                  <Input type="tel" placeholder="14 611 64 99" {...field} />
+                  <Input type="tel" placeholder="14 61 164 99" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
-            name="email"
+            name="phone_2"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Telefon komórkowy</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="arka@gmail.com" {...field} />
+                  <Input type="tel" placeholder="501 014 554" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="arka@gmail.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}

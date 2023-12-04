@@ -37,9 +37,9 @@ export const clinicSchema = z.object({
     })
     .min(8, { message: "Numer telefonu musi mieć co najmniej 8 znaków" })
     .max(16, { message: "Numer telefonu może mieć maksymalnie 16 znaków" })
-    .regex(/^\+?[0-9]{9,15}$/, {
+    .regex(/^\+?[0-9 ]{9,15}$/, {
       message:
-        "Niepoprawny format numeru telefonu. Dozwolone są tylko cyfry i opcjonalnie + na początku. Prosimy nie uywać spacji",
+        "Niepoprawny format numeru telefonu. Dozwolone są tylko cyfry i opcjonalnie + na początku",
     }),
   phone_2: z
     .string({
@@ -48,9 +48,9 @@ export const clinicSchema = z.object({
     })
     .min(8, { message: "Numer telefonu musi mieć co najmniej 8 znaków" })
     .max(16, { message: "Numer telefonu może mieć maksymalnie 16 znaków" })
-    .regex(/^\+?[0-9]{9,15}$/, {
+    .regex(/^\+?[0-9 ]{9,15}$/, {
       message:
-        "Niepoprawny format numeru telefonu. Dozwolone są tylko cyfry i opcjonalnie + na początku. Prosimy nie uywać spacji",
+        "Niepoprawny format numeru telefonu. Dozwolone są tylko cyfry i opcjonalnie + na początku",
     }),
   email: z
     .string({

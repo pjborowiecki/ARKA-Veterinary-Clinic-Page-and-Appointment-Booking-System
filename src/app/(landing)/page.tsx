@@ -12,7 +12,7 @@ export default async function Home(): Promise<JSX.Element> {
   const clinic = await getClinic()
   const user = await getCurrentUser()
 
-  if (user) redirect("/admin")
+  if (user) redirect("/admin/dostepnosc")
 
   return (
     <main className="mx-auto h-auto w-full max-w-[2560px] overflow-x-hidden">

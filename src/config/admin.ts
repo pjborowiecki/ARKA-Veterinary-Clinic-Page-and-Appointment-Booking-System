@@ -1,7 +1,7 @@
-import { type SidebarNavItem } from "@/types"
+import { type AdminNavItem } from "@/types"
 
 export interface AdminConfigProps {
-  sidebarNav: SidebarNavItem[]
+  sidebarNav: AdminNavItem[]
 }
 
 export const adminConfig: AdminConfigProps = {
@@ -9,27 +9,18 @@ export const adminConfig: AdminConfigProps = {
     {
       title: "Przychodnia",
       href: "/admin/przychodnia",
-      icon: "clinic",
     },
     {
       title: "Rezerwacje",
-      href: "/admin/przychodnia/rezerwacje",
-      icon: "calendar",
+      href: "/admin/rezerwacje",
     },
     {
-      title: "Godziny przyjęć",
-      href: "/admin/przychodnia/godziny",
-      icon: "availability",
-    },
-    {
-      title: "Dni wolne",
-      href: "/admin/przychodnia/dni-wolne",
-      icon: "availability",
+      title: "Dostępność",
+      href: "/admin/dostepnosc",
     },
     {
       title: "Profil",
       href: "/admin/profil",
-      icon: "user",
     },
-  ],
+  ] satisfies AdminNavItem[],
 }

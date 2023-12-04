@@ -16,6 +16,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { SignOutButton } from "@/components/auth/signout-button"
 import { Icons } from "@/components/icons"
 import { Navigation } from "@/components/nav/admin/navigation"
 import { NavigationMobile } from "@/components/nav/admin/navigation-mobile"
@@ -43,7 +44,10 @@ export async function Header(): Promise<JSX.Element> {
             <nav className="flex items-center space-x-2">
               {user ? (
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
+                  <DropdownMenuTrigger
+                    asChild
+                    className="transition-all duration-300 ease-in-out hover:opacity-70"
+                  >
                     <Button variant="user" size="icon">
                       <Avatar className="h-full w-full">
                         {user.image && (
@@ -62,7 +66,7 @@ export async function Header(): Promise<JSX.Element> {
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">
-                          {user.firstName} {user.lastName}
+                          {user.name}
                         </p>
                         <p className="text-xs leading-none text-muted-foreground">
                           {user.email}
@@ -73,7 +77,7 @@ export async function Header(): Promise<JSX.Element> {
                     <DropdownMenuGroup>
                       <DropdownMenuItem asChild>
                         <Link href="/admin/przychodnia">
-                          <Icons.user
+                          <Icons.clinic
                             className="mr-2 h-4 w-4"
                             aria-hidden="true"
                           />
@@ -82,8 +86,8 @@ export async function Header(): Promise<JSX.Element> {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/admin/przychodnia/rezerwacje">
-                          <Icons.terminal
+                        <Link href="/admin/rezerwacje">
+                          <Icons.calendar
                             className="mr-2 h-4 w-4"
                             aria-hidden="true"
                           />
@@ -92,22 +96,12 @@ export async function Header(): Promise<JSX.Element> {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/admin/przychodnia/godziny">
-                          <Icons.user
+                        <Link href="/admin/dostepnosc">
+                          <Icons.businessHours
                             className="mr-2 h-4 w-4"
                             aria-hidden="true"
                           />
-                          Godziny przyjęć
-                          <DropdownMenuShortcut>⇧⌘G</DropdownMenuShortcut>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/admin/przychodnia/dni-wolne">
-                          <Icons.user
-                            className="mr-2 h-4 w-4"
-                            aria-hidden="true"
-                          />
-                          Dni wolne
+                          Dostępność
                           <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                         </Link>
                       </DropdownMenuItem>
@@ -124,14 +118,7 @@ export async function Header(): Promise<JSX.Element> {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link href="/wyloguj">
-                        <Icons.logout
-                          className="mr-2 h-4 w-4"
-                          aria-hidden="true"
-                        />
-                        Wyloguj
-                        <DropdownMenuShortcut>⇧⌘W</DropdownMenuShortcut>
-                      </Link>
+                      <SignOutButton />
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

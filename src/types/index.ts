@@ -1,20 +1,11 @@
-// import type { Clinic } from "@/db/schema"
-
-// export interface CuratedClinic {
-//   id: Clinic["id"]
-//   name: Clinic["name"]
-//   description?: Clinic["description"]
-//   bookingCount?: number
-// }
-
 export interface NavItem {
   title: string
   href: string
   disabled?: boolean
 }
 
-export interface SidebarNavItem extends NavItem {
-  icon: string
+export interface AdminNavItem extends NavItem {
+  icon?: string
 }
 
 export interface Option {

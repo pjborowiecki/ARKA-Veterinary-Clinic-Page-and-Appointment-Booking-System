@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+import { getBusinessHours } from "@/actions/availability"
 import { env } from "@/env.mjs"
 
 import { getCurrentUser } from "@/lib/auth"
@@ -10,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { BusinessHoursUpdateForm } from "@/components/forms/clinic/business-hours-update-form"
 import {
   PageHeader,
   PageHeaderDescription,
@@ -25,7 +27,9 @@ export const metadata: Metadata = {
 
 export default async function AvailabilityPage(): Promise<JSX.Element> {
   const user = await getCurrentUser()
-  if (!user) redirect("/")
+  if (!user) redirect("/logowanie")
+
+  const currentBusinessHours = await getBusinessHours()
 
   return (
     <Shell variant="sidebar">
@@ -37,18 +41,22 @@ export default async function AvailabilityPage(): Promise<JSX.Element> {
       </PageHeader>
       <div className="flex flex-col gap-4 xl:flex-row">
         {/* Opening hours */}
-        <Card as="section" className="w-full">
+        <Card className="w-full">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Godziny przyjęć</CardTitle>
             <CardDescription>
               Godziny, w których przyjmujesz klientów
             </CardDescription>
           </CardHeader>
-          <CardContent>{/* <OperatingHoursForm /> */}</CardContent>
+          <CardContent>
+            <BusinessHoursUpdateForm
+              currentBusinessHours={currentBusinessHours}
+            />
+          </CardContent>
         </Card>
 
         {/* Days unavailable */}
-        <Card as="section" className="w-full">
+        <Card className="w-full">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Dni wolne</CardTitle>
             <CardDescription>

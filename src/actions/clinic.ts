@@ -1,6 +1,6 @@
 "use server"
 
-// import { revalidatePath } from "next/cache"
+import { revalidatePath } from "next/cache"
 import { db } from "@/db"
 import { psGetClinic } from "@/db/prepared/statements"
 import { clinics, type Clinic } from "@/db/schema"
@@ -20,8 +20,8 @@ export async function addClinic(
       email: input.email,
     })
 
-    // revalidatePath("/admin/przychodnia")
-    // revalidatePath("/")
+    revalidatePath("/admin/przychodnia")
+    revalidatePath("/")
 
     return response ? "success" : "fail"
   } catch (error) {
@@ -56,20 +56,24 @@ export async function getClinic(): Promise<Clinic | null> {
   }
 }
 
-// export async function updateClinic(
-//   input: z.infer<typeof clinicSchema> & { userId: string }
-// ) {
-//   await db
-//     .update(clinics)
-//     .set({
-//       userId: input.userId,
-//       latitude: input.latitude,
-//       longitude: input.longitude,
-//       address: input.address,
-//       phone: input.phone,
-//       email: input.email,
-//     })
-//     .where(eq(clinics.userId, input.userId))
+export async function updateClinic(
+  input: z.infer<typeof clinicSchema>
+): Promise<"success" | "fail"> {
+  try {
+    const response = await db.update(clinics).set({
+      latitude: input.latitude,
+      longitude: input.longitude,
+      address: input.address,
+      phone_1: input.phone_1,
+      phone_2: input.phone_2,
+      email: input.email,
+    })
 
-//   revalidatePath("/admin/przychodnia")
-// }
+    return response ? "success" : "fail"
+    revalidatePath("/admin/przychodnia")
+    revalidatePath("/")
+  } catch (error) {
+    console.error(error)
+    throw new Error("Błąd przy aktualizacji danych przychodni")
+  }
+}

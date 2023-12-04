@@ -1,4 +1,4 @@
-import { type NavItem } from "@/types"
+import { type AdminNavItem, type NavItem } from "@/types"
 
 const links = {
   facebook: "",
@@ -62,19 +62,15 @@ export const siteConfig = {
     },
     {
       title: "Rezerwacje",
-      href: "/admin/przychodnia/rezerwacje",
+      href: "/admin/rezerwacje",
     },
     {
-      title: "Godziny przyjęć",
-      href: "/admin/przychodnia/godziny",
-    },
-    {
-      title: "Dni wolne",
-      href: "/admin/przychodnia/dni-wolne",
+      title: "Dostępność",
+      href: "/admin/dostepnosc",
     },
     {
       title: "Profil",
       href: "/admin/profil",
     },
-  ] satisfies NavItem[],
+  ] satisfies AdminNavItem[],
 }

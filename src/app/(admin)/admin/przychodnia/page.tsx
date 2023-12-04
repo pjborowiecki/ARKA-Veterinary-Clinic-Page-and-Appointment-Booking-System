@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+import { getClinic } from "@/actions/clinic"
 import { env } from "@/env.mjs"
 
 import { getCurrentUser } from "@/lib/auth"
-import { UserUpdateForm } from "@/components/forms/auth/user-update-form"
+import { ClinicUpdateForm } from "@/components/forms/clinic/clinic-update-form"
 import {
   PageHeader,
   PageHeaderDescription,
@@ -13,24 +14,26 @@ import { Shell } from "@/components/shells/shell"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Profil",
-  description: "Zarządzaj danymi administratora",
+  title: "Przychodnia",
+  description: "Zarządzaj danymi przychodni",
 }
 
-export default async function ProfilePage(): Promise<JSX.Element> {
+export default async function ClinicPage(): Promise<JSX.Element> {
   const user = await getCurrentUser()
   if (!user) redirect("/logowanie")
+
+  const clinic = await getClinic()
 
   return (
     <Shell variant="sidebar">
       <PageHeader className="my-8">
-        <PageHeaderHeading size="sm">Profil</PageHeaderHeading>
+        <PageHeaderHeading size="sm">Przychodnia</PageHeaderHeading>
         <PageHeaderDescription size="sm">
-          Zarządzanie danymi administratora
+          Zarządzanie danymi przychodni
         </PageHeaderDescription>
       </PageHeader>
       <div className="w-full overflow-hidden">
-        <UserUpdateForm />
+        <ClinicUpdateForm clinic={clinic} />
       </div>
     </Shell>
   )
