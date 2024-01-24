@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 import { env } from "@/env.mjs"
 
-import { getCurrentUser } from "@/lib/auth"
+import { DEFAULT_SIGNIN_REDIRECT } from "@/config/defaults"
 import {
   Card,
   CardContent,
@@ -22,8 +23,8 @@ export const metadata: Metadata = {
 }
 
 export default async function SignInPage(): Promise<JSX.Element> {
-  const user = await getCurrentUser()
-  if (user) redirect("/")
+  const session = await auth()
+  if (session?.user) redirect(DEFAULT_SIGNIN_REDIRECT)
 
   return (
     <div className="flex h-auto min-h-screen w-full items-center justify-center">
@@ -32,7 +33,7 @@ export default async function SignInPage(): Promise<JSX.Element> {
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl">Logowanie</CardTitle>
             <Link href="/">
-              <Icons.close className="h-4 w-4" />
+              <Icons.close className="size-4" />
             </Link>
           </div>
           <CardDescription>

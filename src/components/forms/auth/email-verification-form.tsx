@@ -88,7 +88,7 @@ export function EmailVerificationForm(): JSX.Element {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="johnsmith@gmail.com" {...field} />
+                <Input placeholder="jankowalski@gmail.com" {...field} />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
@@ -99,7 +99,7 @@ export function EmailVerificationForm(): JSX.Element {
           {isPending ? (
             <>
               <Icons.spinner
-                className="mr-2 h-4 w-4 animate-spin"
+                className="mr-2 size-4 animate-spin"
                 aria-hidden="true"
               />
               <span>Wysyłanie...</span>

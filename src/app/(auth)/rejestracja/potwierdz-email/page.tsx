@@ -54,7 +54,7 @@ export default async function VerifyEmailPage({
                   "w-full"
                 )}
               >
-                <Icons.arrowLeft className="mr-2 h-4 w-4" />
+                <Icons.arrowLeft className="mr-2 size-4" />
                 <span className="sr-only">Wróć</span>
                 Wróć
               </Link>
@@ -106,7 +106,7 @@ export default async function VerifyEmailPage({
               href="/rejestracja"
               className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
             >
-              <Icons.arrowLeft className="mr-2 h-4 w-4" />
+              <Icons.arrowLeft className="mr-2 size-4" />
               <span className="sr-only">Wróć</span>
               Wróć
             </Link>

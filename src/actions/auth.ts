@@ -1,35 +1,49 @@
 "use server"
 
 import crypto from "crypto"
-import { sendEmail } from "@/actions/email"
 import { getUserByEmail, getUserByResetPasswordToken } from "@/actions/user"
+import { signIn } from "@/auth"
 import { db } from "@/db"
 import { users, type NewUser } from "@/db/schema"
 import { env } from "@/env.mjs"
-import bcrypt from "bcrypt"
+import {
+  passwordResetSchema,
+  passwordUpdateSchemaExtended,
+  signInWithPasswordSchema,
+  signUpWithPasswordSchema,
+  type PasswordResetFormInput,
+  type PasswordUpdateFormInputExtended,
+  type SignInWithPasswordFormInput,
+  type SignUpWithPasswordFormInput,
+} from "@/validations/auth"
+import bcryptjs from "bcryptjs"
 import { eq } from "drizzle-orm"
+import { AuthError } from "next-auth"
 
+import { resend } from "@/config/email"
 import { EmailVerificationEmail } from "@/components/emails/auth/email-verification-email"
 import { ResetPasswordEmail } from "@/components/emails/auth/reset-password-email"
 
 export async function signUpWithPassword(
-  email: string,
-  password: string
-): Promise<"exists" | "success" | null> {
+  rawInput: SignUpWithPasswordFormInput
+): Promise<"invalid-input" | "exists" | "success" | "error"> {
+  const validatedInput = signUpWithPasswordSchema.safeParse(rawInput)
+  if (!validatedInput.success) return "invalid-input"
+
   try {
-    const user = await getUserByEmail(email)
+    const user = await getUserByEmail(validatedInput.data.email)
     if (user) return "exists"
 
-    const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcryptjs.hash(validatedInput.data.password, 10)
 
     // TODO: Replace with prepared statement
     const newUserResponse = await db.insert(users).values({
       id: crypto.randomUUID(),
-      email,
+      email: validatedInput.data.email,
       passwordHash,
     } as NewUser)
 
-    if (!newUserResponse) return null
+    if (!newUserResponse) return "error"
 
     const emailVerificationToken = crypto.randomBytes(32).toString("base64url")
 
@@ -37,26 +51,72 @@ export async function signUpWithPassword(
     const updatedUserResponse = await db
       .update(users)
       .set({ emailVerificationToken })
-      .where(eq(users.email, email))
+      .where(eq(users.email, validatedInput.data.email))
 
-    const emailSent = await sendEmail({
+    const emailSent = await resend.emails.send({
       from: env.RESEND_EMAIL_FROM,
-      to: [email],
+      to: [validatedInput.data.email],
       subject: "Verify your email address",
-      react: EmailVerificationEmail({ email, emailVerificationToken }),
+      react: EmailVerificationEmail({
+        email: validatedInput.data.email,
+        emailVerificationToken,
+      }),
     })
 
-    return updatedUserResponse && emailSent ? "success" : null
+    return updatedUserResponse && emailSent ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error signing up with password")
   }
 }
 
+export async function signInWithPassword(
+  rawInput: SignInWithPasswordFormInput
+): Promise<
+  | "invalid-input"
+  | "invalid-credentials"
+  | "not-registered"
+  | "unverified-email"
+  | "success"
+> {
+  const validatedInput = signInWithPasswordSchema.safeParse(rawInput)
+  if (!validatedInput.success) return "invalid-input"
+
+  const existingUser = await getUserByEmail(validatedInput.data.email)
+  if (!existingUser) return "not-registered"
+
+  if (!existingUser.emailVerified) return "unverified-email"
+
+  try {
+    await signIn("credentials", {
+      email: validatedInput.data.email,
+      password: validatedInput.data.password,
+      redirect: false,
+    })
+
+    return "success"
+  } catch (error) {
+    console.error(error)
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "invalid-credentials"
+        default:
+          throw error
+      }
+    } else {
+      throw new Error("Error signing in with password")
+    }
+  }
+}
+
 export async function resetPassword(
-  email: string
-): Promise<"not-found" | "success" | null> {
-  const user = await getUserByEmail(email)
+  rawInput: PasswordResetFormInput
+): Promise<"invalid-input" | "not-found" | "success" | "error"> {
+  const validatedInput = passwordResetSchema.safeParse(rawInput)
+  if (!validatedInput.success) return "invalid-input"
+
+  const user = await getUserByEmail(validatedInput.data.email)
   if (!user) return "not-found"
 
   const today = new Date()
@@ -71,35 +131,46 @@ export async function resetPassword(
         resetPasswordToken,
         resetPasswordTokenExpiry,
       })
-      .where(eq(users.email, email))
+      .where(eq(users.email, validatedInput.data.email))
 
-    const emailSent = await sendEmail({
-      from: env.EMAIL_FROM_ADDRESS,
-      to: [email],
-      subject: "Reset your password",
-      react: ResetPasswordEmail({ email, resetPasswordToken }),
+    const emailSent = await resend.emails.send({
+      from: env.RESEND_EMAIL_FROM,
+      to: [validatedInput.data.email],
+      subject: "Resetowanie hasła",
+      react: ResetPasswordEmail({
+        email: validatedInput.data.email,
+        resetPasswordToken,
+      }),
     })
 
-    return userUpdatedResponse && emailSent ? "success" : null
+    return userUpdatedResponse && emailSent ? "success" : "error"
   } catch (error) {
     console.error(error)
-    return null
+    throw new Error("Error resetting password")
   }
 }
 
 export async function updatePassword(
-  resetPasswordToken: string,
-  password: string
-): Promise<"not-found" | "expired" | "success" | null> {
+  rawInput: PasswordUpdateFormInputExtended
+): Promise<"invalid-input" | "not-found" | "expired" | "success" | "error"> {
+  const validatedInput = passwordUpdateSchemaExtended.safeParse(rawInput)
+  if (
+    !validatedInput.success ||
+    validatedInput.data.password !== validatedInput.data.confirmPassword
+  )
+    return "invalid-input"
+
   try {
-    const user = await getUserByResetPasswordToken(resetPasswordToken)
+    const user = await getUserByResetPasswordToken(
+      validatedInput.data.resetPasswordToken
+    )
     if (!user) return "not-found"
 
     const resetPasswordExpiry = user.resetPasswordTokenExpiry
     if (!resetPasswordExpiry || resetPasswordExpiry < new Date())
       return "expired"
 
-    const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcryptjs.hash(validatedInput.data.password, 10)
 
     // TODO: Replace with prepared statement
     const userUpdatedResponse = await db
@@ -111,7 +182,7 @@ export async function updatePassword(
       })
       .where(eq(users.id, user.id))
 
-    return userUpdatedResponse ? "success" : null
+    return userUpdatedResponse ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error updating password")

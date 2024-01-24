@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getBusinessHours } from "@/actions/availability"
+import { auth } from "@/auth"
 import { env } from "@/env.mjs"
 
-import { getCurrentUser } from "@/lib/auth"
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import {
   Card,
   CardContent,
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
 }
 
 export default async function AvailabilityPage(): Promise<JSX.Element> {
-  const user = await getCurrentUser()
-  if (!user) redirect("/logowanie")
+  const session = await auth()
+  if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
   const currentBusinessHours = await getBusinessHours()
 

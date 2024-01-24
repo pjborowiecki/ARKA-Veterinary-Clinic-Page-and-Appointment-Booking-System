@@ -4,9 +4,21 @@ import { unstable_noStore as noStore } from "next/cache"
 import {
   psGetUserByEmail,
   psGetUserByEmailVerificationToken,
+  psGetUserById,
   psGetUserByResetPasswordToken,
 } from "@/db/prepared/statements"
 import { type User } from "@/db/schema/index"
+
+export async function getUserById(id: string): Promise<User | null> {
+  try {
+    noStore()
+    const [user] = await psGetUserById.execute({ id })
+    return user || null
+  } catch (error) {
+    console.error(error)
+    throw new Error("Error getting user by id")
+  }
+}
 
 export async function getUserByEmail(email: string): Promise<User | null> {
   try {

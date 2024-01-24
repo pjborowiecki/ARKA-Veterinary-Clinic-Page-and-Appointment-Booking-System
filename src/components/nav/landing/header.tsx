@@ -13,7 +13,7 @@ export function Header(): JSX.Element {
         <img
           src="/images/logo.png"
           alt="Arka logo"
-          className="z-[2] h-full w-full cursor-pointer pr-[2px]"
+          className="z-[2] size-full cursor-pointer pr-[2px]"
         />
       </Link>
       <div className="flex flex-1 items-center justify-end whitespace-nowrap">
@@ -27,7 +27,7 @@ export function Header(): JSX.Element {
           )}
         >
           <span
-            className="absolute h-0 w-0 rounded-full bg-white opacity-10 transition-all duration-300 ease-out group-hover:h-32 group-hover:w-full"
+            className="absolute size-0 rounded-full bg-white opacity-10 transition-all duration-300 ease-out group-hover:h-32 group-hover:w-full"
             aira-hidden="true"
           />
           <span aria-label="Umów wizytę" className="relative">

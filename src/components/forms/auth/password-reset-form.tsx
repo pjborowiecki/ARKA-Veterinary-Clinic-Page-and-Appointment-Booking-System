@@ -3,11 +3,14 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { resetPassword } from "@/actions/auth"
-import { passwordResetSchema } from "@/validations/auth"
+import {
+  passwordResetSchema,
+  type PasswordResetFormInput,
+} from "@/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,24 +24,22 @@ import {
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-type PasswordResetFormInputs = z.infer<typeof passwordResetSchema>
-
 export function PasswordResetForm(): JSX.Element {
   const router = useRouter()
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<PasswordResetFormInputs>({
+  const form = useForm<PasswordResetFormInput>({
     resolver: zodResolver(passwordResetSchema),
     defaultValues: {
       email: "",
     },
   })
 
-  function onSubmit(formData: PasswordResetFormInputs): void {
+  function onSubmit(formData: PasswordResetFormInput): void {
     startTransition(async () => {
       try {
-        const message = await resetPassword(formData.email)
+        const message = await resetPassword({ email: formData.email })
 
         switch (message) {
           case "not-found":
@@ -53,7 +54,7 @@ export function PasswordResetForm(): JSX.Element {
               title: "Link został wysłany",
               description: "Sprawdź maila aby dokończyć resetowanie hasła",
             })
-            router.push("/logowanie")
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT)
             break
           default:
             toast({
@@ -61,7 +62,7 @@ export function PasswordResetForm(): JSX.Element {
               description: "Spróbuj ponownie",
               variant: "destructive",
             })
-            router.push("/logowanie")
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT)
         }
       } catch (error) {
         toast({
@@ -87,7 +88,7 @@ export function PasswordResetForm(): JSX.Element {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="johnsmith@gmail.com" {...field} />
+                <Input placeholder="jankowalski@gmail.com" {...field} />
               </FormControl>
               <FormMessage className="pt-2 sm:text-sm" />
             </FormItem>
@@ -98,15 +99,15 @@ export function PasswordResetForm(): JSX.Element {
           {isPending ? (
             <>
               <Icons.spinner
-                className="mr-2 h-4 w-4 animate-spin"
+                className="mr-2 size-4 animate-spin"
                 aria-hidden="true"
               />
-              <span>Pending...</span>
+              <span>Wysyłanie...</span>
             </>
           ) : (
-            <span>Continue</span>
+            <span>Kontynuuj</span>
           )}
-          <span className="sr-only">Continue resetting password</span>
+          <span className="sr-only">Kontynuuj resetowanie hasła</span>
         </Button>
       </form>
     </Form>

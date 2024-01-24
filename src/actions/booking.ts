@@ -5,7 +5,7 @@ import { db } from "@/db"
 import { psGetAllBookings } from "@/db/prepared/statements"
 import { bookings, type Booking } from "@/db/schema"
 import type { bookingSchema, getBookingSchema } from "@/validations/booking"
-import { eq } from "drizzle-orm"
+import { desc, eq, like } from "drizzle-orm"
 import { type z } from "zod"
 
 export async function getAllBookings(): Promise<Booking[] | null> {
@@ -41,29 +41,29 @@ export async function deleteBooking(input: z.infer<typeof getBookingSchema>) {
     await db.delete(bookings).where(eq(bookings.id, input.id))
 }
 
-// export async function filterBookings(query: string) {
-//   if (query.length === 0) return null
+export async function filterBookings(query: string) {
+  if (query.length === 0) return null
 
-//   const filteredBookings = await db
-//     .select({
-//       id: bookings.id,
-//       name: bookings.name,
-//       type: bookings.type,
-//     })
-//     .from(bookings)
-//     .where(like(bookings.name, `%${query}%`))
-//     .orderBy(desc(bookings.createdAt))
-//     .limit(10)
+  const filteredBookings = await db
+    .select({
+      id: bookings.id,
+      name: bookings.name,
+      type: bookings.type,
+    })
+    .from(bookings)
+    .where(like(bookings.name, `%${query}%`))
+    .orderBy(desc(bookings.createdAt))
+    .limit(10)
 
-//   const bookingsByType = Object.values(bookings.type.enumValues).map(
-//     (type) => ({
-//       type,
-//       bookings: filteredBookings.filter((booking) => booking.type === type),
-//     })
-//   )
+  const bookingsByType = Object.values(bookings.type.enumValues).map(
+    (type) => ({
+      type,
+      bookings: filteredBookings.filter((booking) => booking.type === type),
+    })
+  )
 
-//   return bookingsByType
-// }
+  return bookingsByType
+}
 
 // export async function getNextBookingId(
 //   input: z.infer<typeof getBookingSchema>

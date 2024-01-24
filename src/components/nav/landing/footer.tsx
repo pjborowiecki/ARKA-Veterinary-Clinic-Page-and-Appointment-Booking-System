@@ -67,7 +67,7 @@ export async function Footer({
             </div>
           </div>
 
-          <div className="flex h-full w-full flex-col items-center justify-center px-[10%] md:mt-[-38px] md:px-[16%] w-1400:px-[194px]">
+          <div className="flex size-full flex-col items-center justify-center px-[10%] md:mt-[-38px] md:px-[16%] w-1400:px-[194px]">
             <h2 className="mb-6 bg-gradient-to-br from-greenGradientFrom to-greenGradientTo bg-clip-text text-center font-[BalooTamma] font-bold leading-[1.05] xl:mb-[42px]">
               <span className="whitespace-nowrap text-[16vw] text-transparent md:text-[5.8vw] w-1400:text-[80px]">
                 Godziny

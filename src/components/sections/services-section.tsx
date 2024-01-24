@@ -36,7 +36,7 @@ export function ServicesSection(): JSX.Element {
           <div className="flex items-center justify-center">
             <img
               src="/images/services-image.png"
-              className="mb-8 ml-[9%] mt-4 h-full w-full scale-[1.35] object-contain md:mb-0 md:ml-0 md:scale-[1.25] 2xl:scale-[1.35]"
+              className="mb-8 ml-[9%] mt-4 size-full scale-[1.35] object-contain md:mb-0 md:ml-0 md:scale-[1.25] 2xl:scale-[1.35]"
               alt="pies na stole operacyjnym"
             />
           </div>

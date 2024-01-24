@@ -187,7 +187,7 @@ export function ContactForm(): JSX.Element {
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="h-[6vw] w-[6vw] rounded border-gray-300 focus-visible:ring-ring md:h-[2.6vw] md:w-[2.6vw] lg:h-[2vw] lg:w-[2vw] w-1400:h-[20px] w-1400:w-[20px]"
+                    className="size-[6vw] rounded border-gray-300 focus-visible:ring-ring md:size-[2.6vw] lg:size-[2vw] w-1400:size-[20px]"
                   />
                 </FormControl>
                 <FormLabel className="text-[3.2vw] text-greenContactFormText md:text-xs">
@@ -203,12 +203,12 @@ export function ContactForm(): JSX.Element {
         <div className="flex w-full items-center justify-center pt-[4vw] md:justify-end md:pt-[2vw]">
           <Button variant="landingContact" size="contact" disabled={isPending}>
             {isPending && (
-              <Icons.spinner className="mr-2 h-4 w-4" aria-hidden="true" />
+              <Icons.spinner className="mr-2 size-4" aria-hidden="true" />
             )}
             Wyślij
             <span className="sr-only">Wyślij</span>
             <Icons.arrowRight
-              className="h-[4.8vw] w-[4.8vw] md:h-[2vw] md:w-[2vw] lg:h-[18px] lg:w-[18px]"
+              className="size-[4.8vw] md:size-[2vw] lg:size-[18px]"
               aria-hidden="true"
             />
           </Button>

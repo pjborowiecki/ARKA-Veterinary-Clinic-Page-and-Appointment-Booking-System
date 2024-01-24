@@ -14,7 +14,7 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
       <div className="w-full max-w-[2560px] bg-peach bg-[url('/images/navbar-and-hero-background.png')] bg-cover bg-right bg-no-repeat md:pb-10 xl:bg-contain">
         <Header />
 
-        <section className="mx-auto flex h-full w-full max-w-[1440px] grid-cols-12 flex-col-reverse px-5 transition-all duration-500 ease-in-out md:grid md:pl-[58px] md:pr-0 lg:pl-[64px]">
+        <section className="mx-auto flex size-full max-w-[1440px] grid-cols-12 flex-col-reverse px-5 transition-all duration-500 ease-in-out md:grid md:pl-[58px] md:pr-0 lg:pl-[64px]">
           {/* Hero buttons on Mobile */}
           <div className="mb-[6vw] mt-[8vw] flex flex-col items-center gap-[4vw] whitespace-nowrap md:hidden">
             <Link
@@ -82,10 +82,10 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
             </div>
           </div>
 
-          <div className="relative block h-full w-full justify-center overflow-visible md:col-start-6 md:col-end-13 md:mb-[-64px] md:grid lg:mb-[-84px] xl:mb-[-108px] 2xl:mb-[-128px]">
+          <div className="relative block size-full justify-center overflow-visible md:col-start-6 md:col-end-13 md:mb-[-64px] md:grid lg:mb-[-84px] xl:mb-[-108px] 2xl:mb-[-128px]">
             <img
               src="/images/hero-image.png"
-              className="z-[2] ml-[-8px] mt-[32px] h-full w-full scale-[1.2] object-contain sm:scale-[1.1] md:mt-[0px]"
+              className="z-[2] ml-[-8px] mt-[32px] size-full scale-[1.2] object-contain sm:scale-[1.1] md:mt-[0px]"
               alt="A dog and a cat sat next to each other"
             />
             <img
@@ -103,7 +103,7 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
               <img
                 src="/images/location-marker.png"
                 alt="Location marker icon"
-                className="h-[24px] w-[24px]"
+                className="size-[24px]"
               />
               <p className="text-[12px] font-bold tracking-wide text-locationText opacity-80">
                 Ul. {address}
@@ -117,7 +117,7 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
         <img
           src="/images/hero-bottom-wave.png"
           alt="Hero section bottom wave pattern"
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
         />
       </div>
     </header>

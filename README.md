@@ -19,7 +19,7 @@ Rather than Remix and MongoDb, like in the original build, this version version 
 
 ## Usage instructions:
 
-To safeguard against the creation of test bookings in the live environment, which may interfere with my client's actual appointments, I have implemented a dedicated demo environment for you to explore the functionality of this website and accompanying booking system. To access the demo, go [TODO: UPDATE THIS LINK AND INCLUDE /ADMIN](https:/) to use the following credentials:
+To safeguard against the creation of test bookings in the live environment, which may interfere with my client's actual appointments, I have implemented a dedicated demo environment for you to explore the functionality of this website and accompanying booking system. To access the demo, go [TODO: UPDATE THIS LINK](https://localhost:3000) to use the following credentials:
 
 - **Email**: `arka@pjborowiecki.com`
 - **Password**: `ArkaDemo1!`
@@ -61,20 +61,24 @@ Feel free to navigate the platform, and test various features, including booking
 
 ## Features:
 
-- [ ] Email and Password authentication with NextAuth
-- [ ] Email address verification functionality
-- [x] Database and ORM set up
-- [ ] Password reset functionality
+- [x] Email and Password authentication with NextAuth v.5 and its middlewaree
+- [x] Email address verification functionality
+- [x] Database and ORM set up with PlanetScale's MySQL and DrizzleORM
+- [x] Password reset functionality
 - [ ] Email templates with React Email
 - [x] Functional contact form
 - [x] Functional and styled landing page
 - [x] Admin dashboard UI
 - [x] Input validation with Zod
-- [ ] Rigorous linting and TypeScript type checking
+- [x] Rigorous linting and TypeScript type checking
 
 <br />
 
-- [ ] Functional booking form
+- [ ] Implement mobile navigation (ladning and admin)
+- [x] Functional booking form
+- [ ] Refactor availability-, booking-, clinic-, user-, and email-related server actions, to be consistent with auth actions.
+- [ ] Complete the privacy policy page
+- [ ] Translate email templates to Polish
 - [ ] Fetch bookings in the admin panel
 - [ ] Server-side pagination of results in admin dashboard
 - [ ] CRUD operations for bookings in the admin dashboard (confirm, update, reject, delete)

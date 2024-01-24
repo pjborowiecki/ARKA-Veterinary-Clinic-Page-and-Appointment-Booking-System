@@ -2,35 +2,16 @@
 
 import crypto from "crypto"
 import { unstable_noStore as noStore } from "next/cache"
+import { getUserByEmail } from "@/actions/user"
 import { db } from "@/db"
 import { users } from "@/db/schema"
 import { env } from "@/env.mjs"
 import { eq } from "drizzle-orm"
-import {
-  type CreateEmailOptions,
-  type CreateEmailRequestOptions,
-} from "resend/build/src/emails/interfaces"
 
 import { resend } from "@/config/email"
 import { EmailVerificationEmail } from "@/components/emails/auth/email-verification-email"
 import { EnquiryNotificationForArkaEmail } from "@/components/emails/contact/enquiry-notification-for-arka-email"
 import { EnquiryNotificationForCustomerEmail } from "@/components/emails/contact/enquiry-notification-for-customer-email"
-
-import { getUserByEmail } from "./user"
-
-export async function sendEmail(
-  payload: CreateEmailOptions,
-  options?: CreateEmailRequestOptions | undefined
-) {
-  try {
-    const data = await resend.emails.send(payload, options)
-    console.log("Email został wysłany")
-    return data
-  } catch (error) {
-    console.error(error)
-    throw new Error("Błąd przy wysyłaniu maila. Wiadomość nie została wysłana")
-  }
-}
 
 export async function resendEmailVerificationLink(
   email: string
@@ -47,7 +28,7 @@ export async function resendEmailVerificationLink(
       .set({ emailVerificationToken })
       .where(eq(users.email, email))
 
-    const emailSent = await sendEmail({
+    const emailSent = await resend.emails.send({
       from: env.RESEND_EMAIL_FROM,
       to: [email],
       subject: "Zweryfikuj swój adres email",
@@ -101,7 +82,7 @@ export async function submitContactForm(formData: {
 }): Promise<"success" | null> {
   try {
     // TODO
-    const emailToArkaSent = await sendEmail({
+    const emailToArkaSent = await resend.emails.send({
       from: env.RESEND_EMAIL_FROM,
       to: env.RESEND_EMAIL_TO,
       subject:
@@ -114,7 +95,7 @@ export async function submitContactForm(formData: {
     })
 
     // TODO
-    const emailToCustomerSent = await sendEmail({
+    const emailToCustomerSent = await resend.emails.send({
       from: env.RESEND_EMAIL_FROM,
       to: env.RESEND_EMAIL_TO,
       subject: "Dziękujemy! Otrzymaliśmy Twoje zapytanie",

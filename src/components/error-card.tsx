@@ -44,8 +44,8 @@ export function ErrorCard({
       {...props}
     >
       <CardHeader>
-        <div className="grid h-20 w-20 place-items-center rounded-full bg-muted">
-          <Icon className="h-10 w-10" aria-hidden="true" />
+        <div className="grid size-20 place-items-center rounded-full bg-muted">
+          <Icon className="size-10" aria-hidden="true" />
         </div>
       </CardHeader>
       <CardContent className="flex min-h-[176px] flex-col items-center justify-center space-y-2.5 text-center">

@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getClinic } from "@/actions/clinic"
+import { auth } from "@/auth"
 import { env } from "@/env.mjs"
 
-import { getCurrentUser } from "@/lib/auth"
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import { ClinicUpdateForm } from "@/components/forms/clinic/clinic-update-form"
 import {
   PageHeader,
@@ -19,8 +20,8 @@ export const metadata: Metadata = {
 }
 
 export default async function ClinicPage(): Promise<JSX.Element> {
-  const user = await getCurrentUser()
-  if (!user) redirect("/logowanie")
+  const session = await auth()
+  if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
   const clinic = await getClinic()
 

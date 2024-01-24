@@ -36,23 +36,23 @@ export default async function PasswordUpdatePage({
         <div className="flex min-h-screen w-full items-center justify-center">
           <Card className="bg-background max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
             <CardHeader>
-              <CardTitle>Invalid Reset Password Token</CardTitle>
+              <CardTitle>Błędny kod resetujący</CardTitle>
               <CardDescription>
-                Please return to the sign in page and try again
+                Wróć do strony logowania i spróbuj ponownie
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Link
-                aria-label="Go back to sign in page"
+                aria-label="Powrót do strony logowania"
                 href="/logowanie"
                 className={cn(
                   buttonVariants({ variant: "secondary" }),
                   "w-full"
                 )}
               >
-                <Icons.arrowLeft className="mr-2 h-4 w-4" />
-                <span className="sr-only">Try again</span>
-                Try again
+                <Icons.arrowLeft className="mr-2 size-4" />
+                <span className="sr-only">Spróbuj ponownie</span>
+                Spróbuj ponownie
               </Link>
             </CardContent>
           </Card>
@@ -62,22 +62,22 @@ export default async function PasswordUpdatePage({
 
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
-        <Card className="max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
+        <Card className="bg-background max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
           <CardHeader>
-            <CardTitle>Password Update</CardTitle>
-            <CardDescription>Set your new password</CardDescription>
+            <CardTitle>Aktualizacja hasła</CardTitle>
+            <CardDescription>Ustaw swoje nowe hasło</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-2">
             <PasswordUpdateForm
               resetPasswordToken={String(searchParams.token)}
             />
             <Link
-              aria-label="Cancel password update"
+              aria-label="Anuluj aktualizację hasła"
               href="/logowanie"
               className={buttonVariants({ variant: "outline" })}
             >
-              <span className="sr-only">Cancel password update</span>
-              Cancel
+              <span className="sr-only">Anuluj aktualizację hasła</span>
+              Anuluj
             </Link>
           </CardContent>
         </Card>
@@ -88,20 +88,20 @@ export default async function PasswordUpdatePage({
       <div className="flex min-h-screen w-full items-center justify-center">
         <Card className="bg-background max-sm:flex max-sm:h-screen max-sm:w-full max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:rounded-none max-sm:border-none sm:min-w-[370px] sm:max-w-[368px]">
           <CardHeader>
-            <CardTitle>Missing Reset Password Token</CardTitle>
+            <CardTitle>Brak kodu resetującego</CardTitle>
             <CardDescription>
-              Please return to the sign in page and try again
+              Wróć do strony logowania i spróbuj ponownie
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Link
-              aria-label="Go back to sign in page"
+              aria-label="Powrót do strony logowania"
               href="/logowanie"
               className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
             >
-              <Icons.arrowLeft className="mr-2 h-4 w-4" />
-              <span className="sr-only">Try again</span>
-              Try again
+              <Icons.arrowLeft className="mr-2 size-4" />
+              <span className="sr-only">Spróbuj ponownie</span>
+              Spróbuj ponownie
             </Link>
           </CardContent>
         </Card>

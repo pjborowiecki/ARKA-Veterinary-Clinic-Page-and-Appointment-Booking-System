@@ -1,9 +1,11 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 
 import { adminConfig } from "@/config/admin"
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import { siteConfig } from "@/config/site"
-import { getCurrentUser } from "@/lib/auth"
+import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -22,8 +24,8 @@ import { Navigation } from "@/components/nav/admin/navigation"
 import { NavigationMobile } from "@/components/nav/admin/navigation-mobile"
 
 export async function Header(): Promise<JSX.Element> {
-  const user = await getCurrentUser()
-  if (!user) redirect("/logowanie")
+  const session = await auth()
+  if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
@@ -42,22 +44,25 @@ export async function Header(): Promise<JSX.Element> {
           <div className="flex items-center gap-x-4">
             <NavigationMobile items={siteConfig.mobileNav} />
             <nav className="flex items-center space-x-2">
-              {user ? (
+              {session?.user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger
                     asChild
-                    className="transition-all duration-300 ease-in-out hover:opacity-70"
+                    className={cn(
+                      buttonVariants({ variant: "user", size: "icon" }),
+                      "transition-all duration-300 ease-in-out hover:opacity-70"
+                    )}
                   >
                     <Button variant="user" size="icon">
-                      <Avatar className="h-full w-full">
-                        {user.image && (
+                      <Avatar className="size-full">
+                        {session.user.image && (
                           <AvatarImage
-                            src={user.image}
-                            alt={user.name ?? "user's profile picture"}
+                            src={session.user.image}
+                            alt={session.user.name ?? "user's profile picture"}
                           />
                         )}
-                        <AvatarFallback className="text-xs capitalize">
-                          {user.email && user.email.charAt(0)}
+                        <AvatarFallback className="size-9 cursor-pointer p-1.5 text-xs capitalize">
+                          <Icons.user className="size-4 rounded-full" />
                         </AvatarFallback>
                       </Avatar>
                     </Button>
@@ -66,10 +71,10 @@ export async function Header(): Promise<JSX.Element> {
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">
-                          {user.name}
+                          {session.user.name}
                         </p>
                         <p className="text-xs leading-none text-muted-foreground">
-                          {user.email}
+                          {session.user.email}
                         </p>
                       </div>
                     </DropdownMenuLabel>
@@ -78,7 +83,7 @@ export async function Header(): Promise<JSX.Element> {
                       <DropdownMenuItem asChild>
                         <Link href="/admin/przychodnia">
                           <Icons.clinic
-                            className="mr-2 h-4 w-4"
+                            className="mr-2 size-4"
                             aria-hidden="true"
                           />
                           Przychodnia
@@ -88,7 +93,7 @@ export async function Header(): Promise<JSX.Element> {
                       <DropdownMenuItem asChild>
                         <Link href="/admin/rezerwacje">
                           <Icons.calendar
-                            className="mr-2 h-4 w-4"
+                            className="mr-2 size-4"
                             aria-hidden="true"
                           />
                           Rezerwacje
@@ -98,7 +103,7 @@ export async function Header(): Promise<JSX.Element> {
                       <DropdownMenuItem asChild>
                         <Link href="/admin/dostepnosc">
                           <Icons.businessHours
-                            className="mr-2 h-4 w-4"
+                            className="mr-2 size-4"
                             aria-hidden="true"
                           />
                           Dostępność
@@ -108,7 +113,7 @@ export async function Header(): Promise<JSX.Element> {
                       <DropdownMenuItem asChild>
                         <Link href="/admin/profil">
                           <Icons.user
-                            className="mr-2 h-4 w-4"
+                            className="mr-2 size-4"
                             aria-hidden="true"
                           />
                           Profil

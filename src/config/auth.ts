@@ -1,86 +1,29 @@
-import { sendEmail } from "@/actions/email"
 import { getUserByEmail } from "@/actions/user"
-import { db } from "@/db"
-import { env } from "@/env.mjs"
-import { DrizzleAdapter } from "@auth/drizzle-adapter"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import type { Account, AuthOptions, Profile, Session, User } from "next-auth"
-import { type JWT } from "next-auth/jwt"
+import { signInWithPasswordSchema } from "@/validations/auth"
+import bcryptjs from "bcryptjs"
+import type { NextAuthConfig } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-export const authOptions: AuthOptions = {
-  adapter: DrizzleAdapter(db),
-  debug: env.NODE_ENV === "development",
-  secret: env.AUTH_SECRET,
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 daysd
-    updateAge: 24 * 60 * 60, // 24 hours
-  },
-  pages: {
-    signIn: "/logowanie",
-    signOut: "/signout",
-    verifyRequest: "/logowanie/magic-link-signin",
-  },
+export default {
   providers: [
     CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        if (!credentials) return null
+      async authorize(rawCredentials) {
+        const validatedCredentials =
+          signInWithPasswordSchema.safeParse(rawCredentials)
 
-        const user = await getUserByEmail(credentials.email)
-        if (!user) return null
+        if (validatedCredentials.success) {
+          const user = await getUserByEmail(validatedCredentials.data.email)
+          if (!user || !user.passwordHash) return null
 
-        const passwordIsValid = await bcrypt.compare(
-          credentials.password,
-          String(user.passwordHash)
-        )
+          const passwordIsValid = await bcryptjs.compare(
+            validatedCredentials.data.password,
+            user.passwordHash
+          )
 
-        return passwordIsValid ? user : null
+          if (passwordIsValid) return user
+        }
+        return null
       },
     }),
   ],
-  jwt: {
-    encode({ secret, token }) {
-      if (!token) throw new Error("No token to encode")
-      return jwt.sign(token, secret)
-    },
-    decode({ secret, token }) {
-      if (!token) throw new Error("No token to decode")
-
-      const decodedToken = jwt.verify(token, secret)
-      return typeof decodedToken === "string"
-        ? (JSON.parse(decodedToken) as JWT)
-        : decodedToken
-    },
-  },
-  callbacks: {
-    jwt(params: {
-      token: JWT
-      user?: User | undefined
-      account?: Account | null | undefined
-      profile?: Profile | undefined
-      isNewUser?: boolean | undefined
-    }) {
-      if (params.user) {
-        params.token.email = params.user.email
-        params.token.id = params.user?.id
-      }
-
-      return params.token
-    },
-    session(params: { session: Session; token: JWT; user: User }) {
-      if (params.session.user) {
-        params.session.user.email = params.token.email
-        params.session.user.id = params.token.id as string
-      }
-
-      return params.session
-    },
-  },
-}
+} satisfies NextAuthConfig

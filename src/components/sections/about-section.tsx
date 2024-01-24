@@ -9,7 +9,7 @@ export function AboutSection(): JSX.Element {
         <div className="flex items-center justify-center">
           <img
             src="/images/about-image.png"
-            className="my-6 h-full w-full scale-[0.8] object-contain md:my-0 md:scale-[0.85]"
+            className="my-6 size-full scale-[0.8] object-contain md:my-0 md:scale-[0.85]"
             alt="A female veterinarian smiling with a dog"
           />
         </div>
@@ -46,7 +46,7 @@ export function AboutSection(): JSX.Element {
       <div className="w-full">
         <img
           src="/images/svg/about-bottom-wave.svg"
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
           alt="About section bottom wave pattern"
         />
       </div>

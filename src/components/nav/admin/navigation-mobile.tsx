@@ -58,7 +58,7 @@ export function NavigationMobile({
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden"
         >
-          <Icons.menu className="h-6 w-6" />
+          <Icons.menu className="size-6" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>

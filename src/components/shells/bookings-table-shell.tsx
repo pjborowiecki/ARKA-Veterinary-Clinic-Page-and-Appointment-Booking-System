@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { deleteBookingAction } from "@/actions/booking"
+import { deleteBooking } from "@/actions/booking"
 import { bookings, type Booking } from "@/db/schema"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { type ColumnDef } from "@tanstack/react-table"
@@ -169,9 +169,9 @@ export function BookingsTableShell({
               <Button
                 aria-label="Open menu"
                 variant="ghost"
-                className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+                className="flex size-8 p-0 data-[state=open]:bg-muted"
               >
-                <DotsHorizontalIcon className="h-4 w-4" aria-hidden="true" />
+                <DotsHorizontalIcon className="size-4" aria-hidden="true" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[160px]">
@@ -260,7 +260,7 @@ export function BookingsTableShell({
           title: "names",
         },
       ]}
-      newRowLink={`/admin/przychodnia/rezerwacje/dodaj`}
+      newRowLink={`/admin/rezerwacje/dodaj`}
       deleteRowsAction={() => void deleteSelectedRows()}
     />
   )

@@ -3,11 +3,14 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { updatePassword } from "@/actions/auth"
-import { passwordUpdateSchema } from "@/validations/auth"
+import {
+  passwordUpdateSchema,
+  type PasswordUpdateFormInput,
+} from "@/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,8 +24,6 @@ import {
 import { Icons } from "@/components/icons"
 import { PasswordInput } from "@/components/password-input"
 
-type PasswordUpdateFormInputs = z.infer<typeof passwordUpdateSchema>
-
 interface PasswordUpdateFormProps {
   resetPasswordToken: string
 }
@@ -34,7 +35,7 @@ export function PasswordUpdateForm({
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<PasswordUpdateFormInputs>({
+  const form = useForm<PasswordUpdateFormInput>({
     resolver: zodResolver(passwordUpdateSchema),
     defaultValues: {
       password: "",
@@ -42,13 +43,14 @@ export function PasswordUpdateForm({
     },
   })
 
-  function onSubmit(formData: PasswordUpdateFormInputs): void {
+  function onSubmit(formData: PasswordUpdateFormInput): void {
     startTransition(async () => {
       try {
-        const message = await updatePassword(
+        const message = await updatePassword({
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
           resetPasswordToken,
-          formData.password
-        )
+        })
 
         switch (message) {
           case "expired":
@@ -57,7 +59,7 @@ export function PasswordUpdateForm({
               description: "Spróbuj ponownie",
               variant: "destructive",
             })
-            router.push("/logowanie")
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT)
             break
           case "success":
             toast({
@@ -65,7 +67,7 @@ export function PasswordUpdateForm({
               description:
                 "Od teraz możesz logować się przy użyciu nowego hasła",
             })
-            router.push("/logowanie")
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT)
             break
           default:
             toast({
@@ -96,7 +98,7 @@ export function PasswordUpdateForm({
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Hasło</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="**********" {...field} />
               </FormControl>
@@ -110,7 +112,7 @@ export function PasswordUpdateForm({
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>Potwierdzenie hasła</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="**********" {...field} />
               </FormControl>
@@ -123,15 +125,15 @@ export function PasswordUpdateForm({
           {isPending ? (
             <>
               <Icons.spinner
-                className="mr-2 h-4 w-4 animate-spin"
+                className="mr-2 size-4 animate-spin"
                 aria-hidden="true"
               />
               <span>Updating...</span>
             </>
           ) : (
-            <span>Update password</span>
+            <span>Zatwierdź hasło</span>
           )}
-          <span className="sr-only">Update password</span>
+          <span className="sr-only">Zatwierdź nowe hasło</span>
         </Button>
       </form>
     </Form>

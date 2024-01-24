@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 import { env } from "@/env.mjs"
 
-import { getCurrentUser } from "@/lib/auth"
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import { UserUpdateForm } from "@/components/forms/auth/user-update-form"
 import {
   PageHeader,
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
 }
 
 export default async function ProfilePage(): Promise<JSX.Element> {
-  const user = await getCurrentUser()
-  if (!user) redirect("/logowanie")
+  const session = await auth()
+  if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
   return (
     <Shell variant="sidebar">

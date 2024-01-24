@@ -4,7 +4,7 @@ import { env } from "@/env.mjs"
 
 export function GoogleMapWidget(): JSX.Element {
   return (
-    <div className="h-full w-full">
+    <div className="size-full">
       <iframe
         src={env.GOOGLE_MAPS_URL}
         width="100%"

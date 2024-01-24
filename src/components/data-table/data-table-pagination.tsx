@@ -62,41 +62,41 @@ export function DataTablePagination<TData>({
             aria-label="Przejdź do pierwszej strony z wynikami"
             variant="outline"
             size="icon"
-            className="hidden h-8 w-8 lg:flex"
+            className="hidden size-8 lg:flex"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
-            <DoubleArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
+            <DoubleArrowLeftIcon className="size-4" aria-hidden="true" />
           </Button>
           <Button
             aria-label="Przejdź do poprzedniej strony z wynikami"
             variant="outline"
             size="icon"
-            className="h-8 w-8"
+            className="size-8"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />
+            <ChevronLeftIcon className="size-4" aria-hidden="true" />
           </Button>
           <Button
             aria-label="Przejdź do następnej strony z wynikami"
             variant="outline"
             size="icon"
-            className="h-8 w-8"
+            className="size-8"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
+            <ChevronRightIcon className="size-4" aria-hidden="true" />
           </Button>
           <Button
             aria-label="Przejdź do ostatniej strony z wynikami"
             variant="outline"
             size="icon"
-            className="hidden h-8 w-8 lg:flex"
+            className="hidden size-8 lg:flex"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >
-            <DoubleArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+            <DoubleArrowRightIcon className="size-4" aria-hidden="true" />
           </Button>
         </div>
       </div>

@@ -1,10 +1,13 @@
 import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 
-import { getCurrentUser } from "@/lib/auth"
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 
 export default async function AdminPage() {
-  const user = await getCurrentUser()
-  user ? redirect("/admin/dostepnosc") : redirect("/logowanie")
+  const session = await auth()
+  session?.user
+    ? redirect("/admin/dostepnosc")
+    : redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
   return <div>Admin Page</div>
 }

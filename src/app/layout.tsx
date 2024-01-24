@@ -7,7 +7,6 @@ import { Analytics } from "@vercel/analytics/react"
 
 import { fontInter, fontJetBrainsMono } from "@/config/fonts"
 import { siteConfig } from "@/config/site"
-import { AuthProvider } from "@/providers/auth-provider"
 import { SmoothScrollProvider } from "@/providers/smooth-scroll-provider"
 import { ThemeProvider } from "@/providers/theme-provider"
 import { cn } from "@/lib/utils"
@@ -85,7 +84,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
           disableTransitionOnChange
         >
           <SmoothScrollProvider>
-            <AuthProvider>{children}</AuthProvider>
+            {children}
             <Toaster />
             <Analytics />
             <TailwindIndicator />

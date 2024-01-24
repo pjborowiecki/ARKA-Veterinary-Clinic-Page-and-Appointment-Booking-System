@@ -90,7 +90,7 @@ export function BookingAddForm({
           toast({
             title: "Dziękujemy!",
             description:
-              "Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę.",
+              "Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę",
           })
 
           router.push("/")
@@ -192,7 +192,7 @@ export function BookingAddForm({
                         ) : (
                           <span>Wybierz termin</span>
                         )}
-                        <Icons.calendar className="ml-auto h-4 w-4 opacity-50" />
+                        <Icons.calendar className="ml-auto size-4 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
@@ -378,7 +378,7 @@ export function BookingAddForm({
             {isPending ? (
               <>
                 <Icons.spinner
-                  className="mr-2 h-4 w-4 animate-spin"
+                  className="mr-2 size-4 animate-spin"
                   aria-hidden="true"
                 />
                 <span>Rezerwuję...</span>

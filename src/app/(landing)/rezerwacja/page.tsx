@@ -32,8 +32,10 @@ export default async function AddBookingPage(): Promise<JSX.Element> {
             <Balancer>
               Wysyłając formularz, wyrażasz zgodę na przetwarzanie swoich danych
               osobowych w celu realizacji usługi, zgodnie z{" "}
-              {/* TODO: Add a RODO link to pdf or a Markdown page */}
-              <Link href="/" className="font-semibold text-foreground">
+              <Link
+                href="/polityka-prywatnosci"
+                className="font-semibold text-foreground"
+              >
                 klauzulą Rodo
               </Link>
               .

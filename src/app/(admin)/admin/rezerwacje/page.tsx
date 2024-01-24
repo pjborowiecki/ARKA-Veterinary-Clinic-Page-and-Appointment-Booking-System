@@ -1,11 +1,12 @@
 import { type Metadata } from "next"
-import { notFound, redirect } from "next/navigation"
+import { redirect } from "next/navigation"
+import { auth } from "@/auth"
 import { db } from "@/db"
-import { bookings, clinics, type Booking } from "@/db/schema"
+import { bookings, type Booking } from "@/db/schema"
 import { env } from "@/env.mjs"
-import { and, asc, desc, eq, gte, inArray, like, lte, sql } from "drizzle-orm"
+import { and, asc, desc, gte, inArray, like, lte, sql } from "drizzle-orm"
 
-import { getCurrentUser } from "@/lib/auth"
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import {
   Card,
   CardContent,
@@ -31,8 +32,8 @@ interface ClinicBookingsPageProps {
 export default async function ClinicBookingsPage({
   searchParams,
 }: ClinicBookingsPageProps): Promise<JSX.Element> {
-  const user = await getCurrentUser()
-  if (!user) redirect("/logowanie")
+  const session = await auth()
+  if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
   const { page, per_page, sort, from, to, lastName, type, slot, email } =
     searchParams ?? {}
