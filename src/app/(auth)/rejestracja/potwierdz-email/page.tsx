@@ -3,9 +3,11 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { markEmailAsVerified } from "@/actions/email"
 import { getUserByEmailVerificationToken } from "@/actions/user"
+
 import { env } from "@/env.mjs"
 
 import { cn } from "@/lib/utils"
+
 import { buttonVariants } from "@/components/ui/button"
 import {
   Card,
@@ -28,11 +30,13 @@ export interface VerifyEmailPageProps {
 
 export default async function VerifyEmailPage({
   searchParams,
-}: VerifyEmailPageProps): Promise<JSX.Element> {
+}: Readonly<VerifyEmailPageProps>): Promise<JSX.Element> {
   const emailVerificationToken = searchParams.token as string
 
   if (emailVerificationToken) {
-    const user = await getUserByEmailVerificationToken(emailVerificationToken)
+    const user = await getUserByEmailVerificationToken({
+      token: emailVerificationToken,
+    })
 
     if (!user) {
       return (
@@ -64,8 +68,10 @@ export default async function VerifyEmailPage({
       )
     }
 
-    const updatedUser = await markEmailAsVerified(emailVerificationToken)
-    if (!updatedUser) redirect("/rejestracja")
+    const message = await markEmailAsVerified({
+      token: emailVerificationToken,
+    })
+    if (message !== "success") redirect("/rejestracja")
 
     return (
       <div className="flex min-h-screen w-full items-center justify-center">

@@ -1,11 +1,13 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { auth } from "@/auth"
 
 import { adminConfig } from "@/config/admin"
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import { siteConfig } from "@/config/site"
+
+import auth from "@/lib/auth"
 import { cn } from "@/lib/utils"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {

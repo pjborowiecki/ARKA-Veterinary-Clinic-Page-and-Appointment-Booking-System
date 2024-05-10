@@ -4,18 +4,19 @@ import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { addBooking } from "@/actions/booking"
-import { bookings, type Booking, type BusinessHours } from "@/db/schema"
-import { bookingSchema } from "@/validations/booking"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { pl } from "date-fns/locale"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
+import { bookings, type Booking, type BusinessHours } from "@/db/schema"
+import { addBookingSchema, type AddBookingInput } from "@/validations/booking"
 import { DAYS_OF_WEEK, TIME_INTERVAL } from "@/data/constants"
+
 import { useToast } from "@/hooks/use-toast"
 import { getDaysClosed, getTimeOptions } from "@/lib/booking"
 import { cn } from "@/lib/utils"
+
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -43,8 +44,6 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type BookingAddFormInputs = z.infer<typeof bookingSchema>
-
 interface BookingAddFormProps {
   existingBookings: Booking[] | null
   datesUnavailable: Date[]
@@ -64,8 +63,8 @@ export function BookingAddForm({
     ? getDaysClosed(businessHours, DAYS_OF_WEEK)
     : []
 
-  const form = useForm<BookingAddFormInputs>({
-    resolver: zodResolver(bookingSchema),
+  const form = useForm<AddBookingInput>({
+    resolver: zodResolver(addBookingSchema),
     defaultValues: {
       type: "weterynarz",
       date: undefined,
@@ -79,27 +78,37 @@ export function BookingAddForm({
     },
   })
 
-  function onSubmit(data: BookingAddFormInputs) {
+  function onSubmit(formData: AddBookingInput) {
     startTransition(async () => {
       try {
-        const response = await addBooking({
-          ...data,
+        const message = await addBooking({
+          type: formData.type,
+          date: formData.date,
+          time: formData.time,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          status: formData.status,
         })
 
-        if (response === "success") {
-          toast({
-            title: "Dziękujemy!",
-            description:
-              "Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę",
-          })
-
-          router.push("/")
-        } else {
-          toast({
-            title: "Coś poszło nie tak",
-            description: "Spróbuj zarezerwować ponownie",
-            variant: "destructive",
-          })
+        // TODO: Add a check for date and time already taken
+        switch (message) {
+          case "success":
+            toast({
+              title: "Dziękujemy!",
+              description:
+                "Wkrótce skontaktujemy się z Tobą by potwierdzić wizytę",
+            })
+            router.push("/")
+            break
+          default:
+            toast({
+              title: "Coś poszło nie tak",
+              description: "Spróbuj zarezerwować ponownie",
+              variant: "destructive",
+            })
         }
       } catch (error) {
         console.error(error)

@@ -3,13 +3,17 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { updateClinic } from "@/actions/clinic"
-import type { Clinic } from "@/db/schema"
-import { clinicSchema } from "@/validations/clinic"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
+
+import type { Clinic } from "@/db/schema"
+import {
+  updateClinicSchema,
+  type UpdateClinicInput,
+} from "@/validations/clinic"
 
 import { useToast } from "@/hooks/use-toast"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -26,8 +30,6 @@ interface ClinicUpdateFormProps {
   clinic: Clinic
 }
 
-type ClinicUpdateFormInputs = z.infer<typeof clinicSchema>
-
 export function ClinicUpdateForm({
   clinic,
 }: ClinicUpdateFormProps): JSX.Element {
@@ -35,8 +37,8 @@ export function ClinicUpdateForm({
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<ClinicUpdateFormInputs>({
-    resolver: zodResolver(clinicSchema),
+  const form = useForm<UpdateClinicInput>({
+    resolver: zodResolver(updateClinicSchema),
     defaultValues: {
       latitude: clinic.latitude,
       longitude: clinic.longitude,
@@ -47,19 +49,37 @@ export function ClinicUpdateForm({
     },
   })
 
-  function onSubmit(data: ClinicUpdateFormInputs) {
+  function onSubmit(formData: UpdateClinicInput) {
     startTransition(async () => {
       try {
-        const response = await updateClinic({ ...data })
-        if (response === "success") {
-          toast({ title: "Dane przychodni zostały zaktualizowane" })
-          router.push("/admin/przychodnia")
-        } else {
-          toast({
-            title: "Coś poszło nie tak",
-            description: "Nie udało się zaktualizować danych przychodni",
-            variant: "destructive",
-          })
+        const message = await updateClinic({
+          id: formData.id,
+          latitude: formData.latitude,
+          longitude: formData.longitude,
+          address: formData.address,
+          phone_1: formData.phone_1,
+          phone_2: formData.phone_2,
+          email: formData.email,
+        })
+
+        switch (message) {
+          case "not-found":
+            toast({
+              title: "Nie znaleziono przychodni",
+              description: "Nie udało się znaleźć przychodni o podanym ID",
+              variant: "destructive",
+            })
+            break
+          case "success":
+            toast({ title: "Dane przychodni zostały zaktualizowane" })
+            router.push("/admin/przychodnia")
+            break
+          default:
+            toast({
+              title: "Coś poszło nie tak",
+              description: "Nie udało się zaktualizować danych przychodni",
+              variant: "destructive",
+            })
         }
       } catch (error) {
         console.error(error)

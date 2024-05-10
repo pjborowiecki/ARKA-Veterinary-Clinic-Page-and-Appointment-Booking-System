@@ -1,0 +1,1 @@
+ALTER TABLE "bookings" ALTER COLUMN "message" SET DATA TYPE varchar(10240);

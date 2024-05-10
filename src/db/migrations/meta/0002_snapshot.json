@@ -1,95 +1,99 @@
 {
-  "version": "5",
-  "dialect": "mysql",
-  "id": "b31905ff-d312-4a3d-97f0-84406f306778",
-  "prevId": "1a2cfac8-c48f-4ddb-916f-9165baaf6915",
+  "id": "b5a5fc8b-9a3d-44f4-ad1c-a0dd2ef1af16",
+  "prevId": "0301f32a-80fd-49d5-bbcc-5446a771d9f3",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "account": {
-      "name": "account",
+    "public.accounts": {
+      "name": "accounts",
+      "schema": "",
       "columns": {
         "userId": {
           "name": "userId",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "type": {
           "name": "type",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "provider": {
           "name": "provider",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "providerAccountId": {
           "name": "providerAccountId",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "refresh_token": {
           "name": "refresh_token",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "access_token": {
           "name": "access_token",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "expires_at": {
           "name": "expires_at",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "token_type": {
           "name": "token_type",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "scope": {
           "name": "scope",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "id_token": {
           "name": "id_token",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "session_state": {
           "name": "session_state",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "accounts_userId_users_id_fk": {
+          "name": "accounts_userId_users_id_fk",
+          "tableFrom": "accounts",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {
-        "account_provider_providerAccountId_pk": {
-          "name": "account_provider_providerAccountId_pk",
+        "accounts_provider_providerAccountId_pk": {
+          "name": "accounts_provider_providerAccountId_pk",
           "columns": [
             "provider",
             "providerAccountId"
@@ -98,611 +102,558 @@
       },
       "uniqueConstraints": {}
     },
-    "bookings": {
+    "public.bookings": {
       "name": "bookings",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
         },
         "type": {
           "name": "type",
-          "type": "enum('weterynarz','salon fryzur')",
+          "type": "service_type",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'weterynarz'"
         },
         "date": {
           "name": "date",
-          "type": "datetime",
+          "type": "date",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "time": {
           "name": "time",
           "type": "varchar(5)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "firstName": {
           "name": "firstName",
           "type": "varchar(32)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "lastName": {
           "name": "lastName",
-          "type": "varchar(32)",
+          "type": "varchar(64)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "email": {
           "name": "email",
           "type": "varchar(64)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "phone": {
           "name": "phone",
           "type": "varchar(16)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "rodo": {
-          "name": "rodo",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": false
+          "notNull": true
         },
         "message": {
           "name": "message",
-          "type": "text",
+          "type": "varchar(10240)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "status": {
           "name": "status",
-          "type": "enum('niepotwierdzone','potwierdzone','anulowane','odrzucone')",
+          "type": "booking_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'niepotwierdzone'"
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "notNull": true,
+          "default": "now()"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "current_timestamp"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "bookings_id": {
-          "name": "bookings_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "businessHours": {
-      "name": "businessHours",
+    "public.business_hours": {
+      "name": "business_hours",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
         },
-        "mondayStatus": {
-          "name": "mondayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "monday_status": {
+          "name": "monday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "tuesdayStatus": {
-          "name": "tuesdayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "tuesday_status": {
+          "name": "tuesday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "wednesdayStatus": {
-          "name": "wednesdayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "wednesday_status": {
+          "name": "wednesday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "thursdayStatus": {
-          "name": "thursdayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "thursday_status": {
+          "name": "thursday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "fridayStatus": {
-          "name": "fridayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "friday_status": {
+          "name": "friday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "saturdayStatus": {
-          "name": "saturdayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "saturday_status": {
+          "name": "saturday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "sundayStatus": {
-          "name": "sundayStatus",
-          "type": "enum('otwarte','zamknięte')",
+        "sunday_status": {
+          "name": "sunday_status",
+          "type": "operating_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'otwarte'"
         },
-        "mondayOpening": {
-          "name": "mondayOpening",
+        "monday_opening": {
+          "name": "monday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "tuesdayOpening": {
-          "name": "tuesdayOpening",
+        "tuesday_opening": {
+          "name": "tuesday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "wednesdayOpening": {
-          "name": "wednesdayOpening",
+        "wednesday_opening": {
+          "name": "wednesday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "thursdayOpening": {
-          "name": "thursdayOpening",
+        "thursday_opening": {
+          "name": "thursday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "fridayOpening": {
-          "name": "fridayOpening",
+        "friday_opening": {
+          "name": "friday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "saturdayOpening": {
-          "name": "saturdayOpening",
+        "saturday_opening": {
+          "name": "saturday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "sundayOpening": {
-          "name": "sundayOpening",
+        "sunday_opening": {
+          "name": "sunday_opening",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'09:00'"
         },
-        "mondayClosing": {
-          "name": "mondayClosing",
+        "monday_closing": {
+          "name": "monday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "tuesdayClosing": {
-          "name": "tuesdayClosing",
+        "tuesday_closing": {
+          "name": "tuesday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "wednesdayClosing": {
-          "name": "wednesdayClosing",
+        "wednesday_closing": {
+          "name": "wednesday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "thursdayClosing": {
-          "name": "thursdayClosing",
+        "thursday_closing": {
+          "name": "thursday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "fridayClosing": {
-          "name": "fridayClosing",
+        "friday_closing": {
+          "name": "friday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "saturdayClosing": {
-          "name": "saturdayClosing",
+        "saturday_closing": {
+          "name": "saturday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "sundayClosing": {
-          "name": "sundayClosing",
+        "sunday_closing": {
+          "name": "sunday_closing",
           "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": "'17:00'"
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "current_timestamp"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "businessHours_id": {
-          "name": "businessHours_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "clinics": {
+    "public.clinics": {
       "name": "clinics",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
         },
         "longitude": {
           "name": "longitude",
           "type": "varchar(24)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "latitude": {
           "name": "latitude",
           "type": "varchar(24)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "address": {
           "name": "address",
           "type": "varchar(128)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "phone_1": {
           "name": "phone_1",
           "type": "varchar(16)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "phone_2": {
           "name": "phone_2",
           "type": "varchar(16)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "email": {
           "name": "email",
           "type": "varchar(64)",
           "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "default": "now()"
         },
-        "createdAt": {
-          "name": "createdAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "current_timestamp"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "clinics_id": {
-          "name": "clinics_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "datesUnavailable": {
+    "public.datesUnavailable": {
       "name": "datesUnavailable",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
         },
         "date": {
           "name": "date",
-          "type": "datetime",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "default": "now()"
         },
-        "createdAt": {
-          "name": "createdAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "current_timestamp"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "datesUnavailable_id": {
-          "name": "datesUnavailable_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "session": {
-      "name": "session",
+    "public.sessions": {
+      "name": "sessions",
+      "schema": "",
       "columns": {
         "sessionToken": {
           "name": "sessionToken",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
         },
         "userId": {
           "name": "userId",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "expires": {
           "name": "expires",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "session_sessionToken": {
-          "name": "session_sessionToken",
-          "columns": [
-            "sessionToken"
-          ]
+      "foreignKeys": {
+        "sessions_userId_users_id_fk": {
+          "name": "sessions_userId_users_id_fk",
+          "tableFrom": "sessions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
-      "name": "user",
+    "public.users": {
+      "name": "users",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "user_role",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "default": "'klient'"
         },
         "name": {
           "name": "name",
-          "type": "varchar(255)",
+          "type": "varchar(64)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "email": {
           "name": "email",
-          "type": "varchar(255)",
+          "type": "varchar(64)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "emailVerificationToken": {
-          "name": "emailVerificationToken",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": true
         },
         "emailVerified": {
           "name": "emailVerified",
-          "type": "timestamp(3)",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
+        },
+        "emailVerificationToken": {
+          "name": "emailVerificationToken",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
         },
         "passwordHash": {
           "name": "passwordHash",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "resetPasswordToken": {
           "name": "resetPasswordToken",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "resetPasswordTokenExpires": {
           "name": "resetPasswordTokenExpires",
-          "type": "timestamp(3)",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "image": {
           "name": "image",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp(3)",
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "current_timestamp"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "user_id": {
-          "name": "user_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "user_emailVerificationToken_unique": {
-          "name": "user_emailVerificationToken_unique",
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "users_emailVerificationToken_unique": {
+          "name": "users_emailVerificationToken_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "emailVerificationToken"
           ]
         },
-        "user_resetPasswordToken_unique": {
-          "name": "user_resetPasswordToken_unique",
+        "users_resetPasswordToken_unique": {
+          "name": "users_resetPasswordToken_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "resetPasswordToken"
           ]
         }
       }
     },
-    "verificationToken": {
-      "name": "verificationToken",
+    "public.verificationTokens": {
+      "name": "verificationTokens",
+      "schema": "",
       "columns": {
         "identifier": {
           "name": "identifier",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "token": {
           "name": "token",
-          "type": "varchar(255)",
+          "type": "varchar(512)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "expires": {
           "name": "expires",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "verificationToken_identifier_token_pk": {
-          "name": "verificationToken_identifier_token_pk",
+        "verificationTokens_identifier_token_pk": {
+          "name": "verificationTokens_identifier_token_pk",
           "columns": [
             "identifier",
             "token"
@@ -712,10 +663,46 @@
       "uniqueConstraints": {}
     }
   },
+  "enums": {
+    "public.booking_status": {
+      "name": "booking_status",
+      "schema": "public",
+      "values": [
+        "niepotwierdzone",
+        "potwierdzone",
+        "anulowane",
+        "odrzucone"
+      ]
+    },
+    "public.operating_status": {
+      "name": "operating_status",
+      "schema": "public",
+      "values": [
+        "otwarte",
+        "zamknięte"
+      ]
+    },
+    "public.service_type": {
+      "name": "service_type",
+      "schema": "public",
+      "values": [
+        "weterynarz",
+        "salon fryzur"
+      ]
+    },
+    "public.user_role": {
+      "name": "user_role",
+      "schema": "public",
+      "values": [
+        "klient",
+        "administrator"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }

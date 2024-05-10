@@ -1,8 +1,9 @@
 import { getUserByEmail } from "@/actions/user"
-import { signInWithPasswordSchema } from "@/validations/auth"
 import bcryptjs from "bcryptjs"
 import type { NextAuthConfig } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+
+import { signInWithPasswordSchema } from "@/validations/auth"
 
 export default {
   providers: [

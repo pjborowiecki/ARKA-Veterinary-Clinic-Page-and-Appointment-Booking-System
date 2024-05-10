@@ -1,11 +1,17 @@
 "use server"
 
 import crypto from "crypto"
+
 import { getUserByEmail, getUserByResetPasswordToken } from "@/actions/user"
 import { signIn } from "@/auth"
-import { db } from "@/db"
-import { users, type NewUser } from "@/db/schema"
+import bcryptjs from "bcryptjs"
+import { eq } from "drizzle-orm"
+import { AuthError } from "next-auth"
+
 import { env } from "@/env.mjs"
+import { db } from "@/config/db"
+import { resend } from "@/config/email"
+import { users } from "@/db/schema"
 import {
   passwordResetSchema,
   passwordUpdateSchemaExtended,
@@ -16,42 +22,32 @@ import {
   type SignInWithPasswordFormInput,
   type SignUpWithPasswordFormInput,
 } from "@/validations/auth"
-import bcryptjs from "bcryptjs"
-import { eq } from "drizzle-orm"
-import { AuthError } from "next-auth"
 
-import { resend } from "@/config/email"
 import { EmailVerificationEmail } from "@/components/emails/auth/email-verification-email"
 import { ResetPasswordEmail } from "@/components/emails/auth/reset-password-email"
 
 export async function signUpWithPassword(
   rawInput: SignUpWithPasswordFormInput
 ): Promise<"invalid-input" | "exists" | "success" | "error"> {
-  const validatedInput = signUpWithPasswordSchema.safeParse(rawInput)
-  if (!validatedInput.success) return "invalid-input"
-
   try {
-    const user = await getUserByEmail(validatedInput.data.email)
+    const validatedInput = signUpWithPasswordSchema.safeParse(rawInput)
+    if (!validatedInput.success) return "invalid-input"
+
+    const user = await getUserByEmail({ email: validatedInput.data.email })
     if (user) return "exists"
 
     const passwordHash = await bcryptjs.hash(validatedInput.data.password, 10)
-
-    // TODO: Replace with prepared statement
-    const newUserResponse = await db.insert(users).values({
-      id: crypto.randomUUID(),
-      email: validatedInput.data.email,
-      passwordHash,
-    } as NewUser)
-
-    if (!newUserResponse) return "error"
-
     const emailVerificationToken = crypto.randomBytes(32).toString("base64url")
 
-    // TODO: Replace with prepared statement
-    const updatedUserResponse = await db
-      .update(users)
-      .set({ emailVerificationToken })
-      .where(eq(users.email, validatedInput.data.email))
+    const newUser = await db
+      .insert(users)
+      .values({
+        id: crypto.randomUUID(),
+        email: validatedInput.data.email,
+        passwordHash,
+        emailVerificationToken,
+      })
+      .returning()
 
     const emailSent = await resend.emails.send({
       from: env.RESEND_EMAIL_FROM,
@@ -63,7 +59,7 @@ export async function signUpWithPassword(
       }),
     })
 
-    return updatedUserResponse && emailSent ? "success" : "error"
+    return newUser && emailSent ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error signing up with password")
@@ -79,15 +75,17 @@ export async function signInWithPassword(
   | "unverified-email"
   | "success"
 > {
-  const validatedInput = signInWithPasswordSchema.safeParse(rawInput)
-  if (!validatedInput.success) return "invalid-input"
-
-  const existingUser = await getUserByEmail(validatedInput.data.email)
-  if (!existingUser) return "not-registered"
-
-  if (!existingUser.emailVerified) return "unverified-email"
-
   try {
+    const validatedInput = signInWithPasswordSchema.safeParse(rawInput)
+    if (!validatedInput.success) return "invalid-input"
+
+    const existingUser = await getUserByEmail({
+      email: validatedInput.data.email,
+    })
+    if (!existingUser) return "not-registered"
+
+    if (!existingUser.emailVerified) return "unverified-email"
+
     await signIn("credentials", {
       email: validatedInput.data.email,
       password: validatedInput.data.password,
@@ -113,25 +111,27 @@ export async function signInWithPassword(
 export async function resetPassword(
   rawInput: PasswordResetFormInput
 ): Promise<"invalid-input" | "not-found" | "success" | "error"> {
-  const validatedInput = passwordResetSchema.safeParse(rawInput)
-  if (!validatedInput.success) return "invalid-input"
-
-  const user = await getUserByEmail(validatedInput.data.email)
-  if (!user) return "not-found"
-
-  const today = new Date()
-  const resetPasswordToken = crypto.randomBytes(32).toString("base64url")
-  const resetPasswordTokenExpiry = new Date(today.setDate(today.getDate() + 1)) // 24 hours from now
-
   try {
-    // TODO: Replace with prepared statement
-    const userUpdatedResponse = await db
+    const validatedInput = passwordResetSchema.safeParse(rawInput)
+    if (!validatedInput.success) return "invalid-input"
+
+    const user = await getUserByEmail({ email: validatedInput.data.email })
+    if (!user) return "not-found"
+
+    const today = new Date()
+    const resetPasswordToken = crypto.randomBytes(32).toString("base64url")
+    const resetPasswordTokenExpiry = new Date(
+      today.setDate(today.getDate() + 1)
+    ) // 24 hours from now
+
+    const userUpdated = await db
       .update(users)
       .set({
         resetPasswordToken,
         resetPasswordTokenExpiry,
       })
       .where(eq(users.email, validatedInput.data.email))
+      .returning()
 
     const emailSent = await resend.emails.send({
       from: env.RESEND_EMAIL_FROM,
@@ -143,7 +143,7 @@ export async function resetPassword(
       }),
     })
 
-    return userUpdatedResponse && emailSent ? "success" : "error"
+    return userUpdated && emailSent ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error resetting password")
@@ -153,17 +153,13 @@ export async function resetPassword(
 export async function updatePassword(
   rawInput: PasswordUpdateFormInputExtended
 ): Promise<"invalid-input" | "not-found" | "expired" | "success" | "error"> {
-  const validatedInput = passwordUpdateSchemaExtended.safeParse(rawInput)
-  if (
-    !validatedInput.success ||
-    validatedInput.data.password !== validatedInput.data.confirmPassword
-  )
-    return "invalid-input"
-
   try {
-    const user = await getUserByResetPasswordToken(
-      validatedInput.data.resetPasswordToken
-    )
+    const validatedInput = passwordUpdateSchemaExtended.safeParse(rawInput)
+    if (!validatedInput.success) return "invalid-input"
+
+    const user = await getUserByResetPasswordToken({
+      token: validatedInput.data.resetPasswordToken,
+    })
     if (!user) return "not-found"
 
     const resetPasswordExpiry = user.resetPasswordTokenExpiry
@@ -172,8 +168,7 @@ export async function updatePassword(
 
     const passwordHash = await bcryptjs.hash(validatedInput.data.password, 10)
 
-    // TODO: Replace with prepared statement
-    const userUpdatedResponse = await db
+    const userUpdated = await db
       .update(users)
       .set({
         passwordHash,
@@ -181,8 +176,9 @@ export async function updatePassword(
         resetPasswordTokenExpiry: null,
       })
       .where(eq(users.id, user.id))
+      .returning()
 
-    return userUpdatedResponse ? "success" : "error"
+    return userUpdated ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Error updating password")

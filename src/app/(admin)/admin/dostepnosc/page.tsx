@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getBusinessHours } from "@/actions/availability"
-import { auth } from "@/auth"
-import { env } from "@/env.mjs"
 
+import { env } from "@/env.mjs"
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+
+import auth from "@/lib/auth"
+
 import {
   Card,
   CardContent,

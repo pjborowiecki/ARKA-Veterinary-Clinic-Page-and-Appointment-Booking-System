@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { getBusinessHours } from "@/actions/availability"
-import { type BusinessHours } from "@/db/schema"
 
 import { siteConfig } from "@/config/site"
+import { type BusinessHours } from "@/db/schema"
 import { DAY_MAPPINGS, DAYS_OF_WEEK } from "@/data/constants"
 
 interface FooterProps {

@@ -21,4 +21,4 @@ export const DAY_MAPPINGS = {
   friday: "piątek",
   saturday: "sobota",
   sunday: "niedziela",
-}
+} satisfies Record<string, string>

@@ -16,23 +16,21 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.cjs",
     "**/*.mjs",
-    ".next/types/**/*.ts",
-    "next.config.cjs"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

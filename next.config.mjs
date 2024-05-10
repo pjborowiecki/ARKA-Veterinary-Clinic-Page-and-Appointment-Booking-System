@@ -1,9 +1,8 @@
-await import("./src/env.mjs")
+import("./src/env.mjs")
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-   pageExtensions: ["tsx", "mdx", "ts", "js"],
   images: {
     remotePatterns: [
       {
@@ -17,6 +16,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "uploadthing.com",
+      },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
       },
     ],
   },

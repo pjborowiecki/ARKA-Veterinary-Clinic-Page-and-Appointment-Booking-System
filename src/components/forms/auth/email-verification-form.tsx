@@ -3,12 +3,17 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { resendEmailVerificationLink } from "@/actions/email"
-import { emailVerificationSchema } from "@/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
+
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+import {
+  emailVerificationSchema,
+  type EmailVerificationFormInput,
+} from "@/validations/email"
 
 import { useToast } from "@/hooks/use-toast"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -21,24 +26,24 @@ import {
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/components/icons"
 
-type EmailVerificationFormInputs = z.infer<typeof emailVerificationSchema>
-
 export function EmailVerificationForm(): JSX.Element {
   const router = useRouter()
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<EmailVerificationFormInputs>({
+  const form = useForm<EmailVerificationFormInput>({
     resolver: zodResolver(emailVerificationSchema),
     defaultValues: {
       email: "",
     },
   })
 
-  function onSubmit(formData: EmailVerificationFormInputs): void {
+  function onSubmit(formData: EmailVerificationFormInput): void {
     startTransition(async () => {
       try {
-        const message = await resendEmailVerificationLink(formData.email)
+        const message = await resendEmailVerificationLink({
+          email: formData.email,
+        })
 
         switch (message) {
           case "not-found":
@@ -48,13 +53,19 @@ export function EmailVerificationForm(): JSX.Element {
             })
             form.reset()
             break
+          case "verified":
+            toast({
+              title: "Twój email jest już zweryfikowany",
+              description: "Wróć do strony logowania i spróbuj się zalogować",
+            })
+            break
           case "success":
             toast({
               title: "Link weryfikacyjny został wysłany",
               description:
                 "Kliknij w otrzymanego linka w celu dokończenia weryfikacji",
             })
-            router.push("/logowanie")
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT)
             break
           default:
             toast({

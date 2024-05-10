@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getClinic } from "@/actions/clinic"
-import { auth } from "@/auth"
-import { env } from "@/env.mjs"
 
+import { env } from "@/env.mjs"
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+
+import auth from "@/lib/auth"
+
 import { ClinicUpdateForm } from "@/components/forms/clinic/clinic-update-form"
 import {
   PageHeader,

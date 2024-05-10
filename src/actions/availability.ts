@@ -1,51 +1,66 @@
 "use server"
 
-// import { revalidatePath } from "next/cache"
-import { db } from "@/db"
+import { unstable_noStore as noStore, revalidatePath } from "next/cache"
+import { eq } from "drizzle-orm"
+
+import { db } from "@/config/db"
 import {
   psGetBusinessHours,
   psGetDatesUnavailable,
-} from "@/db/prepared/statements"
+} from "@/db/prepared-statements/clinic"
 import {
   businessHours,
   type BusinessHours,
   type DateUnavailable,
 } from "@/db/schema"
-import type { businessHoursSchema } from "@/validations/availability"
-import type { z } from "zod"
+import {
+  businessHoursSchema,
+  updateBusinessHoursSchema,
+  type AddBusinessHoursInput,
+  type UpdateBusinessHoursInput,
+} from "@/validations/availability"
+
+import { generateId } from "@/lib/utils"
 
 export async function addBusinessHours(
-  input: z.infer<typeof businessHoursSchema>
-): Promise<"success" | "fail"> {
+  rawInput: AddBusinessHoursInput
+): Promise<"invalid-input" | "error" | "success"> {
   try {
-    const response = await db.insert(businessHours).values({
-      mondayStatus: input.mondayStatus,
-      tuesdayStatus: input.tuesdayStatus,
-      wednesdayStatus: input.wednesdayStatus,
-      thursdayStatus: input.thursdayStatus,
-      fridayStatus: input.fridayStatus,
-      saturdayStatus: input.saturdayStatus,
-      sundayStatus: input.sundayStatus,
-      mondayOpening: input.mondayOpening,
-      tuesdayOpening: input.tuesdayOpening,
-      wednesdayOpening: input.wednesdayOpening,
-      thursdayOpening: input.thursdayOpening,
-      fridayOpening: input.fridayOpening,
-      saturdayOpening: input.saturdayOpening,
-      sundayOpening: input.sundayOpening,
-      mondayClosing: input.mondayClosing,
-      tuesdayClosing: input.tuesdayClosing,
-      wednesdayClosing: input.wednesdayClosing,
-      thursdayClosing: input.thursdayClosing,
-      fridayClosing: input.fridayClosing,
-      saturdayClosing: input.saturdayClosing,
-      sundayClosing: input.sundayClosing,
-    })
+    const validatedInput = businessHoursSchema.safeParse(rawInput)
+    if (!validatedInput.success) return "invalid-input"
 
-    // revalidatePath("/admin/przychodnia/godziny")
-    // revalidatePath("/")
+    const newBusinessHours = await db
+      .insert(businessHours)
+      .values({
+        id: generateId(),
+        mondayStatus: validatedInput.data.mondayStatus,
+        tuesdayStatus: validatedInput.data.tuesdayStatus,
+        wednesdayStatus: validatedInput.data.wednesdayStatus,
+        thursdayStatus: validatedInput.data.thursdayStatus,
+        fridayStatus: validatedInput.data.fridayStatus,
+        saturdayStatus: validatedInput.data.saturdayStatus,
+        sundayStatus: validatedInput.data.sundayStatus,
+        mondayOpening: validatedInput.data.mondayOpening,
+        tuesdayOpening: validatedInput.data.tuesdayOpening,
+        wednesdayOpening: validatedInput.data.wednesdayOpening,
+        thursdayOpening: validatedInput.data.thursdayOpening,
+        fridayOpening: validatedInput.data.fridayOpening,
+        saturdayOpening: validatedInput.data.saturdayOpening,
+        sundayOpening: validatedInput.data.sundayOpening,
+        mondayClosing: validatedInput.data.mondayClosing,
+        tuesdayClosing: validatedInput.data.tuesdayClosing,
+        wednesdayClosing: validatedInput.data.wednesdayClosing,
+        thursdayClosing: validatedInput.data.thursdayClosing,
+        fridayClosing: validatedInput.data.fridayClosing,
+        saturdayClosing: validatedInput.data.saturdayClosing,
+        sundayClosing: validatedInput.data.sundayClosing,
+      })
+      .returning()
 
-    return response ? "success" : "fail"
+    revalidatePath("/admin/przychodnia/godziny")
+    revalidatePath("/")
+
+    return newBusinessHours ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Błąd przy dodawaniu godzin przyjęć")
@@ -54,10 +69,11 @@ export async function addBusinessHours(
 
 export async function getBusinessHours(): Promise<BusinessHours | null> {
   try {
+    noStore()
     let [businessHours] = await psGetBusinessHours.execute()
 
     if (!businessHours) {
-      const response = await addBusinessHours({
+      const newBusinessHours = await addBusinessHours({
         mondayStatus: "otwarte",
         tuesdayStatus: "otwarte",
         wednesdayStatus: "otwarte",
@@ -81,7 +97,7 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
         sundayClosing: "13:00",
       })
 
-      if (response === "success") {
+      if (newBusinessHours) {
         ;[businessHours] = await psGetBusinessHours.execute()
       }
     }
@@ -94,35 +110,43 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
 }
 
 export async function updateBusinessHours(
-  input: z.infer<typeof businessHoursSchema>
-): Promise<"success" | "fail"> {
+  rawInput: UpdateBusinessHoursInput
+): Promise<"invalid-input" | "error" | "success"> {
   try {
-    const response = await db.update(businessHours).set({
-      mondayStatus: input.mondayStatus,
-      tuesdayStatus: input.tuesdayStatus,
-      wednesdayStatus: input.wednesdayStatus,
-      thursdayStatus: input.thursdayStatus,
-      fridayStatus: input.fridayStatus,
-      saturdayStatus: input.saturdayStatus,
-      sundayStatus: input.sundayStatus,
-      mondayOpening: input.mondayOpening,
-      tuesdayOpening: input.tuesdayOpening,
-      wednesdayOpening: input.wednesdayOpening,
-      thursdayOpening: input.thursdayOpening,
-      fridayOpening: input.fridayOpening,
-      saturdayOpening: input.saturdayOpening,
-      sundayOpening: input.sundayOpening,
-      mondayClosing: input.mondayClosing,
-      tuesdayClosing: input.tuesdayClosing,
-      wednesdayClosing: input.wednesdayClosing,
-      thursdayClosing: input.thursdayClosing,
-      fridayClosing: input.fridayClosing,
-      saturdayClosing: input.saturdayClosing,
-      sundayClosing: input.sundayClosing,
-    })
+    const validatedInput = updateBusinessHoursSchema.safeParse(rawInput)
+    if (!validatedInput.success) return "invalid-input"
 
-    return response ? "success" : "fail"
-    // revalidatePath("/admin/przychodnia/godziny")
+    const businessHoursUpdated = await db
+      .update(businessHours)
+      .set({
+        mondayStatus: validatedInput.data.mondayStatus,
+        tuesdayStatus: validatedInput.data.tuesdayStatus,
+        wednesdayStatus: validatedInput.data.wednesdayStatus,
+        thursdayStatus: validatedInput.data.thursdayStatus,
+        fridayStatus: validatedInput.data.fridayStatus,
+        saturdayStatus: validatedInput.data.saturdayStatus,
+        sundayStatus: validatedInput.data.sundayStatus,
+        mondayOpening: validatedInput.data.mondayOpening,
+        tuesdayOpening: validatedInput.data.tuesdayOpening,
+        wednesdayOpening: validatedInput.data.wednesdayOpening,
+        thursdayOpening: validatedInput.data.thursdayOpening,
+        fridayOpening: validatedInput.data.fridayOpening,
+        saturdayOpening: validatedInput.data.saturdayOpening,
+        sundayOpening: validatedInput.data.sundayOpening,
+        mondayClosing: validatedInput.data.mondayClosing,
+        tuesdayClosing: validatedInput.data.tuesdayClosing,
+        wednesdayClosing: validatedInput.data.wednesdayClosing,
+        thursdayClosing: validatedInput.data.thursdayClosing,
+        fridayClosing: validatedInput.data.fridayClosing,
+        saturdayClosing: validatedInput.data.saturdayClosing,
+        sundayClosing: validatedInput.data.sundayClosing,
+      })
+      .where(eq(businessHours.id, validatedInput.data.id))
+      .returning()
+
+    revalidatePath("/admin/przychodnia/godziny")
+
+    return businessHoursUpdated ? "success" : "error"
   } catch (error) {
     console.error(error)
     throw new Error("Błąd przy aktualizacji godzin przyjęć")
@@ -131,8 +155,9 @@ export async function updateBusinessHours(
 
 export async function getDatesUnavailable(): Promise<DateUnavailable[] | null> {
   try {
+    noStore()
     const datesUnavailable = await psGetDatesUnavailable.execute()
-    return datesUnavailable || null
+    return datesUnavailable ?? null
   } catch (error) {
     console.error()
     throw new Error("Błąd wczytywania niedostępnych terminów")
@@ -148,15 +173,18 @@ export async function getDatesUnavailableAsAnArrayOfDates(): Promise<Date[]> {
       (dateUnavailable) => new Date(dateUnavailable.date)
     )
 
-    return datesUnavailable || []
+    return datesUnavailable ?? []
   } catch (error) {
     console.error()
     throw new Error("Błąd wczytywania niedostępnych terminów")
   }
 }
 
+// TODO
 export async function addDateUnavailable() {}
 
+// TODO
 export async function updateDateUnavailable() {}
 
+// TODO
 export async function deleteDateUnavailable() {}

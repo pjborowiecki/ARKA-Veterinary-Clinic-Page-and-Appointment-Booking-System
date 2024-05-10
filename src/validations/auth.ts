@@ -1,7 +1,8 @@
-import { emailSchema } from "@/validations/email"
 import * as z from "zod"
 
-const passwordSchema = z
+import { emailSchema } from "@/validations/email"
+
+export const passwordSchema = z
   .string({
     required_error: "Hasło jest wymagane",
     invalid_type_error: "Nieprawidłowy typ danych",
@@ -10,7 +11,7 @@ const passwordSchema = z
     message: "Hasło musi się składać z przynajmniej 8 znaków",
   })
   .max(256, {
-    message: "Hasło nie może mieć więcej ni 256 znaków",
+    message: "Hasło nie może mieć więcej niż 256 znaków",
   })
 
 export const signUpWithPasswordSchema = z
@@ -33,8 +34,8 @@ export const signUpWithPasswordSchema = z
 export const signInWithPasswordSchema = z.object({
   email: emailSchema,
   password: z.string({
-    required_error: "Password is required",
-    invalid_type_error: "Password must be a string",
+    required_error: "Hasło jest wymagane",
+    invalid_type_error: "Nieprawidłowy typ danych",
   }),
 })
 
@@ -64,26 +65,22 @@ export const passwordUpdateSchemaExtended = z
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
       {
         message:
-          "Password must contain at least 8 characters, including one uppercase, one lowercase, one number and one special character",
+          "Hasło musi mieć od 8 do 256 znaków, zawierać przynajmniej jedną wielką literę, jedną małą literę, jedną liczbę, oraz jedną znak specjalny",
       }
     ),
     confirmPassword: z.string(),
     resetPasswordToken: z
       .string({
-        required_error: "Reset password token is required",
-        invalid_type_error: "Reset password token must be a string",
+        required_error: "Token do resetowania hasła jest wymagany",
+        invalid_type_error: "Nieprawidłowy typ danych",
       })
       .min(16)
-      .max(256),
+      .max(512),
   })
   .refine((schema) => schema.password === schema.confirmPassword, {
-    message: "Passwords do not match",
+    message: "Podane hasła są różne",
     path: ["confirmPassword"],
   })
-
-export const emailVerificationSchema = z.object({
-  email: emailSchema,
-})
 
 export type SignUpWithPasswordFormInput = z.infer<
   typeof signUpWithPasswordSchema
@@ -100,5 +97,3 @@ export type PasswordUpdateFormInput = z.infer<typeof passwordUpdateSchema>
 export type PasswordUpdateFormInputExtended = z.infer<
   typeof passwordUpdateSchemaExtended
 >
-
-export type EmailVerificationFormInput = z.infer<typeof emailVerificationSchema>

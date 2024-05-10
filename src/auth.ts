@@ -1,9 +1,10 @@
-import { db } from "@/db"
-import { env } from "@/env.mjs"
+import { getUserById } from "@/actions/user"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import NextAuth from "next-auth"
 
+import { env } from "@/env.mjs"
 import authConfig from "@/config/auth"
+import { db } from "@/config/db"
 
 export const {
   handlers: { GET, POST },
@@ -15,7 +16,6 @@ export const {
   pages: {
     signIn: "/logowanie",
     signOut: "/signout",
-    verifyRequest: "/logowanie/magic-link-signin",
   },
   secret: env.AUTH_SECRET,
   session: {
@@ -23,7 +23,24 @@ export const {
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
-  callbacks: {},
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) token.role = user.role
+      return token
+    },
+    session({ session, token }) {
+      session.user.role = token.role as "klient" | "administrator"
+      return session
+    },
+    async signIn({ user, account }) {
+      if (!user.id) return false
+      if (account?.provider !== "credentials") return true
+
+      const existingUser = await getUserById({ id: user.id })
+
+      return !existingUser?.emailVerified ? false : true
+    },
+  },
   adapter: DrizzleAdapter(db),
   ...authConfig,
 })

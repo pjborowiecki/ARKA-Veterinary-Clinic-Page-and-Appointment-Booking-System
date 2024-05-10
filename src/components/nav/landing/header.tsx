@@ -1,7 +1,9 @@
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
+
 import { cn } from "@/lib/utils"
+
 import { buttonVariants } from "@/components/ui/button"
 import { Navigation } from "@/components/nav/landing/navigation"
 import { NavigationMobile } from "@/components/nav/landing/navigation-mobile"

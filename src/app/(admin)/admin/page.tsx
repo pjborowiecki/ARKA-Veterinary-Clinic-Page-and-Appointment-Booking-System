@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation"
-import { auth } from "@/auth"
 
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+
+import auth from "@/lib/auth"
 
 export default async function AdminPage() {
   const session = await auth()

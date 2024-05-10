@@ -2,6 +2,7 @@ import * as React from "react"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
@@ -36,7 +37,6 @@ export function ErrorCard({
 
   return (
     <Card
-      as="section"
       role="alert"
       aria-live="assertive"
       aria-atomic="true"

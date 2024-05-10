@@ -3,15 +3,17 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { resetPassword } from "@/actions/auth"
-import {
-  passwordResetSchema,
-  type PasswordResetFormInput,
-} from "@/validations/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+import {
+  passwordResetSchema,
+  type PasswordResetFormInput,
+} from "@/validations/auth"
+
 import { useToast } from "@/hooks/use-toast"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,

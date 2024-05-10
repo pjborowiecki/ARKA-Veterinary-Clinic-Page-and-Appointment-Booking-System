@@ -10,10 +10,7 @@ export const env = createEnv({
     NODE_ENV: z.enum(["development", "test", "production"]),
     NEXTAUTH_URL: z.string().url(),
     AUTH_SECRET: z.string(),
-    DATABASE_URI: z.string(),
-    DATABASE_HOST: z.string(),
-    DATABASE_USERNAME: z.string(),
-    DATABASE_PASSWORD: z.string(),
+    DATABASE_URL: z.string(),
     RESEND_API_KEY: z.string(),
     RESEND_EMAIL_FROM: z.string().email(),
     RESEND_EMAIL_TO: z.string().email(),
@@ -39,19 +36,11 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     AUTH_SECRET: process.env.AUTH_SECRET,
-    DATABASE_URI: process.env.DATABASE_URI,
-    DATABASE_HOST: process.env.DATABASE_HOST,
-    DATABASE_USERNAME: process.env.DATABASE_USERNAME,
-    DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
+    DATABASE_URL: process.env.DATABASE_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     RESEND_EMAIL_FROM: process.env.RESEND_EMAIL_FROM,
     RESEND_EMAIL_TO: process.env.RESEND_EMAIL_TO,
     // GOOGLE_MAPS_URL: process.env.GOOGLE_MAPS_URL,
     // GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
   },
-  /**
-   * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
-   * This is especially useful for Docker builds.
-   */
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
 })

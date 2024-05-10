@@ -3,14 +3,17 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { signUpWithPassword } from "@/actions/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
 import {
   signUpWithPasswordSchema,
   type SignUpWithPasswordFormInput,
 } from "@/validations/auth"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 
 import { useToast } from "@/hooks/use-toast"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -61,7 +64,7 @@ export function SignUpWithPasswordForm(): JSX.Element {
               title: "Link weryfikacyjny został wysłany",
               description: "Sprawdź maila aby dokończyć rejestrację",
             })
-            router.push("/logowanie")
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT)
             break
           default:
             toast({

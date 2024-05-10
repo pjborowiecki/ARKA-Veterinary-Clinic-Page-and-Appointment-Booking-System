@@ -1,12 +1,14 @@
 import { type Metadata } from "next"
 import { redirect } from "next/navigation"
-import { auth } from "@/auth"
-import { db } from "@/db"
-import { bookings, type Booking } from "@/db/schema"
-import { env } from "@/env.mjs"
 import { and, asc, desc, gte, inArray, like, lte, sql } from "drizzle-orm"
 
+import { env } from "@/env.mjs"
+import { db } from "@/config/db"
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+import { bookings, type Booking } from "@/db/schema"
+
+import auth from "@/lib/auth"
+
 import {
   Card,
   CardContent,
@@ -35,7 +37,8 @@ export default async function ClinicBookingsPage({
   const session = await auth()
   if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 
-  const { page, per_page, sort, from, to, lastName, type, slot, email } =
+  // TODO: Add slot
+  const { page, per_page, sort, from, to, lastName, type, email } =
     searchParams ?? {}
 
   // const clinic = await db.query.clinics.findFirst({

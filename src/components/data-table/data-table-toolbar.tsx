@@ -10,6 +10,7 @@ import { Cross2Icon, PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons"
 import type { Table } from "@tanstack/react-table"
 
 import { cn } from "@/lib/utils"
+
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter"

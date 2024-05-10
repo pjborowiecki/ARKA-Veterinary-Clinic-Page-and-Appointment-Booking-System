@@ -1,12 +1,13 @@
 "use client"
 
 import * as React from "react"
-import { enquiryEmailSchema } from "@/validations/email"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
+
+import { contactFormSchema, type ContactFormInput } from "@/validations/email"
 
 import { useToast } from "@/hooks/use-toast"
+
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -15,35 +16,32 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
   UncontrolledFormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-type ContactFormInputs = z.infer<typeof enquiryEmailSchema>
-
 export function ContactForm(): JSX.Element {
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<ContactFormInputs>({
-    resolver: zodResolver(enquiryEmailSchema),
+  const form = useForm<ContactFormInput>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
       message: "",
-      rodo: false,
     },
   })
 
-  function onSubmit(data: ContactFormInputs) {
+  // TODO: Implement the logic
+  function onSubmit(formData: ContactFormInput) {
     startTransition(() => {
       try {
-        console.log(data)
+        console.log(formData)
       } catch (err) {
         console.error(err)
       }

@@ -9,12 +9,24 @@ export const hourSchema = z
     message: "Nieprawidłowy format godziny. Poprawny format to HH:MM",
   })
 
-const statusSchema = z
+export const statusSchema = z
   .enum(["otwarte", "zamknięte"], {
     required_error: "Wybierz status",
     invalid_type_error: "Nieprawidłowy typ danych",
   })
   .default("otwarte")
+
+export const businessHoursIdSchema = z
+  .string({
+    required_error: "Id jest wymagane",
+    invalid_type_error: "Dane wejściowe muszą być tekstem",
+  })
+  .min(1, {
+    message: "Id musi mieć przynajmniej 1 znak",
+  })
+  .max(128, {
+    message: "Id może mieć maksymalnie 32 znaki",
+  })
 
 export const businessHoursSchema = z.object({
   mondayStatus: statusSchema,
@@ -39,3 +51,13 @@ export const businessHoursSchema = z.object({
   saturdayClosing: hourSchema,
   sundayClosing: hourSchema,
 })
+
+export const addBusinessHoursSchema = businessHoursSchema
+
+export const updateBusinessHoursSchema = businessHoursSchema.extend({
+  id: businessHoursIdSchema,
+})
+
+export type AddBusinessHoursInput = z.infer<typeof addBusinessHoursSchema>
+
+export type UpdateBusinessHoursInput = z.infer<typeof updateBusinessHoursSchema>

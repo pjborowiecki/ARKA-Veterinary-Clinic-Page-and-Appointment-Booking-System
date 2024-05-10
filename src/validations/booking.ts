@@ -1,6 +1,19 @@
+import * as z from "zod"
+
 import { bookings } from "@/db/schema"
 import { hourSchema } from "@/validations/availability"
-import * as z from "zod"
+
+export const bookingIdSchema = z
+  .string({
+    required_error: "Id rezerwacji jest wymagane",
+    invalid_type_error: "Dane wejściowe muszą być tekstem",
+  })
+  .min(1, {
+    message: "Id musi mieć przynajmniej 1 znak",
+  })
+  .max(128, {
+    message: "Id może mieć maksymalnie 32 znaki",
+  })
 
 export const bookingSchema = z.object({
   type: z
@@ -48,7 +61,6 @@ export const bookingSchema = z.object({
       message: "Numer telefonu powinien składać się z maksymalnie 20 znaków",
     }),
   message: z.string().optional(),
-
   // rodo: z
   //   .boolean({
   //     required_error: "Zgoda na przetwarzanie danych jest wymagana",
@@ -63,10 +75,32 @@ export const bookingSchema = z.object({
     .default(bookings.status.enumValues[0]),
 })
 
-export const filterBookingsSchema = z.object({})
+export const addBookingSchema = bookingSchema
 
-export const getBookingSchema = z.object({
-  id: z.number(),
+export const updateBookingSchema = bookingSchema.extend({
+  id: bookingIdSchema,
 })
 
-export const getBookingsSchema = z.object({})
+export const deleteBookingSchema = z.object({
+  id: bookingIdSchema,
+})
+
+export const checkIfBookingExistsSchema = z.object({
+  id: bookingIdSchema,
+})
+
+export const filterBookingsSchema = z.object({
+  query: z.string().optional(),
+})
+
+export type AddBookingInput = z.infer<typeof addBookingSchema>
+
+export type UpdateBookingInput = z.infer<typeof updateBookingSchema>
+
+export type DeleteBookingInput = z.infer<typeof deleteBookingSchema>
+
+export type CheckIfBookingExistsInput = z.infer<
+  typeof checkIfBookingExistsSchema
+>
+
+export type FilterBookingsInput = z.infer<typeof filterBookingsSchema>

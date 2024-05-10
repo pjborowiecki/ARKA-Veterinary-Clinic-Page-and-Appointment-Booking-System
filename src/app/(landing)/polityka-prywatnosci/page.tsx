@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+
 import { env } from "@/env.mjs"
 
 export const metadata: Metadata = {

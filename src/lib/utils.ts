@@ -1,8 +1,10 @@
-import { env } from "@/env.mjs"
 import { clsx, type ClassValue } from "clsx"
 import { addMinutes, format } from "date-fns"
 import dayjs from "dayjs"
+import { customAlphabet } from "nanoid"
 import { twMerge } from "tailwind-merge"
+
+import { env } from "@/env.mjs"
 
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
@@ -24,6 +26,13 @@ export function scrollToSection(sectionName: string): void {
   document
     ?.getElementById(`${sectionName}`)
     ?.scrollIntoView({ behavior: "smooth" })
+}
+
+export function generateId(length = 128) {
+  return customAlphabet(
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    length
+  )()
 }
 
 export function slugify(str: string): string {

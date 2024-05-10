@@ -3,14 +3,18 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { updateBusinessHours } from "@/actions/availability"
-import { businessHours, type BusinessHours } from "@/db/schema"
-import { businessHoursSchema } from "@/validations/availability"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type { z } from "zod"
 
+import { businessHours, type BusinessHours } from "@/db/schema"
+import {
+  updateBusinessHoursSchema,
+  type UpdateBusinessHoursInput,
+} from "@/validations/availability"
 import { TIME_OPTIONS } from "@/data/constants"
+
 import { useToast } from "@/hooks/use-toast"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -34,8 +38,6 @@ interface BusinessHoursUpdateFormProps {
   currentBusinessHours: BusinessHours | null
 }
 
-type BusinessHoursUpdateFormInputs = z.infer<typeof businessHoursSchema>
-
 export function BusinessHoursUpdateForm({
   currentBusinessHours,
 }: BusinessHoursUpdateFormProps) {
@@ -43,8 +45,8 @@ export function BusinessHoursUpdateForm({
   const { toast } = useToast()
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<BusinessHoursUpdateFormInputs>({
-    resolver: zodResolver(businessHoursSchema),
+  const form = useForm<UpdateBusinessHoursInput>({
+    resolver: zodResolver(updateBusinessHoursSchema),
     defaultValues: {
       mondayStatus: currentBusinessHours?.mondayStatus,
       tuesdayStatus: currentBusinessHours?.tuesdayStatus,
@@ -70,23 +72,28 @@ export function BusinessHoursUpdateForm({
     },
   })
 
-  function onSubmit(data: BusinessHoursUpdateFormInputs) {
+  function onSubmit(formData: UpdateBusinessHoursInput) {
     startTransition(async () => {
       try {
-        const response = await updateBusinessHours({ ...data })
+        const message = await updateBusinessHours({
+          ...formData,
+        })
 
-        if (response === "success") {
-          toast({ title: "Godziny przyjęć zostały zaktualizowane" })
-        } else {
-          toast({
-            title: "Coś poszło nie tak",
-            description: "Godziny przyjęć nie zostały zaktualizowane",
-            variant: "destructive",
-          })
+        switch (message) {
+          case "success":
+            toast({
+              title: "Godziny przyjęć zostały zaktualizowane",
+            })
+            form.reset()
+            router.refresh()
+            break
+          default:
+            toast({
+              title: "Coś poszło nie tak",
+              description: "Godziny przyjęć nie zostały zaktualizowane",
+              variant: "destructive",
+            })
         }
-
-        form.reset()
-        router.refresh()
       } catch (error) {
         console.error(error)
         toast({

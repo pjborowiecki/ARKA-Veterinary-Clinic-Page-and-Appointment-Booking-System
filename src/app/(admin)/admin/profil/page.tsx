@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
-import { auth } from "@/auth"
-import { env } from "@/env.mjs"
 
+import { env } from "@/env.mjs"
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/config/defaults"
+
+import auth from "@/lib/auth"
+
 import { UserUpdateForm } from "@/components/forms/auth/user-update-form"
 import {
   PageHeader,

@@ -3,12 +3,14 @@
 import * as React from "react"
 import Link from "next/link"
 import { deleteBooking } from "@/actions/booking"
-import { bookings, type Booking } from "@/db/schema"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { type ColumnDef } from "@tanstack/react-table"
 
+import { bookings, type Booking } from "@/db/schema"
+
 import { toast } from "@/hooks/use-toast"
 import { formatDate } from "@/lib/utils"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
