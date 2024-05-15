@@ -63,7 +63,7 @@ Feel free to navigate the platform, and test various features, including booking
 
 - [x] Email and Password authentication with NextAuth v.5 and its middlewaree
 - [x] Email address verification functionality
-- [x] Database and ORM set up with PlanetScale's MySQL and DrizzleORM
+- [x] Database and ORM set up with Neon's PostgreSQLL and DrizzleORM
 - [x] Password reset functionality
 - [ ] Email templates with React Email
 - [x] Functional contact form
