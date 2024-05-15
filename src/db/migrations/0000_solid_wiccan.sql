@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "bookings" (
-	"id" varchar(512) PRIMARY KEY NOT NULL,
+	"id" varchar(128) PRIMARY KEY NOT NULL,
 	"type" "service_type" DEFAULT 'weterynarz' NOT NULL,
 	"date" date NOT NULL,
 	"time" varchar(5) NOT NULL,
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS "bookings" (
 	"lastName" varchar(64) NOT NULL,
 	"email" varchar(64) NOT NULL,
 	"phone" varchar(16) NOT NULL,
-	"message" text,
+	"message" varchar(10240),
 	"status" "booking_status" DEFAULT 'niepotwierdzone' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT current_timestamp
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "business_hours" (
-	"id" varchar(512) PRIMARY KEY NOT NULL,
+	"id" varchar(128) PRIMARY KEY NOT NULL,
 	"monday_status" "operating_status" DEFAULT 'otwarte' NOT NULL,
 	"tuesday_status" "operating_status" DEFAULT 'otwarte' NOT NULL,
 	"wednesday_status" "operating_status" DEFAULT 'otwarte' NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS "business_hours" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "clinics" (
-	"id" varchar(512) PRIMARY KEY NOT NULL,
+	"id" varchar(128) PRIMARY KEY NOT NULL,
 	"longitude" varchar(24) NOT NULL,
 	"latitude" varchar(24) NOT NULL,
 	"address" varchar(128) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS "clinics" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "datesUnavailable" (
-	"id" varchar(512) PRIMARY KEY NOT NULL,
+	"id" varchar(128) PRIMARY KEY NOT NULL,
 	"date" date NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT current_timestamp
@@ -105,13 +105,13 @@ CREATE TABLE IF NOT EXISTS "sessions" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
-	"id" varchar(512) PRIMARY KEY NOT NULL,
+	"id" varchar(128) PRIMARY KEY NOT NULL,
 	"role" "user_role" DEFAULT 'klient' NOT NULL,
 	"name" varchar(64),
 	"email" varchar(64) NOT NULL,
 	"emailVerified" timestamp,
 	"emailVerificationToken" varchar(512),
-	"passwordHash" text,
+	"passwordHash" varchar(256),
 	"resetPasswordToken" varchar(512),
 	"resetPasswordTokenExpires" timestamp,
 	"image" varchar(512),

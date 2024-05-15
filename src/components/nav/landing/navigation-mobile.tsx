@@ -6,8 +6,10 @@ interface NavigationMobileProps {
   navItems: NavItem[]
 }
 
+// TODO
 export function NavigationMobile({
   navItems,
 }: NavigationMobileProps): JSX.Element {
+  console.log("Under construction", navItems)
   return <div className="hidden">Navigation Mobile</div>
 }

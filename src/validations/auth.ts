@@ -2,6 +2,18 @@ import * as z from "zod"
 
 import { emailSchema } from "@/validations/email"
 
+export const userIdSchema = z
+  .string({
+    required_error: "Id użytkownika jest wymagane",
+    invalid_type_error: "Dane wejściowe muszą być tekstem",
+  })
+  .min(1, {
+    message: "Id musi mieć przynajmniej 1 znak",
+  })
+  .max(128, {
+    message: "Id może mieć maksymalnie 128 znaków",
+  })
+
 export const passwordSchema = z
   .string({
     required_error: "Hasło jest wymagane",
@@ -82,6 +94,10 @@ export const passwordUpdateSchemaExtended = z
     path: ["confirmPassword"],
   })
 
+export const linkOAuthAccountSchema = z.object({
+  userId: userIdSchema,
+})
+
 export type SignUpWithPasswordFormInput = z.infer<
   typeof signUpWithPasswordSchema
 >
@@ -97,3 +113,5 @@ export type PasswordUpdateFormInput = z.infer<typeof passwordUpdateSchema>
 export type PasswordUpdateFormInputExtended = z.infer<
   typeof passwordUpdateSchemaExtended
 >
+
+export type LinkOAuthAccountInput = z.infer<typeof linkOAuthAccountSchema>

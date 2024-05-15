@@ -112,7 +112,7 @@ export async function Footer({
         </div>
 
         <div className="flex flex-col items-center justify-center py-8">
-          <div className="w-[100%] border-[1px] border-black bg-black opacity-20" />
+          <div className="w-full border-DEFAULT border-black bg-black opacity-20" />
           <p className="pt-8 text-center text-[4.8vw] md:pt-6 md:text-[1.7vw] w-1400:text-[18px]">
             Stronę zbudował{" "}
             <Link

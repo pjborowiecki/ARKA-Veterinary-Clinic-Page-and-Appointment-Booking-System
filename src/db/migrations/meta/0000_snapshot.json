@@ -1,5 +1,5 @@
 {
-  "id": "477e832c-a0ec-4207-8d4d-f6ab659a571b",
+  "id": "b1a7aa3d-1a69-41a7-bed7-c0b8704fad3e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -108,7 +108,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(512)",
+          "type": "varchar(128)",
           "primaryKey": true,
           "notNull": true
         },
@@ -158,7 +158,7 @@
         },
         "message": {
           "name": "message",
-          "type": "text",
+          "type": "varchar(10240)",
           "primaryKey": false,
           "notNull": false
         },
@@ -196,7 +196,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(512)",
+          "type": "varchar(128)",
           "primaryKey": true,
           "notNull": true
         },
@@ -380,7 +380,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(512)",
+          "type": "varchar(128)",
           "primaryKey": true,
           "notNull": true
         },
@@ -446,7 +446,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(512)",
+          "type": "varchar(128)",
           "primaryKey": true,
           "notNull": true
         },
@@ -524,7 +524,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(512)",
+          "type": "varchar(128)",
           "primaryKey": true,
           "notNull": true
         },
@@ -562,7 +562,7 @@
         },
         "passwordHash": {
           "name": "passwordHash",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         },

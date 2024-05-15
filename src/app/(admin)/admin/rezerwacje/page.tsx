@@ -33,7 +33,7 @@ interface ClinicBookingsPageProps {
 
 export default async function ClinicBookingsPage({
   searchParams,
-}: ClinicBookingsPageProps): Promise<JSX.Element> {
+}: Readonly<ClinicBookingsPageProps>): Promise<JSX.Element> {
   const session = await auth()
   if (!session) redirect(DEFAULT_UNAUTHENTICATED_REDIRECT)
 

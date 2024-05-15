@@ -368,10 +368,6 @@ export function BookingAddForm({
 
         {/* Buttons */}
         <div className="grid w-full grid-cols-2 gap-4">
-          <Link href="/" className={buttonVariants({ variant: "outline" })}>
-            Anuluj
-          </Link>
-
           <Button
             type="submit"
             disabled={
@@ -397,6 +393,10 @@ export function BookingAddForm({
             )}
             <span className="sr-only">Zarezerwuj</span>
           </Button>
+
+          <Link href="/" className={buttonVariants({ variant: "outline" })}>
+            Anuluj
+          </Link>
         </div>
       </form>
     </Form>

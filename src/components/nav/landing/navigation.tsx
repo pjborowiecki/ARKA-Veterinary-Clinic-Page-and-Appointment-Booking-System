@@ -29,7 +29,7 @@ export function Navigation({ navItems }: NavigationProps): JSX.Element {
                   navigationMenuTriggerStyle(),
                   "relative bg-transparent px-0 hover:bg-transparent focus:bg-transparent",
                   "z-[2] inline-block cursor-pointer font-medium tracking-wide md:text-[1.9vw] lg:text-[1.7vw] xl:text-[18px]",
-                  "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-greenNavbarHover after:opacity-[0.7] after:transition-all after:ease-out after:content-['']",
+                  "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-greenNavbarHover after:opacity-70 after:transition-all after:ease-out after:content-['']",
                   "hover:scale-[1.15] hover:after:origin-bottom-left hover:after:scale-x-100"
                 )}
               >

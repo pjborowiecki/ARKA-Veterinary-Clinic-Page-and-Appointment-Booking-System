@@ -8,7 +8,7 @@ import { type ColumnDef } from "@tanstack/react-table"
 
 import { bookings, type Booking } from "@/db/schema"
 
-import { toast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { formatDate } from "@/lib/utils"
 
 import { Badge } from "@/components/ui/badge"
@@ -36,10 +36,10 @@ export function BookingsTableShell({
   pageCount,
   clinicId,
 }: BookingsTableShellProps): JSX.Element {
+  const toast = useToast()
   const [isPending, startTransition] = React.useTransition()
   const [selectedRowIds, setSelectedRowIds] = React.useState<number[]>([])
 
-  // Memoize the columns so they don't re-render on every render
   const columns = React.useMemo<ColumnDef<Booking, unknown>[]>(
     () => [
       {
@@ -217,29 +217,29 @@ export function BookingsTableShell({
     [data, isPending, clinicId]
   )
 
-  function deleteSelectedRows() {
-    toast.promise(
-      Promise.all(
-        selectedRowIds.map((id) =>
-          deleteBookingAction({
-            id,
-            clinicId,
-          })
-        )
-      ),
-      {
-        loading: "Usuwanie...",
-        success: () => {
-          setSelectedRowIds([])
-          return "Wybrane rezerwacje pomyślnie usunięte"
-        },
-        error: (err: unknown) => {
-          setSelectedRowIds([])
-          return catchError(err)
-        },
-      }
-    )
-  }
+  // function deleteSelectedRows() {
+  //   toast.promise(
+  //     Promise.all(
+  //       selectedRowIds.map((id) =>
+  //         deleteBookingAction({
+  //           id,
+  //           clinicId,
+  //         })
+  //       )
+  //     ),
+  //     {
+  //       loading: "Usuwanie...",
+  //       success: () => {
+  //         setSelectedRowIds([])
+  //         return "Wybrane rezerwacje pomyślnie usunięte"
+  //       },
+  //       error: (err: unknown) => {
+  //         setSelectedRowIds([])
+  //         return catchError(err)
+  //       },
+  //     }
+  //   )
+  // }
 
   return (
     <DataTable
@@ -256,14 +256,14 @@ export function BookingsTableShell({
           })),
         },
       ]}
-      searchableColumns={[
-        {
-          id: "name",
-          title: "names",
-        },
-      ]}
+      // searchableColumns={[
+      //   {
+      //     id: "name",
+      //     title: "names",
+      //   },
+      // ]}
       newRowLink={`/admin/rezerwacje/dodaj`}
-      deleteRowsAction={() => void deleteSelectedRows()}
+      // deleteRowsAction={() => void deleteSelectedRows()}
     />
   )
 }

@@ -69,7 +69,9 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+export default function RootLayout({
+  children,
+}: Readonly<RootLayoutProps>): JSX.Element {
   return (
     <html lang="en">
       <body
@@ -79,19 +81,20 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
           fontJetBrainsMono.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SmoothScrollProvider>
+        <SmoothScrollProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
             <Toaster />
             <Analytics />
             <TailwindIndicator />
-          </SmoothScrollProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </SmoothScrollProvider>
+
         <Toaster />
       </body>
     </html>

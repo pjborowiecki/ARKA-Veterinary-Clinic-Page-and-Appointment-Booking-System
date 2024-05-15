@@ -42,6 +42,10 @@ export function ContactForm(): JSX.Element {
     startTransition(() => {
       try {
         console.log(formData)
+        toast({
+          title: "Hello",
+          description: "We have received your message. Thank you!",
+        })
       } catch (err) {
         console.error(err)
       }

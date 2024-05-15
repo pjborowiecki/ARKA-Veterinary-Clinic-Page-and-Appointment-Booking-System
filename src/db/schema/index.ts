@@ -78,7 +78,7 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 }))
 
 export const users = pgTable("users", {
-  id: varchar("id", { length: 512 }).notNull().primaryKey(),
+  id: varchar("id", { length: 128 }).notNull().primaryKey(),
   role: userRoleEnum("role").notNull().default("klient"),
   name: varchar("name", { length: 64 }),
   email: varchar("email", { length: 64 }).unique().notNull(),

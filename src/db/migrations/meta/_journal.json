@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1715345139854,
-      "tag": "0000_futuristic_sheva_callister",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1715348567637,
-      "tag": "0001_majestic_maximus",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1715348711883,
-      "tag": "0002_powerful_miek",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1715355486603,
-      "tag": "0003_wonderful_nitro",
+      "when": 1715768069317,
+      "tag": "0000_solid_wiccan",
       "breakpoints": true
     }
   ]

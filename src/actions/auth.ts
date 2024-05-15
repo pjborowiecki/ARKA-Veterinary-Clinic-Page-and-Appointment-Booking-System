@@ -2,6 +2,7 @@
 
 import crypto from "crypto"
 
+import { unstable_noStore as noStore } from "next/cache"
 import { getUserByEmail, getUserByResetPasswordToken } from "@/actions/user"
 import { signIn } from "@/auth"
 import bcryptjs from "bcryptjs"
@@ -11,17 +12,22 @@ import { AuthError } from "next-auth"
 import { env } from "@/env.mjs"
 import { db } from "@/config/db"
 import { resend } from "@/config/email"
+import { psLinkOAuthAccount } from "@/db/prepared-statements/auth"
 import { users } from "@/db/schema"
 import {
+  linkOAuthAccountSchema,
   passwordResetSchema,
   passwordUpdateSchemaExtended,
   signInWithPasswordSchema,
   signUpWithPasswordSchema,
+  type LinkOAuthAccountInput,
   type PasswordResetFormInput,
   type PasswordUpdateFormInputExtended,
   type SignInWithPasswordFormInput,
   type SignUpWithPasswordFormInput,
 } from "@/validations/auth"
+
+import { generateId } from "@/lib/utils"
 
 import { EmailVerificationEmail } from "@/components/emails/auth/email-verification-email"
 import { ResetPasswordEmail } from "@/components/emails/auth/reset-password-email"
@@ -42,7 +48,7 @@ export async function signUpWithPassword(
     const newUser = await db
       .insert(users)
       .values({
-        id: crypto.randomUUID(),
+        id: generateId(),
         email: validatedInput.data.email,
         passwordHash,
         emailVerificationToken,
@@ -182,5 +188,20 @@ export async function updatePassword(
   } catch (error) {
     console.error(error)
     throw new Error("Error updating password")
+  }
+}
+
+export async function linkOAuthAccount(
+  rawInput: LinkOAuthAccountInput
+): Promise<void> {
+  try {
+    const validatedInput = linkOAuthAccountSchema.safeParse(rawInput)
+    if (!validatedInput.success) return
+
+    noStore()
+    await psLinkOAuthAccount.execute({ userId: validatedInput.data.userId })
+  } catch (error) {
+    console.error(error)
+    throw new Error("Error linking OAuth account")
   }
 }

@@ -1,3 +1,4 @@
+import { linkOAuthAccount } from "@/actions/auth"
 import { getUserById } from "@/actions/user"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import NextAuth from "next-auth"
@@ -22,6 +23,11 @@ export const {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
+  },
+  events: {
+    async linkAccount({ user }) {
+      if (user.id) await linkOAuthAccount({ userId: user.id })
+    },
   },
   callbacks: {
     jwt({ token, user }) {

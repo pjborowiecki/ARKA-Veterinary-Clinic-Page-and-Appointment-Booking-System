@@ -13,7 +13,7 @@ This project is a re-build of a website I receintly built with [Remix](https://r
 
 The client wanted a simple website with a contact form and a full booking management system, where he would be able to confirm or reject bookings and notify the client via email. The website is hosted on Vercel.
 
-Rather than Remix and MongoDb, like in the original build, this version version relies on the latest version of [Next.js](https://nextjs.org/) and its features, such as server actions. It also takes advantage of serverless MySQL database connection, using [PlanetScale](https://planetscale.com/) and [Drizzle ORM](https://orm.drizzle.team/). Contact form and transactional emails are implemented using [Resend](https://resend.com) and [ReactEmail](https://react.email/)
+Rather than Remix and MongoDb, like in the original build, this version version relies on the latest version of [Next.js](https://nextjs.org/) and its features, such as server actions. It also takes advantage of serverless PostgreSQL database connection, using [Neon](https://neon.tech/) and [Drizzle ORM](https://orm.drizzle.team/). Contact form and transactional emails are implemented using [Resend](https://resend.com) and [ReactEmail](https://react.email/)
 
 <br />
 
@@ -48,7 +48,7 @@ Feel free to navigate the platform, and test various features, including booking
 
 - **Framework:** [Next.js 14](https://nextjs.org)
 - **Authentication:** [Next-Auth](https://next-auth.js.org/)
-- **Database:** [MySQL (PlanetScale)](https://planetscale.com/)
+- **Database:** [PostgreSQL (Neon)](https://neon.tech/)
 - **ORM:** [Drizzle ORM](https://orm.drizzle.team)
 - **Forms:** [React Hook Form](https://react-hook-form.com)
 - **Email:** [React Email](https://react.email) and [Resend](https://resend.com)

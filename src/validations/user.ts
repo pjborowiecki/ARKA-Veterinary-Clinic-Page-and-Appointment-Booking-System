@@ -1,7 +1,7 @@
 import * as z from "zod"
 
 import { users } from "@/db/schema"
-import { passwordSchema } from "@/validations/auth"
+import { passwordSchema, userIdSchema } from "@/validations/auth"
 import { emailSchema } from "@/validations/email"
 
 export const userNameSchema = z
@@ -9,18 +9,6 @@ export const userNameSchema = z
     invalid_type_error: "Imię lub nazwisko muszą być tekstem",
   })
   .optional()
-
-export const userIdSchema = z
-  .string({
-    required_error: "Id użytkownika jest wymagane",
-    invalid_type_error: "Dane wejściowe muszą być tekstem",
-  })
-  .min(1, {
-    message: "Id musi mieć przynajmniej 1 znak",
-  })
-  .max(512, {
-    message: "Id może mieć maksymalnie 512 znaków",
-  })
 
 export const userSchema = z.object({
   name: userNameSchema,

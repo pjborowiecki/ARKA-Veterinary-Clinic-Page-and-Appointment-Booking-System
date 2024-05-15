@@ -86,7 +86,7 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
           <div className="relative block size-full justify-center overflow-visible md:col-start-6 md:col-end-13 md:mb-[-64px] md:grid lg:mb-[-84px] xl:mb-[-108px] 2xl:mb-[-128px]">
             <img
               src="/images/hero-image.png"
-              className="z-[2] ml-[-8px] mt-[32px] size-full scale-[1.2] object-contain sm:scale-[1.1] md:mt-[0px]"
+              className="z-[2] ml-[-8px] mt-[32px] size-full scale-[1.2] object-contain sm:scale-110 md:mt-0"
               alt="A dog and a cat sat next to each other"
             />
             <img
@@ -96,7 +96,7 @@ export function HeroSection({ address }: HeroSectionProps): JSX.Element {
             />
             <div
               className={cn(
-                "absolute right-0 top-[50%] z-[3] mr-[20px] hidden h-[68px] w-[215px] cursor-pointer items-center justify-center gap-[8px] px-[24px] py-[16px] hover:scale-[1.1] md:flex 2xl:right-[-16px] 2xl:top-[55%]",
+                "absolute right-0 top-1/2 z-[3] mr-[20px] hidden h-[68px] w-[215px] cursor-pointer items-center justify-center gap-[8px] px-[24px] py-[16px] hover:scale-110 md:flex 2xl:right-[-16px] 2xl:top-[55%]",
                 "location-pill"
               )}
               // onClick={handleScrollToSection.bind(null, "kontakt")}
